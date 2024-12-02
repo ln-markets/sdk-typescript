@@ -1,18 +1,5 @@
 import type { UUID } from '#src/index.js'
 
-export enum SwapAsset {
-  BTC = 'BTC',
-  USD = 'USD',
-}
-
-export enum SwapSource {
-  Deposit = 'deposit',
-  FeeRefund = 'fee-refund',
-  Swap = 'swap',
-  Withdrawal = 'withdrawal',
-  WithdrawalFailed = 'withdrawal-failed',
-}
-
 export type Swap = {
   creationTs: number
   id: UUID
@@ -24,3 +11,12 @@ export type Swap = {
   sourceId?: UUID
   uid: UUID
 }
+
+export type SwapAsset = 'BTC' | 'USD'
+
+export type SwapSource =
+  | 'deposit'
+  | 'fee-refund'
+  | 'swap'
+  | 'withdrawal'
+  | 'withdrawal-failed'

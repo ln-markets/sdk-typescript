@@ -1,23 +1,5 @@
 import type { UUID } from '#src/index.js'
 
-export enum Currency {
-  BTC = 'btc',
-  USD = 'usd',
-}
-
-export enum DepositType {
-  Bitcoin = 'bitcoin',
-  Internal = 'internal',
-  Lightning = 'lightning',
-}
-
-export enum FeeTier {
-  Dolphin = 3,
-  Plankton = 0,
-  RedFish = 2,
-  Shrimp = 1,
-}
-
 export type ApiKeyCreation = {
   name: string
   passphrase: string
@@ -35,7 +17,13 @@ export type BitcoinDeposit = {
   ts: number
 }
 
+export type Currency = 'btc' | 'usd'
+
 export type Deposit = BitcoinDeposit | InternalTransfer | LightningDeposit
+
+export type DepositType = 'bitcoin' | 'internal' | 'lightning'
+
+export type FeeTier = 0 | 1 | 2 | 3
 
 export type FetchTransactionsRequest = {
   cursor?: number
@@ -75,7 +63,7 @@ export type GenericOnChainWithdrawal = Omit<
 > & {
   status: OnChainWithdrawalStatus
   transactionIdOrHash?: string
-  type: DepositType.Bitcoin
+  type: 'bitcoin'
 }
 
 export type GenericWithdrawal =
@@ -89,7 +77,7 @@ export type GenericWithdrawalBase = {
   success: boolean
   transactionIdOrHash: string
   ts: number
-  type: DepositType.Internal | DepositType.Lightning
+  type: 'internal' | 'lightning'
 }
 
 export type GenericWithdrawalError = Omit<GenericWithdrawalBase, 'fee'> & {
@@ -115,7 +103,7 @@ export type InternalWithdrawalCondensed = Pick<
   'amount' | 'id' | 'success' | 'toUsername'
 > & {
   ts: number
-  type: DepositType.Internal
+  type: 'internal'
 }
 
 export type Leaderboard = {
@@ -149,7 +137,7 @@ export type LightningWithdrawalCondensed = {
   paymentHash: string
   success: boolean
   ts: number
-  type: DepositType.Lightning
+  type: 'lightning'
 }
 
 export type NewApiKey = {
@@ -170,7 +158,7 @@ export type OnChainWithdrawalCondensed = {
   status: OnChainWithdrawalStatus
   transactionId: string
   ts: number
-  type: DepositType.Bitcoin
+  type: 'bitcoin'
 }
 
 export type OnChainWithdrawalStatus = 'confirmed' | 'failed' | 'pending'
