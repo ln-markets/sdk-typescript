@@ -1,25 +1,5 @@
 import type { UUID } from '#src/index.js'
 
-export enum OptionsSettlement {
-  Cash = 'cash',
-  Physical = 'physical',
-}
-
-export enum OptionsSide {
-  Buy = 'b',
-  Sell = 's',
-}
-
-export enum OptionsTradeStatus {
-  Closed = 'closed',
-  Running = 'running',
-}
-
-export enum OptionsType {
-  Call = 'c',
-  Put = 'p',
-}
-
 export type OptionsInstrument = {
   volatility: number
 }
@@ -43,6 +23,10 @@ export type OptionsMarketDetails = {
     }
   }
 }
+
+export type OptionsSettlement = 'cash' | 'physical'
+
+export type OptionsSide = 'b' | 's'
 
 export type OptionsTrade = {
   closed: boolean
@@ -139,9 +123,13 @@ export type OptionsTradeRunningWithDelta = OptionsTradeRunning & {
   delta: number
 }
 
+export type OptionsTradeStatus = 'closed' | 'running'
+
 export type OptionsTradeWithDelta = OptionsTrade & {
   delta?: number
 }
+
+export type OptionsType = 'c' | 'p'
 
 export type OptionsVolatilityIndex = {
   volatilityIndex: number

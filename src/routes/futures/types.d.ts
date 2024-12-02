@@ -1,21 +1,5 @@
 import type { UUID } from '#src/index.js'
 
-export enum FuturesTradeSide {
-  Buy = 'b',
-  Sell = 's',
-}
-
-export enum FuturesTradeStatus {
-  Closed = 'closed',
-  Open = 'open',
-  Running = 'running',
-}
-
-export enum FuturesTradeType {
-  Limit = 'l',
-  Market = 'm',
-}
-
 export type FuturesCanceledTrade = FuturesTrade & {
   canceled: true
   closed: false
@@ -121,6 +105,12 @@ export type FuturesTrade = {
   type: FuturesTradeType
   uid: UUID
 }
+
+export type FuturesTradeSide = 'b' | 's'
+
+export type FuturesTradeStatus = 'closed' | 'open' | 'running'
+
+export type FuturesTradeType = 'l' | 'm'
 
 export type OHLC = {
   close: number

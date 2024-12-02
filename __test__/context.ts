@@ -1,7 +1,9 @@
+import type { RestClient } from '#src/types.js'
+
 import dotenv from 'dotenv'
 import { beforeEach } from 'vitest'
 
-import { createRestClient, type RestClient } from '../src/index.js'
+import { createRestClient } from '../src/index.js'
 
 declare module 'vitest' {
   // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
@@ -28,5 +30,9 @@ beforeEach((ctx) => {
     secret: getEnvOrThrow('LNM_API_SECRET'),
   })
 
-  ctx.client = createRestClient()
+  ctx.client = createRestClient({
+    key: '',
+    passphrase: '',
+    secret: '',
+  })
 })

@@ -1,0 +1,29 @@
+name: Check
+
+concurrency:
+  group: ${{ github.workflow }}.${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_call:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/base
+
+      - run: pnpm knip
+
+      - run: pnpm spell-check
+
+      - run: pnpm type-check
+
+      - run: pnpm lint

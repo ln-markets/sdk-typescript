@@ -1,5 +1,5 @@
-import type { UUID } from '#src/index.js'
 import type { RestFetcher } from '#src/rest.js'
+import type { UUID } from '#src/types.js'
 
 import type { Swap } from './types.js'
 
