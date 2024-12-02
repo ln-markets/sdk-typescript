@@ -1,0 +1,21 @@
+import type { RestFetcher } from '#src/rest.js'
+
+import type { OptionsTrade, OptionsTradeStatus } from './types.js'
+
+export const createGetTrades = (request: RestFetcher) => {
+  /**
+   * @see https://docs.lnmarkets.com/api/operations/optionsgettrades
+   */
+  return async (query?: {
+    from: number
+    limit?: number
+    status: OptionsTradeStatus
+    to: number
+  }) =>
+    request({
+      method: 'GET',
+      path: '/options/trades',
+      query,
+      requireAuth: true,
+    }) as Promise<OptionsTrade[]>
+}

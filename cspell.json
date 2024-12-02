@@ -1,0 +1,51 @@
+{
+  "import": [
+    "@cspell/dict-fr-fr/cspell-ext.json"
+  ],
+  "dictionaries": [
+    "bash",
+    "docker",
+    "css",
+    "fonts",
+    "html",
+    "networking-terms",
+    "node",
+    "npm",
+    "sql",
+    "fr-fr",
+    "en-gb"
+  ],
+  "ignoreRegExpList": [
+    "/[^\\s]{40,}/" // Ignore long strings
+  ],
+  "ignorePaths": [
+    "pnpm-lock.yaml",
+    "node_modules",
+    "reports",
+    "dist",
+    "coverage",
+    "build",
+    ".env",
+    ".vscode"
+  ],
+  "language": "en,fr",
+  "enableFiletypes": [
+    "*"
+  ],
+  "words": [
+    "lnmarkets",
+    "mainnet",
+    "nostr",
+    "ohlc",
+    "Ohlc",
+    "ohlcs",
+    "snakecase",
+    "stoploss",
+    "susd",
+    "takeprofit",
+    "totp",
+    "tseslint",
+    "webauthn",
+    "wpkh"
+  ]
+}

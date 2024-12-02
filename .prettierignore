@@ -1,0 +1,7 @@
+dist
+node_modules
+reports
+**/*.md
+pnpm-lock.yaml
+cspell.json
+.husky

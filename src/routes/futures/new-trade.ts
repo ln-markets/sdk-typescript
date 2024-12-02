@@ -1,0 +1,29 @@
+import type { RestFetcher } from '#src/rest.js'
+
+import type {
+  FuturesOpenOrRunningTrade,
+  FuturesTradeSide,
+  FuturesTradeType,
+} from './types.js'
+
+export const createNewTrade = (request: RestFetcher) => {
+  /**
+   * @see https://docs.lnmarkets.com/api/operations/futuresnewtrade
+   */
+  return async (body: {
+    leverage: number
+    margin?: number
+    price?: number
+    quantity?: number
+    side: FuturesTradeSide
+    stoploss?: number
+    takeprofit?: number
+    type: FuturesTradeType
+  }) =>
+    request({
+      body,
+      method: 'POST',
+      path: '/futures',
+      requireAuth: true,
+    }) as Promise<FuturesOpenOrRunningTrade>
+}
