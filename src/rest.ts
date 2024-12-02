@@ -39,7 +39,13 @@ class HttpError extends Error {
 }
 
 export const createRestClient = (options: RestOptions = {}) => {
-  const { headers = {}, key, network = 'mainnet', passphrase, secret } = options
+  const {
+    headers = {},
+    key = process.env.LNM_API_KEY,
+    network = process.env.LNM_API_NETWORK ?? 'mainnet',
+    passphrase = process.env.LNM_API_PASSPHRASE,
+    secret = process.env.LNM_API_SECRET,
+  } = options
 
   const hostname = process.env.LNM_API_HOSTNAME ?? getHostname(network)
 

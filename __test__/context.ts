@@ -30,5 +30,9 @@ beforeEach((ctx) => {
     secret: getEnvOrThrow('LNM_API_SECRET'),
   })
 
-  ctx.client = createRestClient()
+  ctx.client = createRestClient({
+    key: '',
+    passphrase: '',
+    secret: '',
+  })
 })
