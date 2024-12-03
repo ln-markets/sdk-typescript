@@ -8,6 +8,6 @@ export default defineConfig({
         singleThread: true,
       },
     },
-    setupFiles: ['./__test__/context.ts'],
+    setupFiles: ['./__test__/setup.ts'],
   },
 })
