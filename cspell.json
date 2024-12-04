@@ -26,7 +26,8 @@
     "coverage",
     "build",
     ".env",
-    ".vscode"
+    ".vscode",
+    "images/logo-gradient.svg"
   ],
   "language": "en,fr",
   "enableFiletypes": [

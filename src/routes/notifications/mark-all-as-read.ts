@@ -1,6 +1,9 @@
 import type { RestFetcher } from '#src/rest.js'
 
 export const createMarkAllAsRead = (request: RestFetcher) => {
+  /**
+   * @see https://docs.lnmarkets.com/api/operations/notificationsmarkallnotificationsasread
+   */
   return async () =>
     request({
       method: 'DELETE',
