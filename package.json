@@ -1,6 +1,6 @@
 {
   "name": "@ln-markets/sdk-ts",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "TypeScript SDK for LNMarkets API v2",
   "keywords": [
     "ln-markets",
@@ -34,8 +34,7 @@
     "src",
     "LICENSE",
     "README.md",
-    "package.json",
-    "images/logo-gradient.svg"
+    "package.json"
   ],
   "scripts": {
     "build": "tsc --build tsconfig.build.json",

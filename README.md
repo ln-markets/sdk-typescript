@@ -1,6 +1,6 @@
 <p align="center" width="100%">
   <img
-    src="./images/logo-gradient.svg"
+    src="https://raw.githubusercontent.com/ln-markets/sdk-ts/refs/heads/main/images/logo-gradient.svg"
     style="display:block;margin: 0 auto"
     width=50%
     height=50%
