@@ -33,6 +33,6 @@
       "#src/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*.ts", "__test__/**/*.ts", "knip.ts"],
+  "include": ["src/**/*.ts", "__test__/**/*.ts", "knip.ts", "scripts/**/*.ts"],
   "exclude": ["node_modules", "dist", "**/*.js"]
 }
