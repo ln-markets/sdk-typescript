@@ -27,9 +27,6 @@ importers:
       '@commitlint/config-conventional':
         specifier: ^19.6.0
         version: 19.6.0
-      '@cspell/dict-fr-fr':
-        specifier: ^2.2.5
-        version: 2.2.5
       '@eslint/js':
         specifier: ^9.15.0
         version: 9.15.0
@@ -271,9 +268,6 @@ packages:
 
   '@cspell/dict-fonts@4.0.3':
     resolution: {integrity: sha512-sPd17kV5qgYXLteuHFPn5mbp/oCHKgitNfsZLFC3W2fWEgZlhg4hK+UGig3KzrYhhvQ8wBnmZrAQm0TFKCKzsA==}
-
-  '@cspell/dict-fr-fr@2.2.5':
-    resolution: {integrity: sha512-AOA0pW3z21lk3gHqC2iDPhuIoAm0oRB1BwQzkrGnaKz9KS0XKCf53XZ0IvsJB5ScYiorATB+ypySRz4Y+oWuIQ==}
 
   '@cspell/dict-fsharp@1.0.4':
     resolution: {integrity: sha512-G5wk0o1qyHUNi9nVgdE1h5wl5ylq7pcBjX8vhjHcO4XBq20D5eMoXjwqMo/+szKAqzJ+WV3BgAL50akLKrT9Rw==}
@@ -3558,8 +3552,6 @@ snapshots:
   '@cspell/dict-flutter@1.0.3': {}
 
   '@cspell/dict-fonts@4.0.3': {}
-
-  '@cspell/dict-fr-fr@2.2.5': {}
 
   '@cspell/dict-fsharp@1.0.4': {}
 

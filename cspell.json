@@ -1,22 +1,8 @@
 {
-  "import": [
-    "@cspell/dict-fr-fr/cspell-ext.json"
-  ],
   "dictionaries": [
-    "bash",
-    "docker",
-    "css",
-    "fonts",
-    "html",
-    "networking-terms",
     "node",
     "npm",
-    "sql",
-    "fr-fr",
     "en-gb"
-  ],
-  "ignoreRegExpList": [
-    "/[^\\s]{40,}/" // Ignore long strings
   ],
   "ignorePaths": [
     "pnpm-lock.yaml",
@@ -29,7 +15,7 @@
     ".vscode",
     "images/logo-gradient.svg"
   ],
-  "language": "en,fr",
+  "language": "en",
   "enableFiletypes": [
     "*"
   ],
