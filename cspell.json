@@ -13,15 +13,14 @@
     "build",
     ".env",
     ".vscode",
-    "images/logo-gradient.svg"
+    "images/logo-gradient.svg",
+    "package.json"
   ],
   "language": "en",
   "enableFiletypes": [
     "*"
   ],
   "words": [
-    "Flavian",
-    "Leprettre",
     "lnmarkets",
     "mainnet",
     "nostr",
