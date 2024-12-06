@@ -93,7 +93,7 @@ You can authenticate using your API key, secret and passphrase directly passed t
 
 You can get your API key, secret and passphrase from the [API Keys section](https://lnmarkets.com/en/user/api) of your LN Markets account.
 
-**Important:** Your API key, secret and passphrase are sensitive and should be kept secure. Do not expose them in your client-side code, nor share them with anyone. Any leakage of your API key, secret or passphrase may lead to unauthorized access to your account and irreversible loss of funds.
+> :warning: **Important:** Your API key, secret and passphrase are sensitive and should be kept secure. Do not expose them in your client-side code, nor share them with anyone. Any leakage of your API key, secret or passphrase may lead to unauthorized access to your account and irreversible loss of funds.
 
 ```typescript
 import { createRestClient } from '@ln-markets/sdk-ts'
@@ -111,7 +111,7 @@ await client.futures.getTrades({
 
 Alternatively, you can set the environment variables `LNM_API_KEY`, `LNM_API_SECRET` and `LNM_API_PASSPHRASE` to authenticate, which will be used by default if no parameters are provided to the `createRestClient` function.
 
-### Function List
+## Function List
 
 | Function | Method | Route | Documentation |
 | --- | --- | --- | --- |
