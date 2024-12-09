@@ -27,3 +27,10 @@ jobs:
       - run: pnpm type-check
 
       - run: pnpm lint
+
+      - run: pnpm test
+        env:
+          LNM_API_NETWORK: testnet
+          LNM_API_KEY: ${{ secrets.LNM_API_KEY }}
+          LNM_API_SECRET: ${{ secrets.LNM_API_SECRET }}
+          LNM_API_PASSPHRASE: ${{ secrets.LNM_API_PASSPHRASE }}
