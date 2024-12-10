@@ -39,6 +39,10 @@
   <a href="https://docs.lnmarkets.com/api/">
     API Reference
   </a>
+  -
+  <a href="https://github.com/ln-markets/sdk-python">
+    Python SDK
+  </a>
 </p>
 
 ## Getting Started
