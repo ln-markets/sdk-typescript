@@ -29,7 +29,7 @@
   </a>
 </p>
 
-<h1 align="center">LN Markets SDK for TypeScript</h1>
+<h1 align="center">LN Markets TypeScript SDK</h1>
 
 <p align="center">
   <a href="https://lnmarkets.com">
