@@ -11,5 +11,6 @@ export const createGetSwaps = (request: RestFetcher) => {
       method: 'GET',
       path: '/swap',
       query,
+      requireAuth: true,
     }) as Promise<Swap[]>
 }

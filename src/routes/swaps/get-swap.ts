@@ -11,5 +11,6 @@ export const createGetSwap = (request: RestFetcher) => {
     request({
       method: 'GET',
       path: `/swap/${params.swapId}`,
+      requireAuth: true,
     }) as Promise<Swap>
 }

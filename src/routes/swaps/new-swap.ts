@@ -19,5 +19,6 @@ export const createNewSwap = (request: RestFetcher) => {
       },
       method: 'POST',
       path: '/swap',
+      requireAuth: true,
     }) as Promise<Swap>
 }
