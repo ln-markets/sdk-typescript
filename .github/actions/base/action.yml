@@ -1,12 +1,6 @@
 name: Base
 description: Install node, pnpm and setup cache
 
-inputs:
-  token:
-    description: NPM token
-    required: true
-    default: null
-
 runs:
   using: composite
   steps:
