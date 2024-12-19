@@ -41,7 +41,7 @@
     "function-table": "tsx scripts/function-list.ts",
     "lint": "eslint --color './**/*.ts'",
     "prepare": "husky",
-    "prepublishOnly": "tsc --build tsconfig.build.json",
+    "prepublishOnly": "tsc --build",
     "release": "np --no-cleanup --no-tests --no-yarn",
     "spell-check": "cspell --show-context --no-progress '**'",
     "test": "vitest --run",
