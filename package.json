@@ -1,5 +1,5 @@
 {
-  "name": "@ln-markets/sdk-ts",
+  "name": "@ln-markets/sdk",
   "version": "0.0.5",
   "description": "TypeScript SDK for LNMarkets API v2",
   "keywords": [

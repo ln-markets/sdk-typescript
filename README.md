@@ -9,16 +9,16 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/@ln-markets/sdk-ts" alt="npm version">
+  <a href="https://www.npmjs.com/package/@ln-markets/sdk" alt="npm version">
     <img
       alt="NPM Package Version"
-      src="https://img.shields.io/npm/v/@ln-markets/sdk-ts"
+      src="https://img.shields.io/npm/v/@ln-markets/sdk"
     />
   </a>
-  <a href="https://www.npmjs.com/package/@ln-markets/sdk-ts" alt="npm downloads">
+  <a href="https://www.npmjs.com/package/@ln-markets/sdk" alt="npm downloads">
     <img
       alt="NPM Package Downloads"
-      src="https://img.shields.io/npm/dw/@ln-markets/sdk-ts"
+      src="https://img.shields.io/npm/dw/@ln-markets/sdk"
     />
   </a>
   <a href="https://twitter.com/LNMarkets">
@@ -52,19 +52,19 @@
 Install our SDK using your preferred package manager:
 
 ```bash
-npm install @ln-markets/sdk-ts
+npm install @ln-markets/sdk
 ```
 
 ```bash
-pnpm install @ln-markets/sdk-ts
+pnpm install @ln-markets/sdk
 ```
 
 ```bash
-yarn add @ln-markets/sdk-ts
+yarn add @ln-markets/sdk
 ```
 
 ```bash
-bun add @ln-markets/sdk-ts
+bun add @ln-markets/sdk
 ```
 
 ### Network
@@ -72,7 +72,7 @@ bun add @ln-markets/sdk-ts
 By default, the SDK will connect to the LN Markets production environment. You can change this by setting the `LNM_API_NETWORK` environment variable to `testnet` or `mainnet` or passing the `network` option to the `createRestClient` function.
 
 ```typescript
-import { createRestClient } from '@ln-markets/sdk-ts'
+import { createRestClient } from '@ln-markets/sdk'
 
 const client = createRestClient({
   network: 'testnet',
@@ -84,7 +84,7 @@ const client = createRestClient({
 You can use an unauthenticated client to access public endpoints.
 
 ```typescript
-import { createRestClient } from '@ln-markets/sdk-ts'
+import { createRestClient } from '@ln-markets/sdk'
 
 const client = createRestClient()
 
@@ -100,7 +100,7 @@ You can get your API key, secret and passphrase from the [API Keys section](http
 > :warning: **Important:** Your API key, secret and passphrase are sensitive and should be kept secure. Do not expose them in your client-side code, nor share them with anyone. Any leakage of your API key, secret or passphrase may lead to unauthorized access to your account and irreversible loss of funds.
 
 ```typescript
-import { createRestClient } from '@ln-markets/sdk-ts'
+import { createRestClient } from '@ln-markets/sdk'
 
 const client = createRestClient({
   key: 'your-api-key',
