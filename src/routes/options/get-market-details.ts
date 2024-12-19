@@ -6,8 +6,8 @@ export const createGetMarketDetails = (request: RestFetcher) => {
    * @see https://docs.lnmarkets.com/api/operations/optionsgetoptionsmarket
    */
   return async () =>
-    request({
+    request<OptionsMarketDetails>({
       method: 'GET',
       path: '/options',
-    }) as Promise<OptionsMarketDetails>
+    })
 }

@@ -8,9 +8,9 @@ export const createUpdateTrade = (request: RestFetcher) => {
    * @see https://docs.lnmarkets.com/api/operations/optionsupdatetrade
    */
   return async (body: { id: UUID; settlement: OptionsSettlement }) =>
-    request({
+    request<OptionsTradeRunningWithDelta>({
       body,
       method: 'PUT',
       path: '/options',
-    }) as Promise<OptionsTradeRunningWithDelta>
+    })
 }

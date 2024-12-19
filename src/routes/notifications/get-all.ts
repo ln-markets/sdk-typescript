@@ -6,9 +6,9 @@ export const createGetAllNotifications = (request: RestFetcher) => {
    * @see https://docs.lnmarkets.com/api/operations/notificationsfetchnotifications
    */
   return async () =>
-    request({
+    request<Notification[]>({
       method: 'GET',
       path: '/notifications',
       requireAuth: true,
-    }) as Promise<Notification[]>
+    })
 }

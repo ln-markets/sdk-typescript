@@ -7,10 +7,10 @@ export const createCashIn = (request: RestFetcher) => {
    * @see https://docs.lnmarkets.com/api/operations/futurescashin
    */
   return async (body: { amount: number; id: UUID }) =>
-    request({
+    request<FuturesRunningTrade>({
       body,
       method: 'POST',
       path: '/futures/cash-in',
       requireAuth: true,
-    }) as Promise<FuturesRunningTrade>
+    })
 }

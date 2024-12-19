@@ -7,9 +7,9 @@ export const createGetSwap = (request: RestFetcher) => {
    * @see https://docs.lnmarkets.com/api/operations/swapsgetswap
    */
   return async (params: { swapId: UUID }) =>
-    request({
+    request<Swap>({
       method: 'GET',
       path: `/swap/${params.swapId}`,
       requireAuth: true,
-    }) as Promise<Swap>
+    })
 }

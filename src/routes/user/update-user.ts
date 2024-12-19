@@ -15,10 +15,10 @@ export const createUpdateUser = (request: RestFetcher) => {
     username?: string
     useTaprootAddresses?: boolean
   }) =>
-    request({
+    request<User>({
       body: snakecaseKeys(body),
       method: 'PUT',
       path: '/user',
       requireAuth: true,
-    }) as Promise<User>
+    })
 }

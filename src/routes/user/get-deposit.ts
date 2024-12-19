@@ -7,9 +7,9 @@ export const createGetDeposit = (request: RestFetcher) => {
    * @see https://docs.lnmarkets.com/api/operations/usergetdeposit
    */
   return async (params: { depositId: UUID }) =>
-    request({
+    request<Deposit>({
       method: 'GET',
       path: `/user/deposit/${params.depositId}`,
       requireAuth: true,
-    }) as Promise<Deposit>
+    })
 }

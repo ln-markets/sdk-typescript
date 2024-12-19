@@ -6,11 +6,11 @@ export const createCloseAllTrades = (request: RestFetcher) => {
    * @see https://docs.lnmarkets.com/api/operations/futuresclosealltrades
    */
   return async () =>
-    request({
+    request<{
+      trades: FuturesClosedTrade[]
+    }>({
       method: 'DELETE',
       path: '/futures/all/close',
       requireAuth: true,
-    }) as Promise<{
-      trades: FuturesClosedTrade[]
-    }>
+    })
 }

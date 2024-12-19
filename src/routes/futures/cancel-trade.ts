@@ -7,10 +7,10 @@ export const createCancelTrade = (request: RestFetcher) => {
    * @see https://docs.lnmarkets.com/api/operations/futurescanceltrade
    */
   return async (body: { id: UUID }) =>
-    request({
+    request<FuturesCanceledTrade>({
       body,
       method: 'POST',
       path: `/futures/cancel`,
       requireAuth: true,
-    }) as Promise<FuturesCanceledTrade>
+    })
 }

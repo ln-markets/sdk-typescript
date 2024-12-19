@@ -7,9 +7,9 @@ export const createGetWithdrawal = (request: RestFetcher) => {
    * @see https://docs.lnmarkets.com/api/operations/usergetwithdrawal
    */
   return async (params: { id: UUID }) =>
-    request({
+    request<WithdrawalCondensed>({
       method: 'GET',
       path: `/user/withdrawals/${params.id}`,
       requireAuth: true,
-    }) as Promise<WithdrawalCondensed>
+    })
 }

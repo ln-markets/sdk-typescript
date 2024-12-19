@@ -11,10 +11,10 @@ export const createGetTrades = (request: RestFetcher) => {
     status: OptionsTradeStatus
     to: number
   }) =>
-    request({
+    request<OptionsTrade[]>({
       method: 'GET',
       path: '/options/trades',
       query,
       requireAuth: true,
-    }) as Promise<OptionsTrade[]>
+    })
 }

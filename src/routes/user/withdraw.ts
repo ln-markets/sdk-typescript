@@ -6,16 +6,16 @@ export const createWithdraw = (request: RestFetcher) => {
    * @see https://docs.lnmarkets.com/api/operations/userwithdraw
    */
   return async (body: { invoice: string; quoteId?: UUID }) =>
-    request({
-      body,
-      method: 'POST',
-      path: '/user/withdraw',
-      requireAuth: true,
-    }) as Promise<{
+    request<{
       amount?: number
       fee?: number
       id: UUID
       paymentHash?: string
       successTime?: number
-    }>
+    }>({
+      body,
+      method: 'POST',
+      path: '/user/withdraw',
+      requireAuth: true,
+    })
 }

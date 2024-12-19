@@ -7,10 +7,10 @@ export const createAddMargin = (request: RestFetcher) => {
    * @see https://docs.lnmarkets.com/api/operations/futuresaddmargin
    */
   return async (body: { amount: number; id: UUID }) =>
-    request({
+    request<FuturesRunningTrade>({
       body,
       method: 'POST',
       path: '/futures/add-margin',
       requireAuth: true,
-    }) as Promise<FuturesRunningTrade>
+    })
 }

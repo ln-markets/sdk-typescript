@@ -19,10 +19,10 @@ export const createNewTrade = (request: RestFetcher) => {
     takeprofit?: number
     type: FuturesTradeType
   }) =>
-    request({
+    request<FuturesOpenOrRunningTrade>({
       body,
       method: 'POST',
       path: '/futures',
       requireAuth: true,
-    }) as Promise<FuturesOpenOrRunningTrade>
+    })
 }

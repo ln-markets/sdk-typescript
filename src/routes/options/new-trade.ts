@@ -17,10 +17,10 @@ export const createNewTrade = (request: RestFetcher) => {
     settlement: OptionsSettlement
     side: OptionsSide
   }) =>
-    request({
+    request<OptionsTradeRunning>({
       body: snakecaseKeys(body),
       method: 'POST',
       path: '/options',
       requireAuth: true,
-    }) as Promise<OptionsTradeRunning>
+    })
 }

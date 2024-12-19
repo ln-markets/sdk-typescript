@@ -7,10 +7,10 @@ export const createGetSwapBySourceId = (request: RestFetcher) => {
    * @see https://docs.lnmarkets.com/api/operations/swapsgetswapbysourceid
    */
   return async (params: { sourceId: UUID }, query: { source: SwapSource }) =>
-    request({
+    request<Swap>({
       method: 'GET',
       path: `/swap/source/${params.sourceId}`,
       query,
       requireAuth: true,
-    }) as Promise<Swap>
+    })
 }

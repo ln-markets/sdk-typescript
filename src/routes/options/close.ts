@@ -7,11 +7,11 @@ export const createCloseTrade = (request: RestFetcher) => {
    * @see https://docs.lnmarkets.com/api/operations/optionsclosetrade
    */
   return async (query: { id: UUID }) => {
-    return request({
+    return request<OptionsTradeClosed>({
       method: 'DELETE',
       path: `/options`,
       query,
       requireAuth: true,
-    }) as Promise<OptionsTradeClosed>
+    })
   }
 }

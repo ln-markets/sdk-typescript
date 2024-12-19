@@ -6,8 +6,8 @@ export const createGetTicker = (request: RestFetcher) => {
    * @see https://docs.lnmarkets.com/api/operations/futuresgetticker
    */
   return async () =>
-    request({
+    request<FuturesTicker>({
       method: 'GET',
       path: '/futures/ticker',
-    }) as Promise<FuturesTicker>
+    })
 }

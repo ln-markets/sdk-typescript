@@ -7,8 +7,8 @@ export const createGetTrade = (request: RestFetcher) => {
    * @see https://docs.lnmarkets.com/api/operations/futuresgettrade
    */
   return async (params: { id: UUID }) =>
-    request({
+    request<FuturesTrade>({
       method: 'GET',
       path: `/futures/trades/${params.id}`,
-    }) as Promise<FuturesTrade>
+    })
 }

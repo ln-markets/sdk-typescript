@@ -11,10 +11,10 @@ export const createUpdateTrade = (request: RestFetcher) => {
     type: 'stoploss' | 'takeprofit'
     value: number
   }) =>
-    request({
+    request<FuturesOpenOrRunningTrade>({
       body,
       method: 'PUT',
       path: '/futures',
       requireAuth: true,
-    }) as Promise<FuturesOpenOrRunningTrade>
+    })
 }

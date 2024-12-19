@@ -6,11 +6,11 @@ export const createCancelAllTrades = (request: RestFetcher) => {
    * @see https://docs.lnmarkets.com/api/operations/futurescancelalltrades
    */
   return async () =>
-    request({
+    request<{
+      trades: FuturesCanceledTrade[]
+    }>({
       method: 'DELETE',
       path: '/futures/all/cancel',
       requireAuth: true,
-    }) as Promise<{
-      trades: FuturesCanceledTrade[]
-    }>
+    })
 }

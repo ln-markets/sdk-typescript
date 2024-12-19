@@ -6,8 +6,8 @@ export const createGetLeaderboard = (request: RestFetcher) => {
    * @see https://docs.lnmarkets.com/api/operations/futuresgetleaderboard
    */
   return async () =>
-    request({
+    request<Leaderboard>({
       method: 'GET',
       path: '/futures/leaderboard',
-    }) as Promise<Leaderboard>
+    })
 }

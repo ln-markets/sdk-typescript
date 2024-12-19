@@ -7,9 +7,9 @@ export const createGetTrade = (request: RestFetcher) => {
    * @see https://docs.lnmarkets.com/api/operations/optionsgettrade
    */
   return async (params: { id: UUID }) =>
-    request({
+    request<OptionsTrade>({
       method: 'GET',
       path: `/options/trades/${params.id}`,
       requireAuth: true,
-    }) as Promise<OptionsTrade>
+    })
 }
