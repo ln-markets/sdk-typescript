@@ -1,6 +1,6 @@
 import type { RestFetcher } from '#src/rest.js'
 
-import type { OptionsTradeClosed } from './types.js'
+import type { OptionsTradeClosed } from './index.js'
 
 export const createCloseAllTrades = (request: RestFetcher) => {
   /**

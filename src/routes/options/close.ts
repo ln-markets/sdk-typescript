@@ -1,7 +1,7 @@
+import type { UUID } from '#src/index.js'
 import type { RestFetcher } from '#src/rest.js'
-import type { UUID } from '#src/types.js'
 
-import type { OptionsTradeClosed } from './types.js'
+import type { OptionsTradeClosed } from './index.js'
 
 export const createCloseTrade = (request: RestFetcher) => {
   /**

@@ -4,7 +4,7 @@ import type {
   FuturesOpenOrRunningTrade,
   FuturesTradeSide,
   FuturesTradeType,
-} from './types.js'
+} from './index.js'
 
 export const createNewTrade = (request: RestFetcher) => {
   /**

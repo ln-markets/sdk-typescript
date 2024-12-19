@@ -1,6 +1,6 @@
 import type { RestFetcher } from '#src/rest.js'
 
-import type { FuturesTrade, FuturesTradeStatus } from './types.js'
+import type { FuturesTrade, FuturesTradeStatus } from './index.js'
 
 export const createGetTrades = (request: RestFetcher) => {
   /**

@@ -7,6 +7,13 @@ import { createOracleRouter } from './oracle/index.js'
 import { createSwapsRouter } from './swaps/index.js'
 import { createUserRouter } from './user/index.js'
 
+export type * from './futures/index.js'
+export type * from './notifications/index.js'
+export type * from './options/index.js'
+export type * from './oracle/index.js'
+export type * from './swaps/index.js'
+export type * from './user/index.js'
+
 export const createRouter = (request: RestFetcher) => {
   return {
     futures: createFuturesRouter(request),

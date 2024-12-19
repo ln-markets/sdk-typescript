@@ -1,6 +1,6 @@
 import type { RestFetcher } from '#src/rest.js'
 
-import type { Deposit, DepositType } from './types.js'
+import type { Deposit, DepositType } from './index.js'
 
 export const createGetDeposits = (request: RestFetcher) => {
   /**

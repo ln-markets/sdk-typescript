@@ -6,7 +6,7 @@ import type {
   OptionsSettlement,
   OptionsSide,
   OptionsTradeRunning,
-} from './types.js'
+} from './index.js'
 
 export const createNewTrade = (request: RestFetcher) => {
   /**
