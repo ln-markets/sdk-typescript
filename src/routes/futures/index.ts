@@ -1,5 +1,5 @@
-import type { UUID } from '#src/index.js'
-import type { RestFetcher } from '#src/rest.js'
+import type { UUID } from '../../index.js'
+import type { RestFetcher } from '../../rest.js'
 
 import { createAddMargin } from './add-margin.js'
 import { createCancelAllTrades } from './cancel-all-trades.js'

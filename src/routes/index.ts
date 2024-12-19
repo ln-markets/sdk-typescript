@@ -1,4 +1,4 @@
-import type { RestFetcher } from '#src/rest.js'
+import type { RestFetcher } from '../rest.js'
 
 import { createFuturesRouter } from './futures/index.js'
 import { createNotificationsRouter } from './notifications/index.js'

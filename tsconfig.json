@@ -27,11 +27,7 @@
     "strictPropertyInitialization": true,
     "noUnusedLocals": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true,
-
-    "paths": {
-      "#src/*": ["./src/*"]
-    }
+    "noUncheckedSideEffectImports": true
   },
   "include": ["src/**/*.ts", "__test__/**/*.ts", "knip.ts", "scripts/**/*.ts"],
   "exclude": ["node_modules", "dist", "**/*.js"]

@@ -1,5 +1,5 @@
-import type { UUID } from '#src/index.js'
-import type { RestFetcher } from '#src/rest.js'
+import type { UUID } from '../../index.js'
+import type { RestFetcher } from '../../rest.js'
 
 import { createGetAllNotifications } from './get-all.js'
 import { createMarkAllAsRead } from './mark-all-as-read.js'

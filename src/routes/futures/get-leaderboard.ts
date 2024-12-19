@@ -1,5 +1,4 @@
-import type { RestFetcher } from '#src/rest.js'
-
+import type { RestFetcher } from '../../rest.js'
 import type { Leaderboard } from '../user/index.js'
 
 export const createGetLeaderboard = (request: RestFetcher) => {

@@ -1,7 +1,6 @@
-import type { RestFetcher } from '#src/rest.js'
-
 import snakecaseKeys from 'snakecase-keys'
 
+import type { RestFetcher } from '../../rest.js'
 import type {
   OptionsSettlement,
   OptionsSide,

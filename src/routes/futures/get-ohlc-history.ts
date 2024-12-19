@@ -1,5 +1,4 @@
-import type { RestFetcher } from '#src/rest.js'
-
+import type { RestFetcher } from '../../rest.js'
 import type { OHLC, OHLCRange } from './index.js'
 
 export const createGetOHLCHistory = (request: RestFetcher) => {

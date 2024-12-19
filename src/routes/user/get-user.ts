@@ -1,5 +1,4 @@
-import type { RestFetcher } from '#src/rest.js'
-
+import type { RestFetcher } from '../../rest.js'
 import type { User } from './index.js'
 
 export const createGetUser = (request: RestFetcher) => {

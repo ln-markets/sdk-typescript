@@ -1,4 +1,4 @@
-import type { RestFetcher } from '#src/rest.js'
+import type { RestFetcher } from '../../rest.js'
 
 import { createGetIndex } from './get-index.js'
 import { createGetLastPrice } from './get-last-price.js'
