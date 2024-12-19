@@ -38,7 +38,7 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsc --build tsconfig.build.json",
+    "build": "tsc --build",
     "format": "prettier --write --ignore-unknown '**'",
     "function-table": "tsx scripts/function-list.ts",
     "lint": "eslint --color './**/*.ts'",

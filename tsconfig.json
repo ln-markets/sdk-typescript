@@ -5,11 +5,14 @@
     "moduleResolution": "NodeNext",
     "target": "ESNext",
     "sourceMap": true,
+
+    "rootDir": "src",
     "outDir": "dist",
+    "declaration": true,
 
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "allowJs": true,
+    "allowJs": false,
     "resolveJsonModule": true,
     "moduleDetection": "force",
     "isolatedModules": true,
@@ -29,6 +32,6 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src/**/*.ts", "__test__/**/*.ts", "knip.ts", "scripts/**/*.ts"],
-  "exclude": ["node_modules", "dist", "**/*.js"]
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "**/*.js", "knip.ts"]
 }
