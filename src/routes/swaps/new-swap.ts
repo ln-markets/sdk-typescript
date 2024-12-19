@@ -1,5 +1,5 @@
 import type { RestFetcher } from '../../rest.js'
-import type { Swap, SwapAsset } from './index.js'
+import type { Swap, SwapAsset } from './types.js'
 
 export const createNewSwap = (request: RestFetcher) => {
   /**

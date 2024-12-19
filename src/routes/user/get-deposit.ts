@@ -1,6 +1,6 @@
 import type { UUID } from '../../index.js'
 import type { RestFetcher } from '../../rest.js'
-import type { Deposit } from './index.js'
+import type { Deposit } from './types.js'
 
 export const createGetDeposit = (request: RestFetcher) => {
   /**

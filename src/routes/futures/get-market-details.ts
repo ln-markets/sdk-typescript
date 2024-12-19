@@ -1,5 +1,5 @@
 import type { RestFetcher } from '../../rest.js'
-import type { FuturesMarketDetails } from './index.js'
+import type { FuturesMarketDetails } from './types.js'
 
 export const createGetMarketDetails = (request: RestFetcher) => {
   /**

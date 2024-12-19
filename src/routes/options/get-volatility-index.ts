@@ -1,5 +1,5 @@
 import type { RestFetcher } from '../../rest.js'
-import type { OptionsVolatilityIndex } from './index.js'
+import type { OptionsVolatilityIndex } from './types.js'
 
 export const createGetVolatilityIndex = (request: RestFetcher) => {
   /**

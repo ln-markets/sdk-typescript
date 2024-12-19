@@ -1,6 +1,6 @@
 import type { UUID } from '../../index.js'
 import type { RestFetcher } from '../../rest.js'
-import type { FuturesRunningTrade } from './index.js'
+import type { FuturesRunningTrade } from './types.js'
 
 export const createAddMargin = (request: RestFetcher) => {
   /**

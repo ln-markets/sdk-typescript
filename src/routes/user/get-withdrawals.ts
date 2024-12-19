@@ -1,5 +1,5 @@
 import type { RestFetcher } from '../../rest.js'
-import type { WithdrawalCondensed } from './index.js'
+import type { WithdrawalCondensed } from './types.js'
 
 export const createGetWithdrawals = (request: RestFetcher) => {
   /**

@@ -1,5 +1,5 @@
 import type { RestFetcher } from '../../rest.js'
-import type { OptionsInstrument } from './index.js'
+import type { OptionsInstrument } from './types.js'
 
 export const createGetInstrument = (request: RestFetcher) => {
   /**

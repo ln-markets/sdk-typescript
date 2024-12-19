@@ -1,5 +1,5 @@
 import type { RestFetcher } from '../../rest.js'
-import type { Notification } from './index.js'
+import type { Notification } from './types.js'
 
 export const createGetAllNotifications = (request: RestFetcher) => {
   /**

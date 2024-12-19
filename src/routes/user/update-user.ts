@@ -1,7 +1,7 @@
 import snakecaseKeys from 'snakecase-keys'
 
 import type { RestFetcher } from '../../rest.js'
-import type { User } from './index.js'
+import type { User } from './types.js'
 
 export const createUpdateUser = (request: RestFetcher) => {
   /**

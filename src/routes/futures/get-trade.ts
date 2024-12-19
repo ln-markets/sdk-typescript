@@ -1,6 +1,6 @@
 import type { UUID } from '../../index.js'
 import type { RestFetcher } from '../../rest.js'
-import type { FuturesTrade } from './index.js'
+import type { FuturesTrade } from './types.js'
 
 export const createGetTrade = (request: RestFetcher) => {
   /**

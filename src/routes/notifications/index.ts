@@ -1,4 +1,3 @@
-import type { UUID } from '../../index.js'
 import type { RestFetcher } from '../../rest.js'
 
 import { createGetAllNotifications } from './get-all.js'
@@ -9,11 +8,4 @@ export const createNotificationsRouter = (request: RestFetcher) => {
     getAll: createGetAllNotifications(request),
     markAllAsRead: createMarkAllAsRead(request),
   }
-}
-
-export type Notification = {
-  creationTs: number
-  data: unknown
-  event: string
-  id: UUID
 }
