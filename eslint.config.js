@@ -151,7 +151,12 @@ const typescriptParser = {
   languageOptions: {
     parserOptions: {
       projectService: {
-        allowDefaultProject: ['*.js'],
+        allowDefaultProject: [
+          '*.js',
+          'knip.ts',
+          'scripts/*.ts',
+          '__test__/*.ts',
+        ],
       },
     },
   },

@@ -1,5 +1,4 @@
-import type { RestFetcher } from '#src/rest.js'
-
+import type { RestFetcher } from '../../rest.js'
 import type { OHLC, OHLCRange } from './types.js'
 
 export const createGetOHLCHistory = (request: RestFetcher) => {
@@ -12,9 +11,9 @@ export const createGetOHLCHistory = (request: RestFetcher) => {
     range: OHLCRange
     to: number
   }) =>
-    request({
+    request<OHLC[]>({
       method: 'GET',
       path: '/futures/ohlcs',
       query,
-    }) as Promise<OHLC[]>
+    })
 }

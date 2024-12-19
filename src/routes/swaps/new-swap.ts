@@ -1,5 +1,4 @@
-import type { RestFetcher } from '#src/rest.js'
-
+import type { RestFetcher } from '../../rest.js'
 import type { Swap, SwapAsset } from './types.js'
 
 export const createNewSwap = (request: RestFetcher) => {
@@ -11,7 +10,7 @@ export const createNewSwap = (request: RestFetcher) => {
     inAsset: SwapAsset
     outAsset: SwapAsset
   }) =>
-    request({
+    request<Swap>({
       body: {
         in_amount: body.inAmount,
         in_asset: body.inAsset,
@@ -20,5 +19,5 @@ export const createNewSwap = (request: RestFetcher) => {
       method: 'POST',
       path: '/swap',
       requireAuth: true,
-    }) as Promise<Swap>
+    })
 }

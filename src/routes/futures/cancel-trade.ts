@@ -1,6 +1,5 @@
-import type { RestFetcher } from '#src/rest.js'
-import type { UUID } from '#src/types.js'
-
+import type { UUID } from '../../index.js'
+import type { RestFetcher } from '../../rest.js'
 import type { FuturesCanceledTrade } from './types.js'
 
 export const createCancelTrade = (request: RestFetcher) => {
@@ -8,10 +7,10 @@ export const createCancelTrade = (request: RestFetcher) => {
    * @see https://docs.lnmarkets.com/api/operations/futurescanceltrade
    */
   return async (body: { id: UUID }) =>
-    request({
+    request<FuturesCanceledTrade>({
       body,
       method: 'POST',
       path: `/futures/cancel`,
       requireAuth: true,
-    }) as Promise<FuturesCanceledTrade>
+    })
 }

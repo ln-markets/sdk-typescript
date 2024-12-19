@@ -1,4 +1,4 @@
-import type { RestFetcher } from '#src/rest.js'
+import type { RestFetcher } from '../../rest.js'
 
 export const createMarkAllAsRead = (request: RestFetcher) => {
   /**
@@ -9,5 +9,5 @@ export const createMarkAllAsRead = (request: RestFetcher) => {
       method: 'DELETE',
       path: '/notifications/all',
       requireAuth: true,
-    }) as Promise<void>
+    })
 }

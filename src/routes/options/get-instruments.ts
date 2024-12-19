@@ -1,14 +1,14 @@
-import type { RestFetcher } from '#src/rest.js'
+import type { RestFetcher } from '../../rest.js'
 
 export const createGetInstruments = (request: RestFetcher) => {
   /**
    * @see https://docs.lnmarkets.com/api/operations/optionsgetinstruments
    */
   return async () =>
-    request({
+    request<{
+      instruments: string[]
+    }>({
       method: 'GET',
       path: '/options/instruments',
-    }) as Promise<{
-      instruments: string[]
-    }>
+    })
 }

@@ -1,5 +1,4 @@
-import type { RestFetcher } from '#src/rest.js'
-
+import type { RestFetcher } from '../../rest.js'
 import type { OptionsTrade, OptionsTradeStatus } from './types.js'
 
 export const createGetTrades = (request: RestFetcher) => {
@@ -12,10 +11,10 @@ export const createGetTrades = (request: RestFetcher) => {
     status: OptionsTradeStatus
     to: number
   }) =>
-    request({
+    request<OptionsTrade[]>({
       method: 'GET',
       path: '/options/trades',
       query,
       requireAuth: true,
-    }) as Promise<OptionsTrade[]>
+    })
 }

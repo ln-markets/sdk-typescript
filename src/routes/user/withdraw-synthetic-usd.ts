@@ -1,6 +1,5 @@
-import type { RestFetcher } from '#src/rest.js'
-import type { UUID } from '#src/types.js'
-
+import type { UUID } from '../../index.js'
+import type { RestFetcher } from '../../rest.js'
 import type { Currency } from './types.js'
 
 export const createWithdrawSyntheticUsd = (request: RestFetcher) => {
@@ -8,17 +7,17 @@ export const createWithdrawSyntheticUsd = (request: RestFetcher) => {
    * @see https://docs.lnmarkets.com/api/operations/userwithdrawalsyntheticusd
    */
   return async (body: { amount: number; currency: Currency }) =>
-    request({
-      body,
-      method: 'POST',
-      path: '/user/withdraw/susd',
-      requireAuth: true,
-    }) as Promise<{
+    request<{
       amount: number
       currency: Currency
       feeReserve: number
       minBalanceAfter: number
       quoteId: UUID
       validUntil: number
-    }>
+    }>({
+      body,
+      method: 'POST',
+      path: '/user/withdraw/susd',
+      requireAuth: true,
+    })
 }

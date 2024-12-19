@@ -1,4 +1,4 @@
-import type { UUID } from '#src/index.js'
+import type { UUID } from '../../index.js'
 
 export type Notification = {
   creationTs: number

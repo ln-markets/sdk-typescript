@@ -1,7 +1,6 @@
-import type { RestFetcher } from '#src/rest.js'
-
 import snakecaseKeys from 'snakecase-keys'
 
+import type { RestFetcher } from '../../rest.js'
 import type { User } from './types.js'
 
 export const createUpdateUser = (request: RestFetcher) => {
@@ -16,10 +15,10 @@ export const createUpdateUser = (request: RestFetcher) => {
     username?: string
     useTaprootAddresses?: boolean
   }) =>
-    request({
+    request<User>({
       body: snakecaseKeys(body),
       method: 'PUT',
       path: '/user',
       requireAuth: true,
-    }) as Promise<User>
+    })
 }

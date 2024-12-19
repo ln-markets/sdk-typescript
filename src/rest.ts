@@ -8,7 +8,7 @@ import { getHostname } from './utils.js'
 
 export type RestClient = ReturnType<typeof createRestClient>
 
-export type RestFetcher = (options: RequestOptions) => Promise<unknown>
+export type RestFetcher = <T = void>(options: RequestOptions) => Promise<T>
 
 type RequestOptions = {
   body?: Record<string, boolean | number | string>
@@ -49,7 +49,7 @@ export const createRestClient = (options: RestOptions = {}) => {
 
   const hostname = process.env.LNM_API_HOSTNAME ?? getHostname(network)
 
-  const request = async (options: RequestOptions) => {
+  const request = async <T>(options: RequestOptions): Promise<T> => {
     const { body, method, path, query, requireAuth } = options
 
     if (requireAuth) {
@@ -119,10 +119,10 @@ export const createRestClient = (options: RestOptions = {}) => {
           .json()
           .then((value) =>
             camelcaseKeys(value as Record<string, unknown>, { deep: true })
-          )
+          ) as T
       }
 
-      return response.text()
+      return response.text() as T
     }
 
     const text = await response.text()

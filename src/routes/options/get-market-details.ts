@@ -1,5 +1,4 @@
-import type { RestFetcher } from '#src/rest.js'
-
+import type { RestFetcher } from '../../rest.js'
 import type { OptionsMarketDetails } from './types.js'
 
 export const createGetMarketDetails = (request: RestFetcher) => {
@@ -7,8 +6,8 @@ export const createGetMarketDetails = (request: RestFetcher) => {
    * @see https://docs.lnmarkets.com/api/operations/optionsgetoptionsmarket
    */
   return async () =>
-    request({
+    request<OptionsMarketDetails>({
       method: 'GET',
       path: '/options',
-    }) as Promise<OptionsMarketDetails>
+    })
 }

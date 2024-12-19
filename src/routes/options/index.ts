@@ -1,4 +1,4 @@
-import type { RestFetcher } from '#src/rest.js'
+import type { RestFetcher } from '../../rest.js'
 
 import { createCloseAllTrades } from './close-all.js'
 import { createCloseTrade } from './close.js'

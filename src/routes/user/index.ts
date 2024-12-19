@@ -1,4 +1,4 @@
-import type { RestFetcher } from '#src/rest.js'
+import type { RestFetcher } from '../../rest.js'
 
 import { createDepositSyntheticUsd } from './deposit-synthetic-usd.js'
 import { createDeposit } from './deposit.js'
