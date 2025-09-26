@@ -12,12 +12,12 @@ export type GetSwapsOutput = {
   outAsset: 'BTC' | 'USD'
 }[]
 
-type GetSwaps = (input: GetSwapsInput) => Promise<GetSwapsOutput>
+type GetSwaps = (input?: GetSwapsInput) => Promise<GetSwapsOutput>
 
 export const createGetSwaps = (instance: KyInstance): GetSwaps => {
-  return async ({ from, limit, to }) => {
+  return async (input) => {
     return instance
-      .get('synthetic-usd/swaps', { searchParams: { from, limit, to } })
+      .get('synthetic-usd/swaps', { searchParams: { ...input } })
       .json()
   }
 }

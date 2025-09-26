@@ -6,15 +6,11 @@ export interface WithdrawInternalInput {
 }
 
 export interface WithdrawInternalOutput {
-  amount: number
+  id: string
   createdAt: Date
   fromUid: string
-  fromUsername: string
-  id: string
-  settledAt: Date | null
-  success: boolean | null
   toUid: string
-  toUsername: string
+  amount: number
 }
 
 type WithdrawInternal = (

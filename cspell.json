@@ -48,6 +48,7 @@
     "bitmex",
     "linkingpublickey",
     "bybit",
-    "deribit"
+    "deribit",
+    "lnbc"
   ]
 }

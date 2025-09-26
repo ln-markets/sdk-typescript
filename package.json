@@ -20,6 +20,10 @@
   },
   "license": "MIT",
   "type": "module",
+  "imports": {
+    "#src/*": "./src/*",
+    "#test/*": "./__test__/*"
+  },
   "exports": {
     ".": {
       "v2": "./dist/v2/index.js",
@@ -35,16 +39,12 @@
     "README.md",
     "package.json"
   ],
-  "imports": {
-    "#test/*": "./__test__/*"
-  },
   "scripts": {
     "build": "tsc --build tsconfig.build.json",
     "format": "prettier --write --ignore-unknown '**'",
     "function-table": "tsx scripts/function-list.ts",
     "lint": "oxlint --type-aware",
     "prepublishOnly": "tsc --build",
-    "release": "np --no-cleanup --no-tests --no-yarn",
     "spell-check": "cspell --show-context --no-progress '**'",
     "test": "vitest --run",
     "type-check": "tsc --noEmit"
@@ -53,14 +53,13 @@
     "camelcase-keys": "10.0.0",
     "ky": "1.13.0",
     "snakecase-keys": "9.0.2",
-    "ts-pattern": "^5.9.0"
+    "ts-pattern": "5.9.0"
   },
   "devDependencies": {
     "@types/node": "22.18.8",
     "cspell": "9.2.2",
     "knip": "5.66.4",
     "markdownlint-cli": "0.45.0",
-    "np": "10.2.0",
     "oxlint": "1.24.0",
     "oxlint-tsgolint": "0.3.0",
     "prettier": "3.6.2",

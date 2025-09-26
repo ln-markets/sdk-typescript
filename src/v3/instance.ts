@@ -25,7 +25,7 @@ export const createInstance = ({
   network = 'mainnet',
 }: Options = {}): KyInstance => {
   const prefixUrl = match(network)
-    .with('mainnet', () => 'https://api.afa.dev.lnmarkets.com/v3')
+    .with('mainnet', () => getPrefixUrl())
     .with('testnet', () => 'https://api.testnet4.lnmarkets.com/v3')
     .exhaustive()
 
@@ -80,4 +80,9 @@ export const createInstance = ({
       ],
     },
   })
+}
+
+const getPrefixUrl = (): string => {
+  const hostname = process.env.LNM_API_URL_V3
+  return hostname ? `${hostname}/v3` : 'https://api.kha.dev.lnmarkets.com/v3'
 }

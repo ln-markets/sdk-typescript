@@ -14,16 +14,16 @@ export type GetLightningWithdrawalsOutput = {
 }[]
 
 type GetLightningWithdrawals = (
-  input: GetLightningWithdrawalsInput
+  input?: GetLightningWithdrawalsInput
 ) => Promise<GetLightningWithdrawalsOutput>
 
 export const createGetLightningWithdrawals = (
   instance: KyInstance
 ): GetLightningWithdrawals => {
-  return async ({ from, limit, to }) => {
+  return async (input) => {
     return instance
       .get('account/withdrawals/lightning', {
-        searchParams: { from, limit, to },
+        searchParams: { ...input },
       })
       .json()
   }

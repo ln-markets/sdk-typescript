@@ -5,33 +5,33 @@ export type GetLightningDepositsInput = PaginationInput
 
 export type GetLightningDepositsOutput = (
   | {
-      amount: null | number
-      comment: null | string
-      createdAt: Date
       id: string
-      paymentHash: null | string
-      success: false
+      createdAt: Date
+      amount: number
+      paymentHash: string
+      settledAt: Date
+      comment: string | null
     }
   | {
-      amount: number
-      comment: null | string
-      createdAt: Date
       id: string
+      createdAt: Date
+      amount: number
       paymentHash: string
-      success: true
+      settledAt: null
+      comment: string | null
     }
 )[]
 
 type GetLightningDeposits = (
-  input: GetLightningDepositsInput
+  input?: GetLightningDepositsInput
 ) => Promise<GetLightningDepositsOutput>
 
 export const createGetLightningDeposits = (
   instance: KyInstance
 ): GetLightningDeposits => {
-  return async ({ from, limit, to }) => {
+  return async (input) => {
     return instance
-      .get('account/deposits/lightning', { searchParams: { from, limit, to } })
+      .get('account/deposits/lightning', { searchParams: { ...input } })
       .json()
   }
 }

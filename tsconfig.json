@@ -1,5 +1,6 @@
 {
   "include": ["${configDir}/**/*.ts"],
+  "exclude": ["${configDir}/examples/**", "${configDir}/scripts/**"],
   "compilerOptions": {
     "lib": ["esnext"],
     "moduleResolution": "NodeNext",
