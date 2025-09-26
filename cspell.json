@@ -41,6 +41,13 @@
     "totp",
     "trunc",
     "webauthn",
-    "wpkh"
+    "wpkh",
+    "neverthrow",
+    "Authentification",
+    "Anypassword",
+    "bitmex",
+    "linkingpublickey",
+    "bybit",
+    "deribit"
   ]
 }

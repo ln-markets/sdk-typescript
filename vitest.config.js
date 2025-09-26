@@ -6,6 +6,5 @@ export default defineConfig({
   test: {
     include: ['./**/*.test.ts'],
     maxWorkers: 1,
-    setupFiles: ['./__test__/setup.ts'],
   },
 })

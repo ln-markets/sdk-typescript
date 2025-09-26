@@ -1,13 +1,6 @@
 {
-  "include": ["${configDir}/src/**/*.ts"],
-  "exclude": ["**/node_modules", "**/.*/", "${configDir}/dist"],
+  "include": ["${configDir}/**/*.ts"],
   "compilerOptions": {
-    "rootDir": "${configDir}/src",
-    "outDir": "${configDir}/dist",
-    "baseUrl": ".",
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
     "lib": ["esnext"],
     "moduleResolution": "NodeNext",
     "module": "NodeNext",

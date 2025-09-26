@@ -1,6 +1,3 @@
-export { createRestClient } from './rest.js'
-export type { RestClient } from './rest.js'
-
 export type * from './routes/futures/types.js'
 export type * from './routes/notifications/types.js'
 export type * from './routes/options/types.js'
