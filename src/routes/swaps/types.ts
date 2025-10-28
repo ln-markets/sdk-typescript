@@ -1,6 +1,6 @@
 import type { UUID } from '../../index.js'
 
-export type Swap = {
+export interface Swap {
   creationTs: number
   id: UUID
   inAmount: number

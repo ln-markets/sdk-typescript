@@ -1,6 +1,5 @@
-export default {
+const config = {
   arrowParens: 'always',
-  plugins: ['prettier-plugin-packagejson'],
   printWidth: 80,
   semi: false,
   singleQuote: true,
@@ -8,3 +7,6 @@ export default {
   trailingComma: 'es5',
   useTabs: false,
 }
+
+// oxlint-disable-next-line no-default-export -- This is how prettier works
+export default config

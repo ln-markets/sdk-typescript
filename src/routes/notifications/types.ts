@@ -1,6 +1,6 @@
 import type { UUID } from '../../index.js'
 
-export type Notification = {
+export interface Notification {
   creationTs: number
   data: unknown
   event: string

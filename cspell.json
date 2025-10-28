@@ -21,18 +21,25 @@
     "*"
   ],
   "words": [
+    "isnan",
+    "knipcache",
     "lnmarkets",
     "mainnet",
+    "nonconstructor",
+    "nonoctal",
     "nostr",
     "ohlc",
     "Ohlc",
     "ohlcs",
+    "oxlint",
+    "oxlintrc",
+    "prettiercache",
     "snakecase",
     "stoploss",
     "susd",
     "takeprofit",
     "totp",
-    "tseslint",
+    "trunc",
     "webauthn",
     "wpkh"
   ]

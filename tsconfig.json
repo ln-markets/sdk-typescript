@@ -1,17 +1,19 @@
 {
+  "include": ["${configDir}/src/**/*.ts"],
+  "exclude": ["**/node_modules", "**/.*/", "${configDir}/dist"],
   "compilerOptions": {
-    "lib": ["ESNext"],
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "target": "ESNext",
+    "rootDir": "${configDir}/src",
+    "outDir": "${configDir}/dist",
+    "baseUrl": ".",
     "sourceMap": true,
-
-    "rootDir": "src",
-    "outDir": "dist",
     "declaration": true,
-
+    "declarationMap": true,
+    "lib": ["esnext"],
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext",
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "target": "esnext",
     "allowJs": false,
     "resolveJsonModule": true,
     "moduleDetection": "force",
@@ -30,8 +32,8 @@
     "strictPropertyInitialization": true,
     "noUnusedLocals": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
-  },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist", "**/*.js", "knip.ts"]
+    "noUncheckedSideEffectImports": true,
+    "strictBuiltinIteratorReturn": true,
+    "erasableSyntaxOnly": true
+  }
 }

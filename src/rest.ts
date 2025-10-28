@@ -1,41 +1,26 @@
+// oxlint-disable no-unsafe-type-assertion
 import camelcaseKeys from 'camelcase-keys'
+import ky from 'ky'
+import type { Options } from 'ky'
 import { createHmac } from 'node:crypto'
-import { URL, URLSearchParams } from 'node:url'
-import { fetch } from 'undici'
+import { URLSearchParams, URL } from 'node:url'
 
 import { createRouter } from './routes/index.js'
 import { getHostname } from './utils.js'
 
-export type RestClient = ReturnType<typeof createRestClient>
-
-export type RestFetcher = <T = void>(options: RequestOptions) => Promise<T>
-
-type RequestOptions = {
+interface RequestOptions {
   body?: Record<string, boolean | number | string>
-  method: string
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE'
   path: string
   query?: Record<string, boolean | number | string>
   requireAuth?: boolean
 }
-type RestOptions = {
+interface RestOptions {
   headers?: Record<string, string>
   key?: string
   network?: 'mainnet' | 'testnet'
   passphrase?: string
   secret?: string
-}
-
-class HttpError extends Error {
-  status: number
-  statusText: string
-
-  constructor(status: number, statusText: string, message: string) {
-    super(message)
-
-    this.name = 'HttpError'
-    this.status = status
-    this.statusText = statusText
-  }
 }
 
 export const createRestClient = (options: RestOptions = {}) => {
@@ -96,39 +81,32 @@ export const createRestClient = (options: RestOptions = {}) => {
       }
     }
 
-    if (body && /^(POST|PUT)$/.test(method)) {
-      Object.assign(headers, {
-        'Content-Type': 'application/json',
-      })
-    }
-
-    const payload = /^(POST|PUT)$/.test(method)
-      ? JSON.stringify(body)
-      : undefined
-
-    const response = await fetch(url, {
-      body: payload,
+    const kyOptions: Options = {
       headers,
       method,
-      mode: 'cors',
-    })
-
-    if (response.ok) {
-      if (response.headers.get('content-type')?.includes('application/json')) {
-        return response
-          .json()
-          .then((value) =>
-            camelcaseKeys(value as Record<string, unknown>, { deep: true })
-          ) as T
-      }
-
-      return response.text() as T
     }
 
-    const text = await response.text()
+    if (body && /^(POST|PUT)$/.test(method)) {
+      kyOptions.json = body
+    }
 
-    throw new HttpError(response.status, response.statusText, text)
+    const response = await ky(url, kyOptions)
+
+    const contentType = response.headers.get('content-type')
+
+    if (contentType?.includes('application/json')) {
+      const value = await response.json()
+      return camelcaseKeys(value as Record<string, unknown>, {
+        deep: true,
+      }) as T
+    }
+
+    throw new Error('Unexpected content type')
   }
 
   return createRouter(request)
 }
+
+export type RestClient = ReturnType<typeof createRestClient>
+
+export type RestFetcher = <T = void>(options: RequestOptions) => Promise<T>

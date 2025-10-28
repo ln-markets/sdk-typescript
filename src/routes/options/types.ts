@@ -1,10 +1,10 @@
 import type { UUID } from '../../index.js'
 
-export type OptionsInstrument = {
+export interface OptionsInstrument {
   volatility: number
 }
 
-export type OptionsMarketDetails = {
+export interface OptionsMarketDetails {
   active: boolean
   fees: {
     trading: number
@@ -28,7 +28,7 @@ export type OptionsSettlement = 'cash' | 'physical'
 
 export type OptionsSide = 'b' | 's'
 
-export type OptionsTrade = {
+export interface OptionsTrade {
   closed: boolean
   closedTs?: number
   closingFee: number
@@ -106,7 +106,7 @@ export type OptionsTradeExpiredPhysicalNotDelivered =
     physicalDeliveryId?: undefined
   }
 
-export type OptionsTradeOrder = {
+export interface OptionsTradeOrder {
   instrumentName: string
   quantity: number
   settlement: OptionsSettlement
@@ -131,6 +131,6 @@ export type OptionsTradeWithDelta = OptionsTrade & {
 
 export type OptionsType = 'c' | 'p'
 
-export type OptionsVolatilityIndex = {
+export interface OptionsVolatilityIndex {
   volatilityIndex: number
 }

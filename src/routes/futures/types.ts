@@ -20,7 +20,7 @@ export type FuturesClosedTrade = FuturesTrade & {
   running: false
 }
 
-export type FuturesMarketDetails = {
+export interface FuturesMarketDetails {
   active: boolean
   fees: {
     carry: {
@@ -69,7 +69,7 @@ export type FuturesRunningTrade = FuturesTrade & {
   running: true
 }
 
-export type FuturesTicker = {
+export interface FuturesTicker {
   askPrice: number
   bidPrice: number
   carryFeeRate: number
@@ -78,7 +78,7 @@ export type FuturesTicker = {
   lastPrice: number
 }
 
-export type FuturesTrade = {
+export interface FuturesTrade {
   canceled: boolean
   closed: boolean
   closedTs?: number
@@ -112,7 +112,7 @@ export type FuturesTradeStatus = 'closed' | 'open' | 'running'
 
 export type FuturesTradeType = 'l' | 'm'
 
-export type OHLC = {
+export interface OHLC {
   close: number
   high: number
   low: number

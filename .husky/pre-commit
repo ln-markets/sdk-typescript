@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-set -e
-
-exec git diff --cached --name-only | pnpm cspell --show-suggestions --show-context --no-progress --no-must-find-files --file-list stdin
-
-pnpm lint-staged

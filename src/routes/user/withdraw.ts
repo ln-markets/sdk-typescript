@@ -1,5 +1,5 @@
-import type { UUID } from '../../index.js'
 import type { RestFetcher } from '../../rest.js'
+import type { UUID } from '../../index.js'
 
 export const createWithdraw = (request: RestFetcher) => {
   /**

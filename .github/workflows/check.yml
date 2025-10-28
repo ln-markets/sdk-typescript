@@ -20,13 +20,17 @@ jobs:
 
       - uses: ./.github/actions/base
 
-      - run: pnpm knip
+      - run: pnpm markdownlint --ignore-path .gitignore ./**/*.md
 
-      - run: pnpm spell-check
+      - run: pnpm prettier --check --no-error-on-unmatched-pattern --cache --cache-location .prettiercache .
+
+      - run: pnpm oxlint --type-aware
+
+      - run: pnpm knip --cache --cache-location .knipcache
+
+      - run: pnpm cspell lint --no-progress --gitignore --show-context --cache ./**/*
 
       - run: pnpm type-check
-
-      - run: pnpm lint
 
       - run: pnpm test
         env:

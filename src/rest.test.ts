@@ -12,7 +12,7 @@ const getEnvOrThrow = (key: string) => {
   return value
 }
 
-type RestContext = {
+interface RestContext {
   authClient: RestClient
   client: RestClient
 }

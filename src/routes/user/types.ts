@@ -1,12 +1,12 @@
 import type { UUID } from '../../index.js'
 
-export type ApiKeyCreation = {
+export interface ApiKeyCreation {
   name: string
   passphrase: string
   permissions: string[]
 }
 
-export type BitcoinDeposit = {
+export interface BitcoinDeposit {
   amount: number
   blockId?: string
   confirmationHeight?: number
@@ -23,9 +23,10 @@ export type Deposit = BitcoinDeposit | InternalTransfer | LightningDeposit
 
 export type DepositType = 'bitcoin' | 'internal' | 'lightning'
 
+// oxlint-disable-next-line no-magic-numbers -- This is not magic
 export type FeeTier = 0 | 1 | 2 | 3
 
-export type FetchTransactionsRequest = {
+export interface FetchTransactionsRequest {
   cursor?: number
   from?: number
   limit?: number
@@ -35,7 +36,7 @@ export type FetchTransactionsRequest = {
 
 export type GenericDeposit = GenericDepositError | GenericDepositSuccess
 
-export type GenericDepositBase = {
+export interface GenericDepositBase {
   amount: number
   comment?: string
   id: string
@@ -70,7 +71,7 @@ export type GenericWithdrawal =
   | GenericWithdrawalError
   | GenericWithdrawalSuccess
 
-export type GenericWithdrawalBase = {
+export interface GenericWithdrawalBase {
   amount: number
   fee: number
   id: string
@@ -89,7 +90,7 @@ export type GenericWithdrawalSuccess = GenericWithdrawalBase & {
   success: true
 }
 
-export type InternalTransfer = {
+export interface InternalTransfer {
   amount: number
   fromUsername: string
   id: string
@@ -106,20 +107,20 @@ export type InternalWithdrawalCondensed = Pick<
   type: 'internal'
 }
 
-export type Leaderboard = {
+export interface Leaderboard {
   allTime: LeaderboardEntry[]
   daily: LeaderboardEntry[]
   monthly: LeaderboardEntry[]
   weekly: LeaderboardEntry[]
 }
 
-export type LeaderboardEntry = {
+export interface LeaderboardEntry {
   direction: number
   pl: number
   username: string
 }
 
-export type LightningDeposit = {
+export interface LightningDeposit {
   amount: number
   comment?: string
   id: string
@@ -129,7 +130,7 @@ export type LightningDeposit = {
   ts: number
 }
 
-export type LightningWithdrawalCondensed = {
+export interface LightningWithdrawalCondensed {
   amount: number
   destination?: string
   fee: number
@@ -140,7 +141,7 @@ export type LightningWithdrawalCondensed = {
   type: 'lightning'
 }
 
-export type NewApiKey = {
+export interface NewApiKey {
   creationTs: number
   id: string
   key: string
@@ -150,7 +151,7 @@ export type NewApiKey = {
   secret: string
 }
 
-export type OnChainWithdrawalCondensed = {
+export interface OnChainWithdrawalCondensed {
   address: string
   amount: number
   fee: number
@@ -163,13 +164,13 @@ export type OnChainWithdrawalCondensed = {
 
 export type OnChainWithdrawalStatus = 'confirmed' | 'failed' | 'pending'
 
-export type TotpSetup = {
+export interface TotpSetup {
   backupCodes: string[]
   secret: string
   url: string
 }
 
-export type User = {
+export interface User {
   accountType: string
   autoWithdrawEnabled: boolean
   autoWithdrawLightningAddress?: string
