@@ -35,6 +35,10 @@
     "eslint/require-await": "off",
     "import/max-dependencies": "off",
     "eslint/max-lines-per-function": "off",
-    "eslint/sort-keys": "off"
+    "eslint/sort-keys": "off",
+    "eslint/no-magic-numbers": "off",
+    "oxc/no-rest-spread-properties": "off",
+    "eslint/no-empty-function": "off",
+    "import/exports-last": "off"
   }
 }
