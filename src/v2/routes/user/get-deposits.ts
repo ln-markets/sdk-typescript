@@ -1,15 +1,11 @@
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
+
 import type { Deposit, DepositType } from './types.js'
 
-export const createGetDeposits = (request: RestFetcher) => {
+export const createGetDeposits = (instance: KyInstance) => {
   /**
    * @see https://docs.lnmarkets.com/api/operations/usergetdeposits
    */
-  return async (query?: { type: DepositType }) =>
-    request<Deposit[]>({
-      method: 'GET',
-      path: '/user/deposit',
-      query,
-      requireAuth: true,
-    })
+  return async (searchParams?: { type: DepositType }) =>
+    instance.get('user/deposit', { searchParams }).json<Deposit[]>()
 }

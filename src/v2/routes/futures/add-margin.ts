@@ -1,16 +1,15 @@
-import type { UUID } from '../../index.js'
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
+
 import type { FuturesRunningTrade } from './types.js'
 
-export const createAddMargin = (request: RestFetcher) => {
+export const createAddMargin = (instance: KyInstance) => {
   /**
    * @see https://docs.lnmarkets.com/api/operations/futuresaddmargin
    */
-  return async (body: { amount: number; id: UUID }) =>
-    request<FuturesRunningTrade>({
-      body,
-      method: 'POST',
-      path: '/futures/add-margin',
-      requireAuth: true,
-    })
+  return async (body: { amount: number; id: string }) =>
+    instance
+      .post('futures/add-margin', {
+        json: body,
+      })
+      .json<FuturesRunningTrade>()
 }

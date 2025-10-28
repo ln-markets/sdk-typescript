@@ -1,20 +1,15 @@
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
+
 import type { OptionsTrade, OptionsTradeStatus } from './types.js'
 
-export const createGetTrades = (request: RestFetcher) => {
+export const createGetTrades = (instance: KyInstance) => {
   /**
    * @see https://docs.lnmarkets.com/api/operations/optionsgettrades
    */
-  return async (query?: {
+  return async (searchParams?: {
     from: number
     limit?: number
     status: OptionsTradeStatus
     to: number
-  }) =>
-    request<OptionsTrade[]>({
-      method: 'GET',
-      path: '/options/trades',
-      query,
-      requireAuth: true,
-    })
+  }) => instance.get('options/trades', { searchParams }).json<OptionsTrade[]>()
 }

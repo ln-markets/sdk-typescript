@@ -1,20 +1,15 @@
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
 
-export const createGetBitcoinAddresses = (request: RestFetcher) => {
+export const createGetBitcoinAddresses = (instance: KyInstance) => {
   /**
    * @see https://docs.lnmarkets.com/api/operations/usergetbitcoinaddresses
    */
-  return async (query?: { current: boolean }) =>
-    request<
+  return async (searchParams: { current: boolean }) =>
+    instance.get('user/bitcoin/addresses', { searchParams }).json<
       {
         address: string
         creationTs: number
         isUsed: boolean
       }[]
-    >({
-      method: 'GET',
-      path: '/user/bitcoin/addresses',
-      query,
-      requireAuth: true,
-    })
+    >()
 }

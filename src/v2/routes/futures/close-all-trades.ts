@@ -1,16 +1,13 @@
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
+
 import type { FuturesClosedTrade } from './types.js'
 
-export const createCloseAllTrades = (request: RestFetcher) => {
+export const createCloseAllTrades = (instance: KyInstance) => {
   /**
    * @see https://docs.lnmarkets.com/api/operations/futuresclosealltrades
    */
   return async () =>
-    request<{
+    instance.delete('futures/all/close').json<{
       trades: FuturesClosedTrade[]
-    }>({
-      method: 'DELETE',
-      path: '/futures/all/close',
-      requireAuth: true,
-    })
+    }>()
 }

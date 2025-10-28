@@ -1,5 +1,3 @@
-import type { UUID } from '../../index.js'
-
 export interface OptionsInstrument {
   volatility: number
 }
@@ -40,8 +38,8 @@ export interface OptionsTrade {
   fixingPrice?: number
   forward: number
   forwardPoint: number
-  id: UUID
-  legId: UUID
+  id: string
+  legId: string
   maintenanceMargin: number
   margin: number
   openingFee: number
@@ -53,7 +51,7 @@ export interface OptionsTrade {
   side: OptionsSide
   strike: number
   type: OptionsType
-  uid: UUID
+  uid: string
   volatility: number
 }
 

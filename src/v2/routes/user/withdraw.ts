@@ -1,21 +1,19 @@
-import type { RestFetcher } from '../../rest.js'
-import type { UUID } from '../../index.js'
+import type { KyInstance } from 'ky'
 
-export const createWithdraw = (request: RestFetcher) => {
+export const createWithdraw = (instance: KyInstance) => {
   /**
    * @see https://docs.lnmarkets.com/api/operations/userwithdraw
    */
-  return async (body: { invoice: string; quoteId?: UUID }) =>
-    request<{
-      amount?: number
-      fee?: number
-      id: UUID
-      paymentHash?: string
-      successTime?: number
-    }>({
-      body,
-      method: 'POST',
-      path: '/user/withdraw',
-      requireAuth: true,
-    })
+  return async (body: { invoice: string; quoteId?: string }) =>
+    instance
+      .post('user/withdraw', {
+        json: body,
+      })
+      .json<{
+        amount?: number
+        fee?: number
+        id: string
+        paymentHash?: string
+        successTime?: number
+      }>()
 }

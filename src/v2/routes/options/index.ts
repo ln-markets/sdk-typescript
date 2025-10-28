@@ -1,4 +1,4 @@
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
 
 import { createCloseAllTrades } from './close-all.js'
 import { createCloseTrade } from './close.js'
@@ -11,17 +11,17 @@ import { createGetVolatilityIndex } from './get-volatility-index.js'
 import { createNewTrade } from './new-trade.js'
 import { createUpdateTrade } from './update-trade.js'
 
-export const createOptionsRouter = (request: RestFetcher) => {
+export const createOptionsRouter = (instance: KyInstance) => {
   return {
-    closeAllTrades: createCloseAllTrades(request),
-    closeTrade: createCloseTrade(request),
-    getInstrument: createGetInstrument(request),
-    getInstruments: createGetInstruments(request),
-    getMarketDetails: createGetMarketDetails(request),
-    getTrade: createGetTrade(request),
-    getTrades: createGetTrades(request),
-    getVolatilityIndex: createGetVolatilityIndex(request),
-    newTrade: createNewTrade(request),
-    updateTrade: createUpdateTrade(request),
+    closeAllTrades: createCloseAllTrades(instance),
+    closeTrade: createCloseTrade(instance),
+    getInstrument: createGetInstrument(instance),
+    getInstruments: createGetInstruments(instance),
+    getMarketDetails: createGetMarketDetails(instance),
+    getTrade: createGetTrade(instance),
+    getTrades: createGetTrades(instance),
+    getVolatilityIndex: createGetVolatilityIndex(instance),
+    newTrade: createNewTrade(instance),
+    updateTrade: createUpdateTrade(instance),
   }
 }

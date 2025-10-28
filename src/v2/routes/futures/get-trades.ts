@@ -1,20 +1,15 @@
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
+
 import type { FuturesTrade, FuturesTradeStatus } from './types.js'
 
-export const createGetTrades = (request: RestFetcher) => {
+export const createGetTrades = (instance: KyInstance) => {
   /**
    * @see https://docs.lnmarkets.com/api/operations/futuresgettrades
    */
-  return async (query: {
+  return async (searchParams: {
     from?: number
     limit?: number
     to?: number
     type: FuturesTradeStatus
-  }) =>
-    request<FuturesTrade[]>({
-      method: 'GET',
-      path: '/futures',
-      query,
-      requireAuth: true,
-    })
+  }) => instance.get('futures', { searchParams }).json<FuturesTrade[]>()
 }

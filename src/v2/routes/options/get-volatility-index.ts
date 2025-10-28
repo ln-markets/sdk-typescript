@@ -1,13 +1,11 @@
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
+
 import type { OptionsVolatilityIndex } from './types.js'
 
-export const createGetVolatilityIndex = (request: RestFetcher) => {
+export const createGetVolatilityIndex = (instance: KyInstance) => {
   /**
    * @see https://docs.lnmarkets.com/api/operations/optionsgetvolatilityindex
    */
   return async () =>
-    request<OptionsVolatilityIndex>({
-      method: 'GET',
-      path: '/options/volatility-index',
-    })
+    instance.get('options/volatility-index').json<OptionsVolatilityIndex>()
 }

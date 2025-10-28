@@ -1,14 +1,11 @@
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
 
-export const createGetInstruments = (request: RestFetcher) => {
+export const createGetInstruments = (instance: KyInstance) => {
   /**
    * @see https://docs.lnmarkets.com/api/operations/optionsgetinstruments
    */
   return async () =>
-    request<{
+    instance.get('options/instruments').json<{
       instruments: string[]
-    }>({
-      method: 'GET',
-      path: '/options/instruments',
-    })
+    }>()
 }

@@ -1,9 +1,10 @@
+import type { KyInstance } from 'ky'
+
 import snakecaseKeys from 'snakecase-keys'
 
-import type { RestFetcher } from '../../rest.js'
 import type { User } from './types.js'
 
-export const createUpdateUser = (request: RestFetcher) => {
+export const createUpdateUser = (instance: KyInstance) => {
   /**
    * @see https://docs.lnmarkets.com/api/operations/userupdate
    */
@@ -15,10 +16,9 @@ export const createUpdateUser = (request: RestFetcher) => {
     username?: string
     useTaprootAddresses?: boolean
   }) =>
-    request<User>({
-      body: snakecaseKeys(body),
-      method: 'PUT',
-      path: '/user',
-      requireAuth: true,
-    })
+    instance
+      .put('user', {
+        json: snakecaseKeys(body),
+      })
+      .json<User>()
 }

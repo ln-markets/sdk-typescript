@@ -1,23 +1,22 @@
-import type { UUID } from '../../index.js'
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
+
 import type { Currency } from './types.js'
 
-export const createWithdrawSyntheticUsd = (request: RestFetcher) => {
+export const createWithdrawSyntheticUsd = (instance: KyInstance) => {
   /**
    * @see https://docs.lnmarkets.com/api/operations/userwithdrawalsyntheticusd
    */
   return async (body: { amount: number; currency: Currency }) =>
-    request<{
-      amount: number
-      currency: Currency
-      feeReserve: number
-      minBalanceAfter: number
-      quoteId: UUID
-      validUntil: number
-    }>({
-      body,
-      method: 'POST',
-      path: '/user/withdraw/susd',
-      requireAuth: true,
-    })
+    instance
+      .post('user/withdraw/susd', {
+        json: body,
+      })
+      .json<{
+        amount: number
+        currency: Currency
+        feeReserve: number
+        minBalanceAfter: number
+        quoteId: string
+        validUntil: number
+      }>()
 }

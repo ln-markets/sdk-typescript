@@ -1,19 +1,17 @@
-import type { UUID } from '../../index.js'
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
 
-export const createDeposit = (request: RestFetcher) => {
+export const createDeposit = (instance: KyInstance) => {
   /**
    * @see https://docs.lnmarkets.com/api/operations/userdeposit
    */
   return async (body: { amount: number }) =>
-    request<{
-      depositId: UUID
-      expiry: number
-      paymentRequest: string
-    }>({
-      body,
-      method: 'POST',
-      path: '/user/deposit',
-      requireAuth: true,
-    })
+    instance
+      .post('user/deposit', {
+        json: body,
+      })
+      .json<{
+        depositId: string
+        expiry: number
+        paymentRequest: string
+      }>()
 }

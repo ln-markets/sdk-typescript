@@ -1,16 +1,15 @@
-import type { UUID } from '../../index.js'
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
+
 import type { FuturesRunningTrade } from './types.js'
 
-export const createCashIn = (request: RestFetcher) => {
+export const createCashIn = (instance: KyInstance) => {
   /**
    * @see https://docs.lnmarkets.com/api/operations/futurescashin
    */
-  return async (body: { amount: number; id: UUID }) =>
-    request<FuturesRunningTrade>({
-      body,
-      method: 'POST',
-      path: '/futures/cash-in',
-      requireAuth: true,
-    })
+  return async (body: { amount: number; id: string }) =>
+    instance
+      .post('futures/cash-in', {
+        json: body,
+      })
+      .json<FuturesRunningTrade>()
 }

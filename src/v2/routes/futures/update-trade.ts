@@ -1,20 +1,19 @@
-import type { UUID } from '../../index.js'
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
+
 import type { FuturesOpenOrRunningTrade } from './types.js'
 
-export const createUpdateTrade = (request: RestFetcher) => {
+export const createUpdateTrade = (instance: KyInstance) => {
   /**
    * @see https://docs.lnmarkets.com/api/operations/futuresupdatetrade
    */
   return async (body: {
-    id: UUID
+    id: string
     type: 'stoploss' | 'takeprofit'
     value: number
   }) =>
-    request<FuturesOpenOrRunningTrade>({
-      body,
-      method: 'PUT',
-      path: '/futures',
-      requireAuth: true,
-    })
+    instance
+      .put('futures', {
+        json: body,
+      })
+      .json<FuturesOpenOrRunningTrade>()
 }

@@ -1,5 +1,3 @@
-import type { UUID } from '../../index.js'
-
 export interface ApiKeyCreation {
   name: string
   passphrase: string
@@ -185,7 +183,7 @@ export interface User {
   showLeaderboard: boolean
   syntheticUsdBalance: number
   totpEnabled: boolean
-  uid: UUID
+  uid: string
   username: string
   useTaprootAddresses: boolean
   webauthnEnabled: boolean

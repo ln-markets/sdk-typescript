@@ -1,19 +1,15 @@
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
+
 import type { OHLC, OHLCRange } from './types.js'
 
-export const createGetOHLCHistory = (request: RestFetcher) => {
+export const createGetOHLCHistory = (instance: KyInstance) => {
   /**
    * @see https://docs.lnmarkets.com/api/operations/futuresgetohlcs
    */
-  return async (query: {
+  return async (searchParams: {
     from: number
     limit?: number
     range: OHLCRange
     to: number
-  }) =>
-    request<OHLC[]>({
-      method: 'GET',
-      path: '/futures/ohlcs',
-      query,
-    })
+  }) => instance.get('futures/ohlcs', { searchParams }).json<OHLC[]>()
 }

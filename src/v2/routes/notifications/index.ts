@@ -1,11 +1,11 @@
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
 
 import { createGetAllNotifications } from './get-all.js'
 import { createMarkAllAsRead } from './mark-all-as-read.js'
 
-export const createNotificationsRouter = (request: RestFetcher) => {
+export const createNotificationsRouter = (instance: KyInstance) => {
   return {
-    getAll: createGetAllNotifications(request),
-    markAllAsRead: createMarkAllAsRead(request),
+    getAll: createGetAllNotifications(instance),
+    markAllAsRead: createMarkAllAsRead(instance),
   }
 }

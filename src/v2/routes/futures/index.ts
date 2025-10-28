@@ -1,4 +1,4 @@
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
 
 import { createAddMargin } from './add-margin.js'
 import { createCancelAllTrades } from './cancel-all-trades.js'
@@ -19,25 +19,25 @@ import { createGetTrades } from './get-trades.js'
 import { createNewTrade } from './new-trade.js'
 import { createUpdateTrade } from './update-trade.js'
 
-export const createFuturesRouter = (request: RestFetcher) => {
+export const createFuturesRouter = (instance: KyInstance) => {
   return {
-    addMargin: createAddMargin(request),
-    cancelAllTrades: createCancelAllTrades(request),
-    cancelTrade: createCancelTrade(request),
-    cashIn: createCashIn(request),
-    closeAllTrades: createCloseAllTrades(request),
-    closeTrade: createCloseTrade(request),
-    getCarryFeesHistory: createGetCarryFeesHistory(request),
-    getFixingHistory: createGetFixingHistory(request),
-    getIndexHistory: createGetIndexHistory(request),
-    getLeaderboard: createGetLeaderboard(request),
-    getMarketDetails: createGetMarketDetails(request),
-    getOHLCHistory: createGetOHLCHistory(request),
-    getPriceHistory: createGetPriceHistory(request),
-    getTicker: createGetTicker(request),
-    getTrade: createGetTrade(request),
-    getTrades: createGetTrades(request),
-    newTrade: createNewTrade(request),
-    updateTrade: createUpdateTrade(request),
+    addMargin: createAddMargin(instance),
+    cancelAllTrades: createCancelAllTrades(instance),
+    cancelTrade: createCancelTrade(instance),
+    cashIn: createCashIn(instance),
+    closeAllTrades: createCloseAllTrades(instance),
+    closeTrade: createCloseTrade(instance),
+    getCarryFeesHistory: createGetCarryFeesHistory(instance),
+    getFixingHistory: createGetFixingHistory(instance),
+    getIndexHistory: createGetIndexHistory(instance),
+    getLeaderboard: createGetLeaderboard(instance),
+    getMarketDetails: createGetMarketDetails(instance),
+    getOHLCHistory: createGetOHLCHistory(instance),
+    getPriceHistory: createGetPriceHistory(instance),
+    getTicker: createGetTicker(instance),
+    getTrade: createGetTrade(instance),
+    getTrades: createGetTrades(instance),
+    newTrade: createNewTrade(instance),
+    updateTrade: createUpdateTrade(instance),
   }
 }

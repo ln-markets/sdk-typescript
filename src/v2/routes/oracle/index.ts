@@ -1,11 +1,11 @@
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
 
 import { createGetIndex } from './get-index.js'
 import { createGetLastPrice } from './get-last-price.js'
 
-export const createOracleRouter = (request: RestFetcher) => {
+export const createOracleRouter = (instance: KyInstance) => {
   return {
-    getIndex: createGetIndex(request),
-    getLastPrice: createGetLastPrice(request),
+    getIndex: createGetIndex(instance),
+    getLastPrice: createGetLastPrice(instance),
   }
 }

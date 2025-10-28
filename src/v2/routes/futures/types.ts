@@ -1,5 +1,3 @@
-import type { UUID } from '../../index.js'
-
 export type FuturesCanceledTrade = FuturesTrade & {
   canceled: true
   closed: false
@@ -87,7 +85,7 @@ export interface FuturesTrade {
   entryMargin?: number
   entryPrice?: number
   exitPrice?: number
-  id: UUID
+  id: string
   lastUpdateTs: number
   leverage: number
   liquidation: number
@@ -103,7 +101,7 @@ export interface FuturesTrade {
   side: FuturesTradeSide
   sumCarryFees: number
   type: FuturesTradeType
-  uid: UUID
+  uid: string
 }
 
 export type FuturesTradeSide = 'b' | 's'

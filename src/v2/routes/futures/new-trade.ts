@@ -1,11 +1,12 @@
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
+
 import type {
   FuturesOpenOrRunningTrade,
   FuturesTradeSide,
   FuturesTradeType,
 } from './types.js'
 
-export const createNewTrade = (request: RestFetcher) => {
+export const createNewTrade = (instance: KyInstance) => {
   /**
    * @see https://docs.lnmarkets.com/api/operations/futuresnewtrade
    */
@@ -19,10 +20,9 @@ export const createNewTrade = (request: RestFetcher) => {
     takeprofit?: number
     type: FuturesTradeType
   }) =>
-    request<FuturesOpenOrRunningTrade>({
-      body,
-      method: 'POST',
-      path: '/futures',
-      requireAuth: true,
-    })
+    instance
+      .post('futures', {
+        json: body,
+      })
+      .json<FuturesOpenOrRunningTrade>()
 }

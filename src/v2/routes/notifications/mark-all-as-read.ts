@@ -1,13 +1,8 @@
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
 
-export const createMarkAllAsRead = (request: RestFetcher) => {
+export const createMarkAllAsRead = (instance: KyInstance) => {
   /**
    * @see https://docs.lnmarkets.com/api/operations/notificationsmarkallnotificationsasread
    */
-  return async () =>
-    request({
-      method: 'DELETE',
-      path: '/notifications/all',
-      requireAuth: true,
-    })
+  return async () => instance.delete('notifications/all').json()
 }

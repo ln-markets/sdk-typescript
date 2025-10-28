@@ -1,15 +1,13 @@
-import type { UUID } from '../../index.js'
-
 export interface Swap {
   creationTs: number
-  id: UUID
+  id: string
   inAmount: number
   inAsset: SwapAsset
   outAmount: number
   outAsset: SwapAsset
   source?: SwapSource
-  sourceId?: UUID
-  uid: UUID
+  sourceId?: string
+  uid: string
 }
 
 export type SwapAsset = 'BTC' | 'USD'

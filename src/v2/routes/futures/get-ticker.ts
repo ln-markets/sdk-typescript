@@ -1,13 +1,10 @@
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
+
 import type { FuturesTicker } from './types.js'
 
-export const createGetTicker = (request: RestFetcher) => {
+export const createGetTicker = (instance: KyInstance) => {
   /**
    * @see https://docs.lnmarkets.com/api/operations/futuresgetticker
    */
-  return async () =>
-    request<FuturesTicker>({
-      method: 'GET',
-      path: '/futures/ticker',
-    })
+  return async () => instance.get('futures/ticker').json<FuturesTicker>()
 }

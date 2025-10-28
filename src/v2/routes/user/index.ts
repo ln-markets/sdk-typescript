@@ -1,4 +1,4 @@
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
 
 import { createDepositSyntheticUsd } from './deposit-synthetic-usd.js'
 import { createDeposit } from './deposit.js'
@@ -14,18 +14,18 @@ import { createUpdateUser } from './update-user.js'
 import { createWithdrawSyntheticUsd } from './withdraw-synthetic-usd.js'
 import { createWithdraw } from './withdraw.js'
 
-export const createUserRouter = (request: RestFetcher) => ({
-  deposit: createDeposit(request),
-  depositSyntheticUsd: createDepositSyntheticUsd(request),
-  get: createGetUser(request),
-  getBitcoinAddresses: createGetBitcoinAddresses(request),
-  getDeposit: createGetDeposit(request),
-  getDeposits: createGetDeposits(request),
-  getWithdrawal: createGetWithdrawal(request),
-  getWithdrawals: createGetWithdrawals(request),
-  newBitcoinAddress: createNewBitcoinAddress(request),
-  transfer: createTransfer(request),
-  update: createUpdateUser(request),
-  withdraw: createWithdraw(request),
-  withdrawSyntheticUsd: createWithdrawSyntheticUsd(request),
+export const createUserRouter = (instance: KyInstance) => ({
+  deposit: createDeposit(instance),
+  depositSyntheticUsd: createDepositSyntheticUsd(instance),
+  get: createGetUser(instance),
+  getBitcoinAddresses: createGetBitcoinAddresses(instance),
+  getDeposit: createGetDeposit(instance),
+  getDeposits: createGetDeposits(instance),
+  getWithdrawal: createGetWithdrawal(instance),
+  getWithdrawals: createGetWithdrawals(instance),
+  newBitcoinAddress: createNewBitcoinAddress(instance),
+  transfer: createTransfer(instance),
+  update: createUpdateUser(instance),
+  withdraw: createWithdraw(instance),
+  withdrawSyntheticUsd: createWithdrawSyntheticUsd(instance),
 })

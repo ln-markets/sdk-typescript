@@ -1,14 +1,10 @@
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
+
 import type { WithdrawalCondensed } from './types.js'
 
-export const createGetWithdrawals = (request: RestFetcher) => {
+export const createGetWithdrawals = (instance: KyInstance) => {
   /**
    * @see https://docs.lnmarkets.com/api/operations/usergetwithdrawals
    */
-  return async () =>
-    request<WithdrawalCondensed[]>({
-      method: 'GET',
-      path: '/user/withdraw',
-      requireAuth: true,
-    })
+  return async () => instance.get('user/withdraw').json<WithdrawalCondensed[]>()
 }

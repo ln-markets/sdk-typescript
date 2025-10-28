@@ -1,17 +1,16 @@
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
 
-export const createTransfer = (request: RestFetcher) => {
+export const createTransfer = (instance: KyInstance) => {
   /**
    * @see https://docs.lnmarkets.com/api/operations/usertransfer
    */
   return async (body: { amount: number; toUsername: string }) =>
-    request<{
-      amount: number
-      to: string
-    }>({
-      body,
-      method: 'POST',
-      path: '/user/transfer',
-      requireAuth: true,
-    })
+    instance
+      .post('user/transfer', {
+        json: body,
+      })
+      .json<{
+        amount: number
+        to: string
+      }>()
 }

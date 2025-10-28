@@ -69,12 +69,12 @@ bun add @ln-markets/sdk
 
 ### Network
 
-By default, the SDK will connect to the LN Markets production environment. You can change this by setting the `LNM_API_NETWORK` environment variable to `testnet` or `mainnet` or passing the `network` option to the `createRestClient` function.
+By default, the SDK will connect to the LN Markets production environment. You can change this by setting the `LNM_API_NETWORK` environment variable to `testnet` or `mainnet` or passing the `network` option to the `createHttpClient` function.
 
 ```typescript
-import { createRestClient } from '@ln-markets/sdk'
+import { createHttpClient } from '@ln-markets/sdk'
 
-const client = createRestClient({
+const client = createHttpClient({
   network: 'testnet',
 })
 ```
@@ -84,25 +84,25 @@ const client = createRestClient({
 You can use an unauthenticated client to access public endpoints.
 
 ```typescript
-import { createRestClient } from '@ln-markets/sdk'
+import { createHttpClient } from '@ln-markets/sdk'
 
-const client = createRestClient()
+const client = createHttpClient()
 
 await client.futures.getMarketDetails()
 ```
 
 ### Authenticated client
 
-You can authenticate using your API key, secret and passphrase directly passed to the `createRestClient` function.
+You can authenticate using your API key, secret and passphrase directly passed to the `createHttpClient` function.
 
 You can get your API key, secret and passphrase from the [API Keys section](https://lnmarkets.com/en/user/api) of your LN Markets account.
 
 > :warning: **Important:** Your API key, secret and passphrase are sensitive and should be kept secure. Do not expose them in your client-side code, nor share them with anyone. Any leakage of your API key, secret or passphrase may lead to unauthorized access to your account and irreversible loss of funds.
 
 ```typescript
-import { createRestClient } from '@ln-markets/sdk'
+import { createHttpClient } from '@ln-markets/sdk'
 
-const client = createRestClient({
+const client = createHttpClient({
   key: 'your-api-key',
   secret: 'your-api-secret',
   passphrase: 'your-api-key-passphrase',
@@ -113,7 +113,7 @@ await client.futures.getTrades({
 })
 ```
 
-Alternatively, you can set the environment variables `LNM_API_KEY`, `LNM_API_SECRET` and `LNM_API_PASSPHRASE` to authenticate, which will be used by default if no parameters are provided to the `createRestClient` function.
+Alternatively, you can set the environment variables `LNM_API_KEY`, `LNM_API_SECRET` and `LNM_API_PASSPHRASE` to authenticate, which will be used by default if no parameters are provided to the `createHttpClient` function.
 
 ## Function List
 

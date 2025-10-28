@@ -1,13 +1,10 @@
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
+
 import type { FuturesMarketDetails } from './types.js'
 
-export const createGetMarketDetails = (request: RestFetcher) => {
+export const createGetMarketDetails = (instance: KyInstance) => {
   /**
    * @see https://docs.lnmarkets.com/api/operations/futuresgetmarketdetails
    */
-  return async () =>
-    request<FuturesMarketDetails>({
-      method: 'GET',
-      path: '/futures/market',
-    })
+  return async () => instance.get('futures/market').json<FuturesMarketDetails>()
 }

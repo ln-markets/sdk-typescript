@@ -1,18 +1,14 @@
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
 
-export const createGetIndex = (request: RestFetcher) => {
+export const createGetIndex = (instance: KyInstance) => {
   /**
    * @see https://docs.lnmarkets.com/api/operations/oraclegetindex
    */
-  return async (query: { from: number; limit?: number; to: number }) =>
-    request<
+  return async (searchParams?: { from: number; limit?: number; to: number }) =>
+    instance.get('oracle', { searchParams }).json<
       {
         index: number
         time: number
       }[]
-    >({
-      method: 'GET',
-      path: '/oracle',
-      query,
-    })
+    >()
 }

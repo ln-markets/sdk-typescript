@@ -1,17 +1,16 @@
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
 
-export const createNewBitcoinAddress = (request: RestFetcher) => {
+export const createNewBitcoinAddress = (instance: KyInstance) => {
   /**
    * @see https://docs.lnmarkets.com/api/operations/usernewbitcoinaddress
    */
   return async (body: { format: 'p2tr' | 'p2wpkh' }) =>
-    request<{
-      address: string
-      creationTs: number
-    }>({
-      body,
-      method: 'POST',
-      path: '/user/bitcoin/address',
-      requireAuth: true,
-    })
+    instance
+      .post('user/bitcoin/address', {
+        json: body,
+      })
+      .json<{
+        address: string
+        creationTs: number
+      }>()
 }

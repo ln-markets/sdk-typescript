@@ -1,21 +1,16 @@
-import type { UUID } from '../../index.js'
-import type { RestFetcher } from '../../rest.js'
+import type { KyInstance } from 'ky'
 
-export const createGetCarryFeesHistory = (request: RestFetcher) => {
+export const createGetCarryFeesHistory = (instance: KyInstance) => {
   /**
    * @see https://docs.lnmarkets.com/api/operations/futuresgetcarryfees
    */
-  return async (query: { from: number; limit?: number; to: number }) =>
-    request<
+  return async (searchParams?: { from: number; limit?: number; to: number }) =>
+    instance.get('futures/carry-fees', { searchParams }).json<
       {
         fee: number
-        fixingId: UUID
-        id: UUID
+        fixingId: string
+        id: string
         ts: number
       }[]
-    >({
-      method: 'GET',
-      path: '/futures/carry-fees',
-      query,
-    })
+    >()
 }

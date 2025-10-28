@@ -1,13 +1,14 @@
+import type { KyInstance } from 'ky'
+
 import snakecaseKeys from 'snakecase-keys'
 
-import type { RestFetcher } from '../../rest.js'
 import type {
   OptionsSettlement,
   OptionsSide,
   OptionsTradeRunning,
 } from './types.js'
 
-export const createNewTrade = (request: RestFetcher) => {
+export const createNewTrade = (instance: KyInstance) => {
   /**
    * @see https://docs.lnmarkets.com/api/operations/optionsnewtrade
    */
@@ -17,10 +18,9 @@ export const createNewTrade = (request: RestFetcher) => {
     settlement: OptionsSettlement
     side: OptionsSide
   }) =>
-    request<OptionsTradeRunning>({
-      body: snakecaseKeys(body),
-      method: 'POST',
-      path: '/options',
-      requireAuth: true,
-    })
+    instance
+      .post('options', {
+        json: snakecaseKeys(body),
+      })
+      .json<OptionsTradeRunning>()
 }
