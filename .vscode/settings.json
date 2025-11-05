@@ -1,8 +1,8 @@
 {
-  "prettier.configPath": "prettier.config.js",
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.defaultFormatter": "oxc.oxc-vscode",
   "editor.formatOnSave": true,
   "oxc.enable": true,
   "oxc.lint.run": "onSave",
-  "oxc.typeAware": true
+  "oxc.typeAware": true,
+  "oxc.fmt.experimental": true
 }

@@ -22,7 +22,7 @@ jobs:
 
       - run: pnpm markdownlint --ignore-path .gitignore ./**/*.md
 
-      - run: pnpm prettier --check --no-error-on-unmatched-pattern --cache --cache-location .prettiercache .
+      - run: pnpm oxfmt --check --no-error-on-unmatched-pattern .
 
       - run: pnpm oxlint --type-aware
 
@@ -35,8 +35,8 @@ jobs:
       - run: pnpm test
         env:
           V2_API_KEY: ${{ secrets.V2_API_KEY }}
-          V2_API_SECRET: ${{ secrets.V2_API_SECRET }}
-          V2_API_PASSPHRASE: ${{ secrets.V2_API_PASSPHRASE }}
+          V2_API_KEY_SECRET: ${{ secrets.V2_API_KEY_SECRET }}
+          V2_API_KEY_PASSPHRASE: ${{ secrets.V2_API_KEY_PASSPHRASE }}
           V3_API_KEY: ${{ secrets.V3_API_KEY }}
-          V3_API_SECRET: ${{ secrets.V3_API_SECRET }}
-          V3_API_PASSPHRASE: ${{ secrets.V3_API_PASSPHRASE }}
+          V3_API_KEY_SECRET: ${{ secrets.V3_API_KEY_SECRET }}
+          V3_API_KEY_PASSPHRASE: ${{ secrets.V3_API_KEY_PASSPHRASE }}

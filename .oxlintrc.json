@@ -52,7 +52,7 @@
       }
     },
     {
-      "files": ["**/*.config.{js,ts}"],
+      "files": ["**/*.config.{js,ts}", "knip.ts"],
       "rules": {
         "import/extensions": "off",
         "import/no-default-export": "off",

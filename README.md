@@ -36,7 +36,7 @@
     Website
   </a>
   -
-  <a href="https://docs.lnmarkets.com/api/">
+  <a href="https://api.lnmarkets.com/v3/">
     API Reference
   </a>
   -
