@@ -8,10 +8,10 @@ export type GetIndexOutput = {
   time: Date
 }[]
 
-type GetIndex = (input: GetIndexInput) => Promise<GetIndexOutput>
+type GetIndex = (input?: GetIndexInput) => Promise<GetIndexOutput>
 
 export const createGetIndex = (instance: KyInstance): GetIndex => {
-  return async ({ from, limit = 100, to }) => {
+  return async ({ from, limit, to } = {}) => {
     return instance
       .get('oracle/index', { searchParams: { from, limit, to } })
       .json()

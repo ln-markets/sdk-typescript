@@ -14,13 +14,13 @@ export type FuturesIsolatedGetClosedTradesOutput = (
 )[]
 
 type GetClosedTrades = (
-  input: FuturesIsolatedGetClosedTradesInput
+  input?: FuturesIsolatedGetClosedTradesInput
 ) => Promise<FuturesIsolatedGetClosedTradesOutput>
 
 export const createGetClosedTrades = (
   instance: KyInstance
 ): GetClosedTrades => {
-  return async ({ from, limit, to }) => {
+  return async ({ from, limit, to } = {}) => {
     return instance
       .get('futures/isolated/trades/closed', {
         searchParams: { from, limit, to },

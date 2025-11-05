@@ -12,13 +12,13 @@ export type GetInternalWithdrawalsOutput = {
 }[]
 
 type GetInternalWithdrawals = (
-  input: GetInternalWithdrawalsInput
+  input?: GetInternalWithdrawalsInput
 ) => Promise<GetInternalWithdrawalsOutput>
 
 export const createGetInternalWithdrawals = (
   instance: KyInstance
 ): GetInternalWithdrawals => {
-  return async ({ from, limit, to }) => {
+  return async ({ from, limit, to } = {}) => {
     return instance
       .get('account/withdrawals/internal', {
         searchParams: { from, limit, to },

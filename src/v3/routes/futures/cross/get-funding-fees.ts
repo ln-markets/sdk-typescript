@@ -6,11 +6,11 @@ export type FuturesCrossGetFundingFeesInput = PaginationInput
 export type FuturesCrossGetFundingFeesOutput = FundingFees[]
 
 type GetFundingFees = (
-  input: FuturesCrossGetFundingFeesInput
+  input?: FuturesCrossGetFundingFeesInput
 ) => Promise<FuturesCrossGetFundingFeesOutput>
 
 export const createGetFundingFees = (instance: KyInstance): GetFundingFees => {
-  return async ({ from, limit, to }) => {
+  return async ({ from, limit, to } = {}) => {
     return instance
       .get('futures/cross/funding-fees', {
         searchParams: {

@@ -14,13 +14,13 @@ export type GetOnChainWithdrawalsOutput = {
 }[]
 
 type GetOnChainWithdrawals = (
-  input: GetOnChainWithdrawalsInput
+  input?: GetOnChainWithdrawalsInput
 ) => Promise<GetOnChainWithdrawalsOutput>
 
 export const createGetOnChainWithdrawals = (
   instance: KyInstance
 ): GetOnChainWithdrawals => {
-  return async ({ from, limit, to }) => {
+  return async ({ from, limit, to } = {}) => {
     return instance
       .get('account/withdrawals/on-chain', {
         searchParams: { from, limit, to },
