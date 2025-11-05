@@ -1,0 +1,81 @@
+{
+  "name": "@ln-markets/sdk",
+  "version": "1.0.0-beta",
+  "description": "TypeScript SDK for LNMarkets API",
+  "keywords": [
+    "ln-markets",
+    "api",
+    "sdk",
+    "trading",
+    "bitcoin",
+    "lightning"
+  ],
+  "homepage": "https://github.com/ln-markets/sdk-typescript#readme",
+  "bugs": {
+    "url": "https://github.com/ln-markets/sdk-typescript/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ln-markets/sdk-typescript.git"
+  },
+  "license": "MIT",
+  "type": "module",
+  "imports": {
+    "#src/*": "./src/*",
+    "#test/*": "./__test__/*"
+  },
+  "exports": {
+    ".": {
+      "v2": "./dist/v2/index.js",
+      "v3": "./dist/v3/index.js"
+    }
+  },
+  "main": "dist/index.js",
+  "types": "dist/types.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "LICENSE",
+    "README.md",
+    "package.json"
+  ],
+  "scripts": {
+    "build": "tsc --build tsconfig.build.json",
+    "format": "prettier --write --ignore-unknown '**'",
+    "function-table": "tsx scripts/function-list.ts",
+    "lint": "oxlint --type-aware",
+    "prepublishOnly": "tsc --build",
+    "spell-check": "cspell --show-context --no-progress '**'",
+    "test": "vitest --run",
+    "type-check": "tsc --noEmit",
+    "release": "np"
+  },
+  "dependencies": {
+    "camelcase-keys": "10.0.1",
+    "ky": "1.14.0",
+    "snakecase-keys": "9.0.2",
+    "ts-pattern": "5.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "24.10.0",
+    "cspell": "9.2.2",
+    "knip": "5.67.1",
+    "markdownlint-cli": "0.45.0",
+    "np": "10.2.0",
+    "oxlint": "1.25.0",
+    "oxlint-tsgolint": "0.5.0",
+    "prettier": "3.6.2",
+    "tsx": "4.20.6",
+    "typescript": "5.9.3",
+    "vite": "7.2.0",
+    "vitest": "4.0.7"
+  },
+  "packageManager": "pnpm@10.18.1",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=10"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
