@@ -1,6 +1,6 @@
 {
   "name": "@ln-markets/sdk",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "description": "TypeScript SDK for LNMarkets API",
   "keywords": [
     "ln-markets",
@@ -44,7 +44,7 @@
     "format": "prettier --write --ignore-unknown '**'",
     "function-table": "tsx scripts/function-list.ts",
     "lint": "oxlint --type-aware",
-    "prepublishOnly": "tsc --build",
+    "prepublishOnly": "tsc --build tsconfig.build.json",
     "spell-check": "cspell --show-context --no-progress '**'",
     "test": "vitest --run",
     "type-check": "tsc --noEmit",
