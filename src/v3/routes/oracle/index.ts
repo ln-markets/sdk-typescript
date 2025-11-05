@@ -9,7 +9,4 @@ export const createOracleRoutes = (instance: KyInstance) => ({
 })
 
 export type { GetIndexInput, GetIndexOutput } from './get-index.js'
-export type {
-  GetLastPriceInput,
-  GetLastPriceOutput,
-} from './get-last-price.js'
+export type { GetLastPriceInput, GetLastPriceOutput } from './get-last-price.js'

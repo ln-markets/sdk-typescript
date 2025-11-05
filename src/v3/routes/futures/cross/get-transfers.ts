@@ -11,13 +11,13 @@ export type FuturesCrossGetTransfersOutput = {
 }[]
 
 type GetTransfers = (
-  input: FuturesCrossGetTransfersInput
+  input?: FuturesCrossGetTransfersInput
 ) => Promise<FuturesCrossGetTransfersOutput>
 
 export const createGetTransfers = (instance: KyInstance): GetTransfers => {
-  return async ({ from, limit, to }) => {
+  return async (input) => {
     return instance
-      .get('futures/cross/transfers', { searchParams: { from, limit, to } })
+      .get('futures/cross/transfers', { searchParams: { ...input } })
       .json()
   }
 }

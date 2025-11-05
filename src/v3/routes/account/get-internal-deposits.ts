@@ -12,15 +12,15 @@ export type GetInternalDepositsOutput = {
 }[]
 
 type GetInternalDeposits = (
-  input: GetInternalDepositsInput
+  input?: GetInternalDepositsInput
 ) => Promise<GetInternalDepositsOutput>
 
 export const createGetInternalDeposits = (
   instance: KyInstance
 ): GetInternalDeposits => {
-  return async ({ from, limit, to }) => {
+  return async (input) => {
     return instance
-      .get('account/deposits/internal', { searchParams: { from, limit, to } })
+      .get('account/deposits/internal', { searchParams: { ...input } })
       .json()
   }
 }

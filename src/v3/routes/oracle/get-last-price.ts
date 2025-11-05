@@ -8,12 +8,12 @@ export type GetLastPriceOutput = {
   time: Date
 }[]
 
-type GetLastPrice = (input: GetLastPriceInput) => Promise<GetLastPriceOutput>
+type GetLastPrice = (input?: GetLastPriceInput) => Promise<GetLastPriceOutput>
 
 export const createGetLastPrice = (instance: KyInstance): GetLastPrice => {
-  return async ({ from, limit = 100, to }) => {
+  return async (input) => {
     return instance
-      .get('oracle/last-price', { searchParams: { from, limit, to } })
+      .get('oracle/last-price', { searchParams: { ...input } })
       .json()
   }
 }

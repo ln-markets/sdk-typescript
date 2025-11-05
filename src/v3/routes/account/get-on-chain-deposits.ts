@@ -35,15 +35,15 @@ export type GetOnChainDepositsInput = PaginationInput
 export type GetOnChainDepositsOutput = BitcoinDeposit[]
 
 type GetOnChainDeposits = (
-  input: GetOnChainDepositsInput
+  input?: GetOnChainDepositsInput
 ) => Promise<GetOnChainDepositsOutput>
 
 export const createGetOnChainDeposits = (
   instance: KyInstance
 ): GetOnChainDeposits => {
-  return async ({ from, limit, to }) => {
+  return async (input) => {
     return instance
-      .get('account/deposits/on-chain', { searchParams: { from, limit, to } })
+      .get('account/deposits/on-chain', { searchParams: { ...input } })
       .json()
   }
 }

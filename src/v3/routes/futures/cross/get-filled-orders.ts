@@ -20,15 +20,15 @@ export type FuturesCrossGetFilledOrdersOutput = {
 }[]
 
 type GetFilledOrders = (
-  input: FuturesCrossGetFilledOrdersInput
+  input?: FuturesCrossGetFilledOrdersInput
 ) => Promise<FuturesCrossGetFilledOrdersOutput>
 
 export const createGetFilledOrders = (
   instance: KyInstance
 ): GetFilledOrders => {
-  return async ({ from, limit, to }) => {
+  return async (input) => {
     return instance
-      .get('futures/cross/orders/filled', { json: { from, limit, to } })
+      .get('futures/cross/orders/filled', { json: { ...input } })
       .json()
   }
 }
