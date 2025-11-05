@@ -1,0 +1,54 @@
+{
+  "dictionaries": [
+    "node",
+    "npm",
+    "en-gb"
+  ],
+  "ignorePaths": [
+    "pnpm-lock.yaml",
+    "node_modules",
+    "reports",
+    "dist",
+    "coverage",
+    "build",
+    ".env",
+    ".vscode",
+    "images/logo-gradient.svg",
+    "package.json"
+  ],
+  "language": "en",
+  "enableFiletypes": [
+    "*"
+  ],
+  "words": [
+    "isnan",
+    "knipcache",
+    "lnmarkets",
+    "mainnet",
+    "nonconstructor",
+    "nonoctal",
+    "nostr",
+    "ohlc",
+    "Ohlc",
+    "ohlcs",
+    "oxlint",
+    "oxlintrc",
+    "prettiercache",
+    "snakecase",
+    "stoploss",
+    "susd",
+    "takeprofit",
+    "totp",
+    "trunc",
+    "webauthn",
+    "wpkh",
+    "neverthrow",
+    "Authentification",
+    "Anypassword",
+    "bitmex",
+    "linkingpublickey",
+    "bybit",
+    "deribit",
+    "lnbc"
+  ]
+}

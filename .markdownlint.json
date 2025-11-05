@@ -1,0 +1,10 @@
+{
+  "default": true,
+  "MD033": {
+    "allowed_elements": ["table", "a", "img", "p", "h1", "h2"]
+  },
+  "MD013": {
+    "line_length": 1000
+  },
+  "MD041": false
+}

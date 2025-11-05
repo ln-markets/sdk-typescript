@@ -1,0 +1,63 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "eslint", "unicorn", "import", "oxc"],
+  // All rules in all plugins are enabled and we can filter by category
+  // It's easier to disable rules like this
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "pedantic": "error",
+    "perf": "error",
+    "style": "error",
+    "restriction": "error"
+  },
+  "rules": {
+    // Force having file extensions
+    "import/extensions": ["error", "always"],
+    // We always use async
+    "oxc/no-async-await": "off",
+    "typescript/explicit-function-return-type": "off",
+    "typescript/explicit-module-boundary-types": "off",
+    "oxc/no-optional-chaining": "off",
+    "eslint/no-undefined": "warn",
+    "oxc/no-barrel-file": "warn",
+    "import/no-named-export": "off",
+    "import/group-exports": "off",
+    // Does not handle type imports
+    "eslint/no-duplicate-imports": "off",
+    "import/prefer-default-export": "off",
+    "eslint/arrow-body-style": "off",
+    "eslint/no-ternary": "off",
+    "eslint/id-length": "off",
+    // Wait until real autofix ?
+    "eslint/sort-imports": "off",
+    "eslint/no-continue": "off",
+    "eslint/require-await": "off",
+    "import/max-dependencies": "off",
+    "eslint/max-lines-per-function": "off",
+    "eslint/sort-keys": "off",
+    "eslint/no-magic-numbers": "off",
+    "oxc/no-rest-spread-properties": "off",
+    "eslint/no-empty-function": "off",
+    "import/exports-last": "off"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.test.ts"],
+      "rules": {
+        "typescript/no-unsafe-assignment": "off",
+        "typescript/no-unsafe-type-assertion": "off",
+        "eslint/no-empty-pattern": "off",
+        "unicorn/no-null": "off"
+      }
+    },
+    {
+      "files": ["**/*.config.{js,ts}"],
+      "rules": {
+        "import/extensions": "off",
+        "import/no-default-export": "off",
+        "import/no-anonymous-default-export": "off"
+      }
+    }
+  ]
+}
