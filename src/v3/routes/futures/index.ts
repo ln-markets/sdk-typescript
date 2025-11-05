@@ -68,4 +68,5 @@ export type {
   FuturesIsolatedUpdateStoplossOutput,
   FuturesIsolatedUpdateTakeprofitInput,
   FuturesIsolatedUpdateTakeprofitOutput,
+  FuturesIsolatedGetClosedTradesInput,
 } from './isolated/index.js'

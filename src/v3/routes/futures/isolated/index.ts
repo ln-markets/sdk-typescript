@@ -30,7 +30,10 @@ export type {
   FuturesIsolatedCloseTradeInput,
   FuturesIsolatedCloseOutput,
 } from './close.js'
-export type { FuturesIsolatedGetClosedTradesOutput } from './get-closed-trades.js'
+export type {
+  FuturesIsolatedGetClosedTradesOutput,
+  FuturesIsolatedGetClosedTradesInput,
+} from './get-closed-trades.js'
 export type {
   FuturesIsolatedGetFundingFeesInput,
   FuturesIsolatedGetFundingFeesOutput,

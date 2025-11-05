@@ -90,6 +90,7 @@ export type {
   FuturesIsolatedUpdateStoplossOutput,
   FuturesIsolatedUpdateTakeprofitInput,
   FuturesIsolatedUpdateTakeprofitOutput,
+  FuturesIsolatedGetClosedTradesInput,
   GetCandlesInput,
   GetCandlesOutput,
   GetFundingSettlementsInput,

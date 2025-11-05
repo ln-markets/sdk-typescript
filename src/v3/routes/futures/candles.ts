@@ -36,7 +36,7 @@ export type GetCandlesOutput = {
 type GetCandles = (input: GetCandlesInput) => Promise<GetCandlesOutput>
 
 export const createGetCandles = (instance: KyInstance): GetCandles => {
-  return async ({ from, limit = 100, range = '1m', to }) => {
+  return async ({ from, limit, range, to }) => {
     return instance
       .get('futures/candles', { searchParams: { from, limit, range, to } })
       .json()

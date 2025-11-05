@@ -86,6 +86,36 @@ describe('v3', () => {
         id: result.id,
       })
     })
+
+    test('should list closed trades', async ({ authClient }) => {
+      const result = await authClient.futures.isolated.getClosedTrades({
+        from: new Date('2025-01-01').toISOString(),
+        to: new Date('2025-10-01').toISOString(),
+        limit: 10,
+      })
+
+      expect(result).toMatchObject([])
+    })
+
+    test('get candles', async ({ authClient }) => {
+      const result = await authClient.futures.getCandles({
+        from: new Date('2025-01-01').toISOString(),
+        to: new Date('2025-10-01').toISOString(),
+        limit: 10,
+        range: '1m',
+      })
+
+      expect(result).toMatchObject(
+        expect.arrayContaining([
+          expect.objectContaining({
+            close: expect.any(Number),
+            high: expect.any(Number),
+            low: expect.any(Number),
+            open: expect.any(Number),
+          }),
+        ])
+      )
+    })
   })
 
   describe('get user', () => {
