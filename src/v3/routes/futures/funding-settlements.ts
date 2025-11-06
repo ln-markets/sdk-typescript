@@ -3,15 +3,12 @@ import type { PaginationInput } from '../../types.js'
 
 export type GetFundingSettlementsInput = PaginationInput
 
-export interface GetFundingSettlementsOutput {
-  data: {
-    id: string
-    time: Date
-    fundingRate: number
-    fixingPrice: number
-  }[]
-  count: number
-}
+export type GetFundingSettlementsOutput = {
+  id: string
+  time: Date
+  fundingRate: number
+  fixingPrice: number
+}[]
 
 type GetFundingSettlements = (
   input?: GetFundingSettlementsInput
