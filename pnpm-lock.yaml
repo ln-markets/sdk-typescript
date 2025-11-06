@@ -37,7 +37,7 @@ importers:
         specifier: 10.2.0
         version: 10.2.0(@types/node@24.10.0)(typescript@5.9.3)
       oxfmt:
-        specifier: ^0.11.0
+        specifier: 0.11.0
         version: 0.11.0
       oxlint:
         specifier: 1.26.0
