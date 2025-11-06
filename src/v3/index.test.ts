@@ -46,6 +46,13 @@ describe('v3', () => {
       const ping = await client.ping()
       expect(ping).toBe('pong')
     })
+
+    test('should return ping with authenticated client', async ({
+      authClient,
+    }) => {
+      const ping = await authClient.ping()
+      expect(ping).toBe('pong')
+    })
   })
 
   describe('get invoice', () => {
