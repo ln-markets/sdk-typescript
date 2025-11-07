@@ -6,7 +6,7 @@ export interface AddBitcoinAddressInput {
 
 export interface AddBitcoinAddressOutput {
   address: string
-  createdAt: Date
+  createdAt: string
 }
 
 type AddBitcoinAddress = (

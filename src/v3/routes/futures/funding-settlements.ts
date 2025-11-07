@@ -5,7 +5,7 @@ export type GetFundingSettlementsInput = PaginationInput
 
 export type GetFundingSettlementsOutput = {
   id: string
-  time: Date
+  time: string
   fundingRate: number
   fixingPrice: number
 }[]

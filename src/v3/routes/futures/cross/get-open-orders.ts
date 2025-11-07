@@ -3,7 +3,7 @@ import type { KyInstance } from 'ky'
 export type FuturesCrossGetOpenOrdersOutput = {
   canceled: false
   canceledAt: null
-  createdAt: Date
+  createdAt: string
   filled: false
   filledAt: null
   id: string

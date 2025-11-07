@@ -5,7 +5,7 @@ export type GetLastPriceInput = PaginationInput
 
 export type GetLastPriceOutput = {
   lastPrice: number
-  time: Date
+  time: string
 }[]
 
 type GetLastPrice = (input?: GetLastPriceInput) => Promise<GetLastPriceOutput>

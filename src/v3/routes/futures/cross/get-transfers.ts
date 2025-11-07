@@ -6,7 +6,7 @@ export type FuturesCrossGetTransfersInput = PaginationInput
 export type FuturesCrossGetTransfersOutput = {
   amount: number
   id: string
-  time: Date
+  time: string
   uid: string
 }[]
 

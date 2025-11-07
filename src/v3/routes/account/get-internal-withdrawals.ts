@@ -5,7 +5,7 @@ export type GetInternalWithdrawalsInput = PaginationInput
 
 export type GetInternalWithdrawalsOutput = {
   amount: number
-  createdAt: Date
+  createdAt: string
   id: string
   success: boolean | null
   toUsername: string

@@ -1,12 +1,14 @@
 import type { KyInstance } from 'ky'
 import type { PaginationInput } from '../../types.js'
 
-export type GetOnChainWithdrawalsInput = PaginationInput
+export type GetOnChainWithdrawalsInput = PaginationInput & {
+  status?: 'canceled' | 'pending' | 'processed' | 'processing' | 'rejected'
+}
 
 export type GetOnChainWithdrawalsOutput = {
   address: string
   amount: number
-  createdAt: Date
+  createdAt: string
   fee: null | number
   id: string
   status: 'canceled' | 'pending' | 'processed' | 'processing' | 'rejected'
@@ -20,10 +22,10 @@ type GetOnChainWithdrawals = (
 export const createGetOnChainWithdrawals = (
   instance: KyInstance
 ): GetOnChainWithdrawals => {
-  return async ({ from, limit, to } = {}) => {
+  return async ({ from, limit, to, status } = {}) => {
     return instance
       .get('account/withdrawals/on-chain', {
-        searchParams: { from, limit, to },
+        searchParams: { from, limit, to, status },
       })
       .json()
   }

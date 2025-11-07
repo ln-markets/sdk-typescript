@@ -14,8 +14,8 @@ export interface PaginationInput {
 
 export interface FuturesCrossCanceledOrder {
   canceled: true
-  canceledAt: Date
-  createdAt: Date
+  canceledAt: string
+  createdAt: string
   filled: false
   filledAt: null
   id: string
@@ -32,7 +32,7 @@ export type FuturesCrossOrder =
   | {
       canceled: false
       canceledAt: null
-      createdAt: Date
+      createdAt: string
       filled: false
       filledAt: null
       id: string
@@ -47,9 +47,9 @@ export type FuturesCrossOrder =
   | {
       canceled: false
       canceledAt: null
-      createdAt: Date
+      createdAt: string
       filled: true
-      filledAt: Date
+      filledAt: string
       id: string
       open: false
       price: number
@@ -61,8 +61,8 @@ export type FuturesCrossOrder =
     }
   | {
       canceled: true
-      canceledAt: Date
-      createdAt: Date
+      canceledAt: string
+      createdAt: string
       filled: false
       filledAt: null
       id: string
@@ -77,12 +77,12 @@ export type FuturesCrossOrder =
 
 export interface FuturesCrossPosition {
   deltaPl: number
-  entryPrice: null | number
+  entryPrice: number | null
   fundingFees: number
   id: string
   initialMargin: number
   leverage: number
-  liquidation: null | number
+  liquidation: number | null
   maintenanceMargin: number
   margin: number
   quantity: number
@@ -90,62 +90,28 @@ export interface FuturesCrossPosition {
   totalPl: number
   tradingFees: number
   uid: string
-  updatedAt: Date
+  updatedAt: string
 }
 
 // ============================================================================
 // Futures Isolated Types (Shared across multiple routes)
 // ============================================================================
+export type FuturesTradeSide = 'b' | 's'
 
-export type FuturesCanceledTrade = FuturesTrade & {
-  canceled: true
-  closed: false
-  closedAt: number
-  filledAt: undefined
-  open: false
-  running: false
-  type: 'l'
-}
+export type FuturesTradeStatus = 'closed' | 'open' | 'running'
 
-export type FuturesClosedTrade = FuturesTrade & {
-  canceled: false
-  closed: true
-  closedAt: number
-  exitPrice: number
-  filledAt: number
-  open: false
-  running: false
-}
-
-export type FuturesOpenOrRunningTrade = FuturesOpenTrade | FuturesRunningTrade
-
-export type FuturesOpenTrade = FuturesTrade & {
-  canceled: false
-  closed: false
-  closedAt: undefined
-  filledAt: undefined
-  running: false
-  type: 'l'
-}
-
-export type FuturesRunningTrade = FuturesTrade & {
-  canceled: false
-  closed: false
-  closedAt: undefined
-  filledAt: number
-  running: true
-}
+export type FuturesTradeType = 'l' | 'm'
 
 export interface FuturesTrade {
   canceled: boolean
   closed: boolean
-  closedAt?: string
+  closedAt: string | null
   closingFee: number
   createdAt: string
-  entryMargin?: number
-  entryPrice?: number
-  exitPrice?: number
-  filledAt?: string
+  entryMargin: number
+  entryPrice: number | null
+  exitPrice: number | null
+  filledAt: string | null
   id: string
   leverage: number
   liquidation: number
@@ -163,13 +129,47 @@ export interface FuturesTrade {
   takeprofit: number
   type: FuturesTradeType
   uid: string
+  clientId: string | null
 }
 
-export type FuturesTradeSide = 'b' | 's'
+export type FuturesCanceledTrade = FuturesTrade & {
+  canceled: true
+  closed: false
+  closedAt: string
+  filledAt: null
+  open: false
+  running: false
+  type: 'l'
+}
 
-export type FuturesTradeStatus = 'closed' | 'open' | 'running'
+export type FuturesClosedTrade = FuturesTrade & {
+  canceled: false
+  closed: true
+  closedAt: string
+  exitPrice: number
+  filledAt: string
+  open: false
+  running: false
+}
 
-export type FuturesTradeType = 'l' | 'm'
+export type FuturesOpenOrRunningTrade = FuturesOpenTrade | FuturesRunningTrade
+
+export type FuturesOpenTrade = FuturesTrade & {
+  canceled: false
+  closed: false
+  closedAt: null
+  filledAt: null
+  running: false
+  type: 'l'
+}
+
+export type FuturesRunningTrade = FuturesTrade & {
+  canceled: false
+  closed: false
+  closedAt: null
+  filledAt: null
+  running: true
+}
 
 // ============================================================================
 // Funding Fees Types (Shared across multiple routes)

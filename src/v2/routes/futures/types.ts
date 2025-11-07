@@ -2,7 +2,7 @@ export type FuturesCanceledTrade = FuturesTrade & {
   canceled: true
   closed: false
   closedTs: number
-  marketFilledTs: undefined
+  marketFilledTs: null
   open: false
   running: false
   type: 'l'
@@ -53,8 +53,8 @@ export type FuturesOpenOrRunningTrade = FuturesOpenTrade | FuturesRunningTrade
 export type FuturesOpenTrade = FuturesTrade & {
   canceled: false
   closed: false
-  closedTs: undefined
-  marketFilledTs: undefined
+  closedTs: null
+  marketFilledTs: null
   running: false
   type: 'l'
 }
@@ -62,7 +62,7 @@ export type FuturesOpenTrade = FuturesTrade & {
 export type FuturesRunningTrade = FuturesTrade & {
   canceled: false
   closed: false
-  closedTs: undefined
+  closedTs: null
   marketFilledTs: number
   running: true
 }

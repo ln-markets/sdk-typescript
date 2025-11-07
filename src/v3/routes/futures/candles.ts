@@ -29,7 +29,7 @@ export type GetCandlesOutput = {
   high: number
   low: number
   open: number
-  time: Date
+  time: string
   volume: number
 }[]
 

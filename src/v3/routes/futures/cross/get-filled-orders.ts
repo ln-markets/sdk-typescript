@@ -6,9 +6,9 @@ export type FuturesCrossGetFilledOrdersInput = PaginationInput
 export type FuturesCrossGetFilledOrdersOutput = {
   canceled: false
   canceledAt: null
-  createdAt: Date
+  createdAt: string
   filled: true
-  filledAt: Date
+  filledAt: string
   id: string
   open: false
   price: number

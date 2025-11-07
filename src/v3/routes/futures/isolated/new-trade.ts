@@ -4,8 +4,9 @@ import type { FuturesOpenOrRunningTrade } from '../../../types.js'
 type FuturesOrder = ({
   leverage: number
   side: 'b' | 's'
-  stoploss?: number | undefined
-  takeprofit?: number | undefined
+  stoploss?: number
+  takeprofit?: number
+  clientId?: string
 } & (
   | {
       margin: number
@@ -45,6 +46,7 @@ export const createNewTrade = (instance: KyInstance): NewTrade => {
     stoploss,
     takeprofit,
     type,
+    clientId,
   }) => {
     return instance
       .post('futures/isolated/trade', {
@@ -57,6 +59,7 @@ export const createNewTrade = (instance: KyInstance): NewTrade => {
           stoploss,
           takeprofit,
           type,
+          clientId,
         },
       })
       .json()

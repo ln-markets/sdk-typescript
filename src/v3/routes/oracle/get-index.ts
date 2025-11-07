@@ -5,7 +5,7 @@ export type GetIndexInput = PaginationInput
 
 export type GetIndexOutput = {
   index: number
-  time: Date
+  time: string
 }[]
 
 type GetIndex = (input?: GetIndexInput) => Promise<GetIndexOutput>

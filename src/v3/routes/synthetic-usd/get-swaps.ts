@@ -4,7 +4,7 @@ import type { PaginationInput } from '../../types.js'
 export type GetSwapsInput = PaginationInput
 
 export type GetSwapsOutput = {
-  createdAt: Date
+  createdAt: string
   id: string
   inAmount: number
   inAsset: 'BTC' | 'USD'

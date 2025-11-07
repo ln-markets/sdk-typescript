@@ -7,7 +7,7 @@ export interface WithdrawInternalInput {
 
 export interface WithdrawInternalOutput {
   id: string
-  createdAt: Date
+  createdAt: string
   fromUid: string
   toUid: string
   amount: number

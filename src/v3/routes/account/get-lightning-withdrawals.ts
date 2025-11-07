@@ -1,11 +1,13 @@
 import type { KyInstance } from 'ky'
 import type { PaginationInput } from '../../types.js'
 
-export type GetLightningWithdrawalsInput = PaginationInput
+export type GetLightningWithdrawalsInput = PaginationInput & {
+  status?: 'failed' | 'processed' | 'processing'
+}
 
 export type GetLightningWithdrawalsOutput = {
   amount: number
-  createdAt: Date
+  createdAt: string
   destination: null | string
   fee: number
   id: string
@@ -20,10 +22,10 @@ type GetLightningWithdrawals = (
 export const createGetLightningWithdrawals = (
   instance: KyInstance
 ): GetLightningWithdrawals => {
-  return async (input) => {
+  return async ({ from, limit, to, status } = {}) => {
     return instance
       .get('account/withdrawals/lightning', {
-        searchParams: { ...input },
+        searchParams: { from, limit, to, status },
       })
       .json()
   }

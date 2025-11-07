@@ -8,13 +8,13 @@ export interface WithdrawOnChainInput {
 export interface WithdrawOnChainOutput {
   address: string
   amount: number
-  createdAt: Date
+  createdAt: string
   fee: null | number
   id: string
   status: 'pending'
   txId: null
   uid: string
-  updatedAt: Date
+  updatedAt: string
 }
 
 type WithdrawOnChain = (

@@ -6,7 +6,7 @@ type BitcoinDeposit =
       amount: number
       blockHeight: null
       confirmations: 0
-      createdAt: Date
+      createdAt: string
       id: string
       status: 'MEMPOOL'
       txId: string
@@ -15,7 +15,7 @@ type BitcoinDeposit =
       amount: number
       blockHeight: number
       confirmations: number
-      createdAt: Date
+      createdAt: string
       id: string
       status: 'CONFIRMED'
       txId: string
@@ -24,13 +24,15 @@ type BitcoinDeposit =
       amount: number
       blockHeight: number
       confirmations: number
-      createdAt: Date
+      createdAt: string
       id: string
       status: 'IRREVERSIBLE'
       txId: string
     }
 
-export type GetOnChainDepositsInput = PaginationInput
+export type GetOnChainDepositsInput = PaginationInput & {
+  status?: 'MEMPOOL' | 'CONFIRMED' | 'IRREVERSIBLE'
+}
 
 export type GetOnChainDepositsOutput = BitcoinDeposit[]
 
@@ -41,9 +43,11 @@ type GetOnChainDeposits = (
 export const createGetOnChainDeposits = (
   instance: KyInstance
 ): GetOnChainDeposits => {
-  return async ({ from, limit, to } = {}) => {
+  return async ({ from, limit, to, status } = {}) => {
     return instance
-      .get('account/deposits/on-chain', { searchParams: { from, limit, to } })
+      .get('account/deposits/on-chain', {
+        searchParams: { from, limit, to, status },
+      })
       .json()
   }
 }

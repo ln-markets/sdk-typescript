@@ -1,7 +1,7 @@
 import { describe, expect, test as base } from 'vitest'
 
 import type { HttpClient } from './index.js'
-
+import { HTTPError } from 'ky'
 import { createHttpClient } from './index.js'
 
 const test = base.extend<{
@@ -37,7 +37,7 @@ describe('v3', () => {
   describe('basics', () => {
     test('should return time', async ({ client }) => {
       const result = await client.time()
-      expect(result).toMatchObject({
+      expect(result).toStrictEqual({
         time: expect.any(String),
       })
     })
@@ -60,14 +60,55 @@ describe('v3', () => {
       const result = await authClient.account.depositLightning({
         amount: 100_000,
       })
-      expect(result).toMatchObject({
+
+      expect(result).toStrictEqual({
         depositId: expect.any(String),
         paymentRequest: expect.any(String),
       })
     })
+
+    test('should fetch not settled lightning deposits', async ({
+      authClient,
+    }) => {
+      const result = await authClient.account.getLightningDeposits({
+        settled: false,
+      })
+
+      expect(result).toStrictEqual(
+        expect.arrayContaining([
+          {
+            amount: expect.any(Number),
+            comment: null,
+            createdAt: expect.any(String),
+            id: expect.any(String),
+            paymentHash: expect.any(String),
+            settledAt: null,
+          },
+        ])
+      )
+    })
+
+    test('should fetch settled lightning deposits', async ({ authClient }) => {
+      const result = await authClient.account.getLightningDeposits({
+        settled: true,
+      })
+
+      expect(result).toStrictEqual([])
+    })
   })
 
   describe('futures', () => {
+    test('should error', async ({ authClient }) => {
+      await expect(
+        authClient.futures.cross.newOrder({
+          type: 'limit',
+          side: 'b',
+          price: 1.5,
+          quantity: 1,
+        })
+      ).rejects.toThrow(HTTPError)
+    })
+
     test('should open a new trade', async ({ authClient }) => {
       const result = await authClient.futures.isolated.newTrade({
         type: 'l',
@@ -75,23 +116,39 @@ describe('v3', () => {
         price: 100_000,
         quantity: 1,
         leverage: 100,
+        clientId: 'test-client-id',
       })
 
-      expect(result).toMatchObject({
+      expect(result).toStrictEqual({
+        canceled: false,
+        closed: false,
+        closedAt: null,
+        closingFee: 0,
+        createdAt: expect.any(String),
+        entryMargin: 10,
+        entryPrice: 100_000,
+        exitPrice: null,
+        filledAt: null,
         id: expect.any(String),
-        running: expect.any(Boolean),
-        side: expect.any(String),
-        type: expect.any(String),
-        leverage: expect.any(Number),
+        leverage: 100,
+        liquidation: 99_010,
+        maintenanceMargin: 2,
         margin: expect.any(Number),
-        price: expect.any(Number),
-        quantity: expect.any(Number),
+        open: true,
+        openingFee: 0,
+        pl: 0,
+        price: 100_000,
+        quantity: 1,
+        running: false,
+        side: expect.any(String),
         stoploss: expect.any(Number),
+        sumFundingFees: 0,
+        takeprofit: 0,
+        type: expect.any(String),
+        clientId: 'test-client-id',
       })
 
-      await authClient.futures.isolated.cancel({
-        id: result.id,
-      })
+      await authClient.futures.isolated.cancel({ id: result.id })
     })
 
     test('should list closed trades', async ({ authClient }) => {
@@ -112,6 +169,7 @@ describe('v3', () => {
         range: '1m',
       })
 
+      expect(result).toHaveLength(10)
       expect(result).toMatchObject(
         expect.arrayContaining([
           expect.objectContaining({
@@ -131,12 +189,13 @@ describe('v3', () => {
     })
 
     test('should return the user', async ({ authClient }) => {
-      await expect(authClient.account.get()).resolves.toMatchObject({
+      await expect(authClient.account.get()).resolves.toStrictEqual({
         balance: expect.any(Number),
         email: null,
         feeTier: expect.any(Number),
         id: expect.any(String),
         syntheticUsdBalance: expect.any(Number),
+        linkingPublicKey: expect.any(String),
         username: expect.any(String),
       })
     })
