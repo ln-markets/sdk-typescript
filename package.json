@@ -44,7 +44,7 @@
     "format": "oxfmt",
     "function-table": "tsx scripts/function-list.ts",
     "lint": "oxlint --type-aware",
-    "prepublishOnly": "tsc --build tsconfig.build.json",
+    "prepublishOnly": "./scripts/pre-release.sh",
     "spell-check": "cspell --show-context --no-progress '**'",
     "test": "vitest --run",
     "type-check": "tsc --noEmit",
