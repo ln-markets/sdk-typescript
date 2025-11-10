@@ -10,7 +10,7 @@ export type FuturesCrossGetOpenOrdersOutput = {
   open: true
   price: number
   quantity: number
-  side: 'b' | 's'
+  side: 'buy' | 'sell'
   tradingFee: number
   type: 'limit'
   uid: string

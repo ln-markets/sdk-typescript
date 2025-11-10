@@ -22,7 +22,7 @@ export interface FuturesCrossCanceledOrder {
   open: false
   price: number
   quantity: number
-  side: 'b' | 's'
+  side: 'buy' | 'sell'
   tradingFee: number
   type: 'limit'
   uid: string
@@ -39,7 +39,7 @@ export type FuturesCrossOrder =
       open: true
       price: number
       quantity: number
-      side: 'b' | 's'
+      side: 'buy' | 'sell'
       tradingFee: number
       type: 'limit'
       uid: string
@@ -54,7 +54,7 @@ export type FuturesCrossOrder =
       open: false
       price: number
       quantity: number
-      side: 'b' | 's'
+      side: 'buy' | 'sell'
       tradingFee: number
       type: 'limit' | 'liquidation' | 'market'
       uid: string
@@ -69,7 +69,7 @@ export type FuturesCrossOrder =
       open: false
       price: number
       quantity: number
-      side: 'b' | 's'
+      side: 'buy' | 'sell'
       tradingFee: number
       type: 'limit'
       uid: string
@@ -96,11 +96,11 @@ export interface FuturesCrossPosition {
 // ============================================================================
 // Futures Isolated Types (Shared across multiple routes)
 // ============================================================================
-export type FuturesTradeSide = 'b' | 's'
+export type FuturesTradeSide = 'buy' | 'sell'
 
 export type FuturesTradeStatus = 'closed' | 'open' | 'running'
 
-export type FuturesTradeType = 'l' | 'm'
+export type FuturesTradeType = 'limit' | 'market'
 
 export interface FuturesTrade {
   canceled: boolean
@@ -139,7 +139,7 @@ export type FuturesCanceledTrade = FuturesTrade & {
   filledAt: null
   open: false
   running: false
-  type: 'l'
+  type: 'limit'
 }
 
 export type FuturesClosedTrade = FuturesTrade & {
@@ -160,7 +160,7 @@ export type FuturesOpenTrade = FuturesTrade & {
   closedAt: null
   filledAt: null
   running: false
-  type: 'l'
+  type: 'limit'
 }
 
 export type FuturesRunningTrade = FuturesTrade & {

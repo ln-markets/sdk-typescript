@@ -162,16 +162,16 @@ const client = createHttpClient({
 
 // Open a new long position with market order
 const marketTrade = await client.futures.isolated.newTrade({
-  type: 'm', // 'm' for market, 'l' for limit
-  side: 'b', // 'b' for buy/long, 's' for sell/short
+  type: 'market', 
+  side: 'buy',
   quantity: 10000,
   leverage: 25,
 })
 
 // Open a long position with limit order
 const limitTrade = await client.futures.isolated.newTrade({
-  type: 'l',
-  side: 'b',
+  type: 'limit',
+  side: 'buy',
   price: 67000, // Limit price
   margin: 20000,
   leverage: 10,
@@ -256,14 +256,14 @@ await client.futures.cross.setLeverage({
 // Place a market order
 const marketOrder = await client.futures.cross.newOrder({
   type: 'market',
-  side: 'b', // 'b' for buy/long, 's' for sell/short
+  side: 'buy', // 'buy' for buy/long, 'sell' for sell/short
   quantity: 1000, // Quantity in USD
 })
 
 // Place a limit order
 const limitOrder = await client.futures.cross.newOrder({
   type: 'limit',
-  side: 's',
+  side: 'sell',
   quantity: 500,
   price: 68000,
 })

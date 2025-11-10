@@ -3,7 +3,7 @@ import type { FuturesCrossOrder } from '../../../types.js'
 
 export type FuturesCrossNewOrderInput = {
   quantity: number
-  side: 'b' | 's'
+  side: 'buy' | 'sell'
 } & (
   | {
       price: number

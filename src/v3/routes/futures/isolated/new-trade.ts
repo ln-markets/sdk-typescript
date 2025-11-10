@@ -3,7 +3,7 @@ import type { FuturesOpenOrRunningTrade } from '../../../types.js'
 
 type FuturesOrder = ({
   leverage: number
-  side: 'b' | 's'
+  side: 'buy' | 'sell'
   stoploss?: number
   takeprofit?: number
   clientId?: string
@@ -20,11 +20,11 @@ type FuturesOrder = ({
   (
     | {
         price: number
-        type: 'l'
+        type: 'limit'
       }
     | {
         price?: undefined
-        type: 'm'
+        type: 'market'
       }
   )
 

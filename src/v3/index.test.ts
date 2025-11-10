@@ -94,7 +94,7 @@ describe('v3', () => {
       await expect(
         authClient.futures.cross.newOrder({
           type: 'limit',
-          side: 'b',
+          side: 'buy',
           price: 1.5,
           quantity: 1,
         })
@@ -103,8 +103,8 @@ describe('v3', () => {
 
     test('should open a new trade', async ({ authClient }) => {
       const result = await authClient.futures.isolated.newTrade({
-        type: 'l',
-        side: 'b',
+        type: 'limit',
+        side: 'buy',
         price: 100_000,
         quantity: 1,
         leverage: 100,
