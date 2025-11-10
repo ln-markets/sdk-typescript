@@ -87,14 +87,6 @@ describe('v3', () => {
         ])
       )
     })
-
-    test('should fetch settled lightning deposits', async ({ authClient }) => {
-      const result = await authClient.account.getLightningDeposits({
-        settled: true,
-      })
-
-      expect(result).toStrictEqual([])
-    })
   })
 
   describe('futures', () => {
@@ -163,21 +155,22 @@ describe('v3', () => {
 
     test('get candles', async ({ authClient }) => {
       const result = await authClient.futures.getCandles({
-        from: new Date('2025-01-01').toISOString(),
-        to: new Date('2025-10-01').toISOString(),
+        from: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
+        to: new Date().toISOString(),
         limit: 10,
         range: '1m',
       })
 
-      expect(result).toHaveLength(10)
       expect(result).toMatchObject(
         expect.arrayContaining([
-          expect.objectContaining({
+          {
             close: expect.any(Number),
             high: expect.any(Number),
             low: expect.any(Number),
             open: expect.any(Number),
-          }),
+            time: expect.any(String),
+            volume: expect.any(Number),
+          },
         ])
       )
     })

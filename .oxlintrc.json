@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["typescript", "unicorn", "eslint", "unicorn", "import", "oxc"],
+  "plugins": ["typescript", "unicorn", "eslint", "import", "oxc"],
   // All rules in all plugins are enabled and we can filter by category
   // It's easier to disable rules like this
   "categories": {
