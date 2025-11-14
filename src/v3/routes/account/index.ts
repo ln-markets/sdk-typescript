@@ -8,8 +8,10 @@ import { createGetInternalDeposits } from './get-internal-deposits.js'
 import { createGetInternalWithdrawals } from './get-internal-withdrawals.js'
 import { createGetLightningDeposits } from './get-lightning-deposits.js'
 import { createGetLightningWithdrawals } from './get-lightning-withdrawals.js'
+import { createGetNotifications } from './get-notifications.js'
 import { createGetOnChainDeposits } from './get-on-chain-deposits.js'
 import { createGetOnChainWithdrawals } from './get-on-chain-withdrawals.js'
+import { createReadNotifications } from './read-notifications.js'
 import { createWithdrawInternal } from './withdraw-internal.js'
 import { createWithdrawLightning } from './withdraw-lightning.js'
 import { createWithdrawOnChain } from './withdraw-on-chain.js'
@@ -23,8 +25,10 @@ export const createAccountRoute = (instance: KyInstance) => ({
   getInternalWithdrawals: createGetInternalWithdrawals(instance),
   getLightningDeposits: createGetLightningDeposits(instance),
   getLightningWithdrawals: createGetLightningWithdrawals(instance),
+  getNotifications: createGetNotifications(instance),
   getOnChainDeposits: createGetOnChainDeposits(instance),
   getOnChainWithdrawals: createGetOnChainWithdrawals(instance),
+  readNotifications: createReadNotifications(instance),
   withdrawInternal: createWithdrawInternal(instance),
   withdrawLightning: createWithdrawLightning(instance),
   withdrawOnChain: createWithdrawOnChain(instance),
@@ -56,6 +60,10 @@ export type {
   GetLightningWithdrawalsInput,
   GetLightningWithdrawalsOutput,
 } from './get-lightning-withdrawals.js'
+export type {
+  GetNotificationsInput,
+  GetNotificationsOutput,
+} from './get-notifications.js'
 export type {
   GetOnChainDepositsInput,
   GetOnChainDepositsOutput,

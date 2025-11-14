@@ -38,6 +38,8 @@ export type {
   GetLightningDepositsOutput,
   GetLightningWithdrawalsInput,
   GetLightningWithdrawalsOutput,
+  GetNotificationsInput,
+  GetNotificationsOutput,
   GetOnChainDepositsInput,
   GetOnChainDepositsOutput,
   GetOnChainWithdrawalsInput,
