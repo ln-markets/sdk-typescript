@@ -126,5 +126,6 @@ export type {
   FuturesTradeSide,
   FuturesTradeStatus,
   FuturesTradeType,
+  PaginatedResponse,
   PaginationInput,
 } from './types.js'

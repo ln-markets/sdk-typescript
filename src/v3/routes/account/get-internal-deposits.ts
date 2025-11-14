@@ -1,15 +1,17 @@
 import type { KyInstance } from 'ky'
-import type { PaginationInput } from '../../types.js'
+import type { PaginatedResponse, PaginationInput } from '../../types.js'
 
 export type GetInternalDepositsInput = PaginationInput
 
-export type GetInternalDepositsOutput = {
+interface InternalDeposit {
   amount: number
   createdAt: string
   fromUsername: string
   id: string
   success: boolean | null
-}[]
+}
+
+export type GetInternalDepositsOutput = PaginatedResponse<InternalDeposit>
 
 type GetInternalDeposits = (
   input?: GetInternalDepositsInput
@@ -18,9 +20,11 @@ type GetInternalDeposits = (
 export const createGetInternalDeposits = (
   instance: KyInstance
 ): GetInternalDeposits => {
-  return async ({ from, limit, to } = {}) => {
+  return async ({ cursor, from, limit, to } = {}) => {
     return instance
-      .get('account/deposits/internal', { searchParams: { from, limit, to } })
+      .get('account/deposits/internal', {
+        searchParams: { cursor, from, limit, to },
+      })
       .json()
   }
 }

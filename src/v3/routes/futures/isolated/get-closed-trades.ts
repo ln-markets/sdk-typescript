@@ -1,6 +1,7 @@
 import type { KyInstance } from 'ky'
 
 import type {
+  PaginatedResponse,
   PaginationInput,
   FuturesCanceledTrade,
   FuturesClosedTrade,
@@ -8,10 +9,9 @@ import type {
 
 export type FuturesIsolatedGetClosedTradesInput = PaginationInput
 
-export type FuturesIsolatedGetClosedTradesOutput = (
-  | FuturesCanceledTrade
-  | FuturesClosedTrade
-)[]
+export type FuturesIsolatedGetClosedTradesOutput = PaginatedResponse<
+  FuturesCanceledTrade | FuturesClosedTrade
+>
 
 type GetClosedTrades = (
   input?: FuturesIsolatedGetClosedTradesInput
@@ -20,10 +20,10 @@ type GetClosedTrades = (
 export const createGetClosedTrades = (
   instance: KyInstance
 ): GetClosedTrades => {
-  return async ({ from, limit, to } = {}) => {
+  return async ({ cursor, from, limit, to } = {}) => {
     return instance
       .get('futures/isolated/trades/closed', {
-        searchParams: { from, limit, to },
+        searchParams: { cursor, from, limit, to },
       })
       .json()
   }

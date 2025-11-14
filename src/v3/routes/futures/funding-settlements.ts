@@ -1,14 +1,16 @@
 import type { KyInstance } from 'ky'
-import type { PaginationInput } from '../../types.js'
+import type { PaginatedResponse, PaginationInput } from '../../types.js'
 
 export type GetFundingSettlementsInput = PaginationInput
 
-export type GetFundingSettlementsOutput = {
+interface FundingSettlement {
   id: string
   time: string
   fundingRate: number
   fixingPrice: number
-}[]
+}
+
+export type GetFundingSettlementsOutput = PaginatedResponse<FundingSettlement>
 
 type GetFundingSettlements = (
   input?: GetFundingSettlementsInput
@@ -17,10 +19,10 @@ type GetFundingSettlements = (
 export const createGetFuturesFundingSettlementsRoute = (
   instance: KyInstance
 ): GetFundingSettlements => {
-  return async ({ from, limit, to } = {}) => {
+  return async ({ cursor, from, limit, to } = {}) => {
     return instance
       .get('/futures/funding-settlements', {
-        searchParams: { from, limit, to },
+        searchParams: { cursor, from, limit, to },
       })
       .json()
   }

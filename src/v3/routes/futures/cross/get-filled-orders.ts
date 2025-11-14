@@ -1,9 +1,9 @@
 import type { KyInstance } from 'ky'
-import type { PaginationInput } from '../../../types.js'
+import type { PaginatedResponse, PaginationInput } from '../../../types.js'
 
 export type FuturesCrossGetFilledOrdersInput = PaginationInput
 
-export type FuturesCrossGetFilledOrdersOutput = {
+interface FilledOrder {
   canceled: false
   canceledAt: null
   createdAt: string
@@ -17,7 +17,9 @@ export type FuturesCrossGetFilledOrdersOutput = {
   tradingFee: number
   type: 'limit' | 'liquidation' | 'market'
   uid: string
-}[]
+}
+
+export type FuturesCrossGetFilledOrdersOutput = PaginatedResponse<FilledOrder>
 
 type GetFilledOrders = (
   input?: FuturesCrossGetFilledOrdersInput
@@ -26,9 +28,11 @@ type GetFilledOrders = (
 export const createGetFilledOrders = (
   instance: KyInstance
 ): GetFilledOrders => {
-  return async ({ from, limit, to } = {}) => {
+  return async ({ cursor, from, limit, to } = {}) => {
     return instance
-      .get('futures/cross/orders/filled', { json: { from, limit, to } })
+      .get('futures/cross/orders/filled', {
+        searchParams: { cursor, from, limit, to },
+      })
       .json()
   }
 }

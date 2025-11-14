@@ -3,9 +3,15 @@
 // ============================================================================
 
 export interface PaginationInput {
+  cursor?: string
   from?: string
   limit?: number
   to?: string
+}
+
+export interface PaginatedResponse<T> {
+  data: T[]
+  nextCursor: string | null
 }
 
 // ============================================================================

@@ -74,8 +74,8 @@ describe('v3', () => {
         settled: false,
       })
 
-      expect(result).toStrictEqual(
-        expect.arrayContaining([
+      expect(result).toMatchObject({
+        data: expect.arrayContaining([
           {
             amount: expect.any(Number),
             comment: null,
@@ -84,8 +84,11 @@ describe('v3', () => {
             paymentHash: expect.any(String),
             settledAt: null,
           },
-        ])
-      )
+        ]),
+      })
+      expect(
+        result.nextCursor === null || typeof result.nextCursor === 'string'
+      ).toBe(true)
     })
   })
 
@@ -150,7 +153,10 @@ describe('v3', () => {
         limit: 10,
       })
 
-      expect(result).toMatchObject([])
+      expect(result).toMatchObject({
+        data: [],
+        nextCursor: null,
+      })
     })
 
     test('get candles', async ({ authClient }) => {
@@ -161,8 +167,8 @@ describe('v3', () => {
         range: '1m',
       })
 
-      expect(result).toMatchObject(
-        expect.arrayContaining([
+      expect(result).toMatchObject({
+        data: expect.arrayContaining([
           {
             close: expect.any(Number),
             high: expect.any(Number),
@@ -171,8 +177,11 @@ describe('v3', () => {
             time: expect.any(String),
             volume: expect.any(Number),
           },
-        ])
-      )
+        ]),
+      })
+      expect(
+        result.nextCursor === null || typeof result.nextCursor === 'string'
+      ).toBe(true)
     })
   })
 

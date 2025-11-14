@@ -1,4 +1,5 @@
 import type { KyInstance } from 'ky'
+import type { PaginatedResponse } from '../../types.js'
 
 type CandlesResolution =
   | '1d'
@@ -18,27 +19,32 @@ type CandlesResolution =
   | '45m'
 
 export interface GetCandlesInput {
+  cursor?: string
   from: string
   limit?: number
   range?: CandlesResolution
   to?: string
 }
 
-export type GetCandlesOutput = {
+interface Candle {
   close: number
   high: number
   low: number
   open: number
   time: string
   volume: number
-}[]
+}
+
+export type GetCandlesOutput = PaginatedResponse<Candle>
 
 type GetCandles = (input: GetCandlesInput) => Promise<GetCandlesOutput>
 
 export const createGetCandles = (instance: KyInstance): GetCandles => {
-  return async ({ from, limit, range, to }) => {
+  return async ({ cursor, from, limit, range, to }) => {
     return instance
-      .get('futures/candles', { searchParams: { from, limit, range, to } })
+      .get('futures/candles', {
+        searchParams: { cursor, from, limit, range, to },
+      })
       .json()
   }
 }

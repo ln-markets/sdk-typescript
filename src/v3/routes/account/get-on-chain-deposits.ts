@@ -1,5 +1,5 @@
 import type { KyInstance } from 'ky'
-import type { PaginationInput } from '../../types.js'
+import type { PaginatedResponse, PaginationInput } from '../../types.js'
 
 type BitcoinDeposit =
   | {
@@ -34,7 +34,7 @@ export type GetOnChainDepositsInput = PaginationInput & {
   status?: 'MEMPOOL' | 'CONFIRMED' | 'IRREVERSIBLE'
 }
 
-export type GetOnChainDepositsOutput = BitcoinDeposit[]
+export type GetOnChainDepositsOutput = PaginatedResponse<BitcoinDeposit>
 
 type GetOnChainDeposits = (
   input?: GetOnChainDepositsInput
@@ -43,10 +43,10 @@ type GetOnChainDeposits = (
 export const createGetOnChainDeposits = (
   instance: KyInstance
 ): GetOnChainDeposits => {
-  return async ({ from, limit, to, status } = {}) => {
+  return async ({ cursor, from, limit, to, status } = {}) => {
     return instance
       .get('account/deposits/on-chain', {
-        searchParams: { from, limit, to, status },
+        searchParams: { cursor, from, limit, to, status },
       })
       .json()
   }

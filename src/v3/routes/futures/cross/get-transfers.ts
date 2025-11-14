@@ -1,23 +1,27 @@
 import type { KyInstance } from 'ky'
-import type { PaginationInput } from '../../../types.js'
+import type { PaginatedResponse, PaginationInput } from '../../../types.js'
 
 export type FuturesCrossGetTransfersInput = PaginationInput
 
-export type FuturesCrossGetTransfersOutput = {
+interface Transfer {
   amount: number
   id: string
   time: string
   uid: string
-}[]
+}
+
+export type FuturesCrossGetTransfersOutput = PaginatedResponse<Transfer>
 
 type GetTransfers = (
   input?: FuturesCrossGetTransfersInput
 ) => Promise<FuturesCrossGetTransfersOutput>
 
 export const createGetTransfers = (instance: KyInstance): GetTransfers => {
-  return async ({ from, limit, to } = {}) => {
+  return async ({ cursor, from, limit, to } = {}) => {
     return instance
-      .get('futures/cross/transfers', { searchParams: { from, limit, to } })
+      .get('futures/cross/transfers', {
+        searchParams: { cursor, from, limit, to },
+      })
       .json()
   }
 }

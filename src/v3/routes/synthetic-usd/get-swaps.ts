@@ -1,16 +1,18 @@
 import type { KyInstance } from 'ky'
-import type { PaginationInput } from '../../types.js'
+import type { PaginatedResponse, PaginationInput } from '../../types.js'
 
 export type GetSwapsInput = PaginationInput
 
-export type GetSwapsOutput = {
+interface Swap {
   createdAt: string
   id: string
   inAmount: number
   inAsset: 'BTC' | 'USD'
   outAmount: number
   outAsset: 'BTC' | 'USD'
-}[]
+}
+
+export type GetSwapsOutput = PaginatedResponse<Swap>
 
 type GetSwaps = (input?: GetSwapsInput) => Promise<GetSwapsOutput>
 
