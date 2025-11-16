@@ -21,13 +21,15 @@
   "license": "MIT",
   "type": "module",
   "exports": {
-    ".": {
-      "v2": "./dist/v2/index.js",
-      "v3": "./dist/v3/index.js"
+    "./v2": {
+      "import": "./dist/v2/index.js",
+      "types": "./dist/v2/index.d.ts"
+    },
+    "./v3": {
+      "import": "./dist/v3/index.js",
+      "types": "./dist/v3/index.d.ts"
     }
   },
-  "main": "dist/index.js",
-  "types": "dist/types.d.ts",
   "files": [
     "dist",
     "src",
