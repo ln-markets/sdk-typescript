@@ -161,7 +161,7 @@ describe('v3', () => {
 
     test('get candles', async ({ authClient }) => {
       const result = await authClient.futures.getCandles({
-        from: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
+        from: new Date(Date.now() - 2000 * 60 * 60 * 24).toISOString(),
         to: new Date().toISOString(),
         limit: 10,
         range: '1m',

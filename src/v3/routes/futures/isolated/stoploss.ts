@@ -15,7 +15,7 @@ type UpdateStoploss = (
 export const createUpdateStoploss = (instance: KyInstance): UpdateStoploss => {
   return async ({ id, value }) => {
     return instance
-      .post('futures/isolated/trade/stoploss', { json: { id, value } })
+      .put('futures/isolated/trade/stoploss', { json: { id, value } })
       .json()
   }
 }
