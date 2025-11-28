@@ -57,16 +57,16 @@
   "devDependencies": {
     "@types/node": "24.10.1",
     "cspell": "9.3.1",
-    "knip": "5.69.1",
+    "knip": "5.70.2",
     "markdownlint-cli": "0.45.0",
     "np": "10.2.0",
-    "oxfmt": "0.13.0",
-    "oxlint": "1.28.0",
-    "oxlint-tsgolint": "0.6.0",
+    "oxfmt": "0.15.0",
+    "oxlint": "1.30.0",
+    "oxlint-tsgolint": "0.8.3",
     "tsx": "4.20.6",
     "typescript": "5.9.3",
     "vite": "7.2.2",
-    "vitest": "4.0.9"
+    "vitest": "4.0.14"
   },
   "packageManager": "pnpm@10.18.1",
   "engines": {
