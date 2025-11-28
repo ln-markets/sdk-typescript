@@ -74,6 +74,7 @@ export const createInstance = ({
             const camelCased = camelcaseKeys(data as Record<string, unknown>, {
               deep: true,
             })
+            // oxlint-disable-next-line prefer-response-static-json
             return new Response(JSON.stringify(camelCased), {
               status: response.status,
               statusText: response.statusText,
