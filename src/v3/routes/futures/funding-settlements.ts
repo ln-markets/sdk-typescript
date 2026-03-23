@@ -21,7 +21,7 @@ export const createGetFuturesFundingSettlementsRoute = (
 ): GetFundingSettlements => {
   return async ({ cursor, from, limit, to } = {}) => {
     return instance
-      .get('/futures/funding-settlements', {
+      .get('futures/funding-settlements', {
         searchParams: { cursor, from, limit, to },
       })
       .json()
