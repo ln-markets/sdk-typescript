@@ -2,6 +2,7 @@
   "include": ["${configDir}/**/*.ts"],
   "exclude": ["${configDir}/examples/**", "${configDir}/scripts/**"],
   "compilerOptions": {
+    "types": ["node"],
     "lib": ["esnext"],
     "moduleResolution": "NodeNext",
     "module": "NodeNext",
