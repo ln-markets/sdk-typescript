@@ -1,9 +1,5 @@
 {
-  "dictionaries": [
-    "node",
-    "npm",
-    "en-gb"
-  ],
+  "dictionaries": ["node", "npm", "en-gb"],
   "ignorePaths": [
     "pnpm-lock.yaml",
     "node_modules",
@@ -17,9 +13,7 @@
     "package.json"
   ],
   "language": "en",
-  "enableFiletypes": [
-    "*"
-  ],
+  "enableFiletypes": ["*"],
   "words": [
     "Anypassword",
     "Authentification",

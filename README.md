@@ -162,7 +162,7 @@ const client = createHttpClient({
 
 // Open a new long position with market order
 const marketTrade = await client.futures.isolated.newTrade({
-  type: 'market', 
+  type: 'market',
   side: 'buy',
   quantity: 10000,
   leverage: 25,

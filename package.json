@@ -3,22 +3,29 @@
   "version": "1.2.4",
   "description": "TypeScript SDK for LNMarkets API",
   "keywords": [
-    "ln-markets",
     "api",
-    "sdk",
-    "trading",
     "bitcoin",
-    "lightning"
+    "lightning",
+    "ln-markets",
+    "sdk",
+    "trading"
   ],
   "homepage": "https://github.com/ln-markets/sdk-typescript#readme",
   "bugs": {
     "url": "https://github.com/ln-markets/sdk-typescript/issues"
   },
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ln-markets/sdk-typescript.git"
   },
-  "license": "MIT",
+  "files": [
+    "dist",
+    "src",
+    "LICENSE",
+    "README.md",
+    "package.json"
+  ],
   "type": "module",
   "exports": {
     "./v2": {
@@ -30,13 +37,9 @@
       "types": "./dist/v3/index.d.ts"
     }
   },
-  "files": [
-    "dist",
-    "src",
-    "LICENSE",
-    "README.md",
-    "package.json"
-  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc --build tsconfig.build.json",
     "format": "oxfmt",
@@ -49,31 +52,28 @@
     "release": "np"
   },
   "dependencies": {
-    "camelcase-keys": "10.0.1",
-    "ky": "1.14.0",
+    "camelcase-keys": "10.0.2",
+    "ky": "1.14.3",
     "snakecase-keys": "9.0.2",
     "ts-pattern": "5.9.0"
   },
   "devDependencies": {
-    "@types/node": "24.10.1",
-    "cspell": "9.3.1",
-    "knip": "5.70.2",
-    "markdownlint-cli": "0.45.0",
-    "np": "10.2.0",
-    "oxfmt": "0.15.0",
-    "oxlint": "1.30.0",
-    "oxlint-tsgolint": "0.8.3",
-    "tsx": "4.20.6",
+    "@types/node": "25.5.0",
+    "cspell": "9.7.0",
+    "knip": "6.0.2",
+    "markdownlint-cli": "0.48.0",
+    "np": "11.0.2",
+    "oxfmt": "0.41.0",
+    "oxlint": "1.56.0",
+    "oxlint-tsgolint": "0.17.1",
+    "tsx": "4.21.0",
     "typescript": "5.9.3",
-    "vite": "7.2.2",
-    "vitest": "4.0.14"
+    "vite": "8.0.1",
+    "vitest": "4.1.0"
   },
-  "packageManager": "pnpm@10.18.1",
   "engines": {
     "node": ">=20",
     "pnpm": ">=10"
   },
-  "publishConfig": {
-    "access": "public"
-  }
+  "packageManager": "pnpm@10.18.1"
 }
