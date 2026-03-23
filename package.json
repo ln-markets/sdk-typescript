@@ -43,7 +43,6 @@
   "scripts": {
     "build": "tsgo --build tsconfig.build.json",
     "format": "oxfmt",
-    "function-table": "tsx scripts/function-list.ts",
     "lint": "oxlint --type-aware",
     "prepublishOnly": "./scripts/pre-release.sh",
     "spell-check": "cspell --show-context --no-progress '**'",
