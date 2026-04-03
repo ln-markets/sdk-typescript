@@ -28,10 +28,6 @@
   ],
   "type": "module",
   "exports": {
-    "./v2": {
-      "import": "./dist/v2/index.js",
-      "types": "./dist/v2/index.d.ts"
-    },
     "./v3": {
       "import": "./dist/v3/index.js",
       "types": "./dist/v3/index.d.ts"

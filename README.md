@@ -45,8 +45,6 @@
   </a>
 </p>
 
-> ⚠️ **Important:** The v2 API will be deprecated in January 2026. Please migrate to v3 for new projects. See the examples below for v3 usage.
-
 ## Getting Started
 
 ### Setup
@@ -418,12 +416,3 @@ The v3 API provides the following routes:
 - **syntheticUsd**: Synthetic USD operations
 - **time**: Server time
 - **ping**: Health check endpoint
-
-### Migrating from v2 to v3
-
-If you're currently using v2, here are the key changes when migrating to v3:
-
-1. **Import path**: Change from `@ln-markets/sdk/v2` to `@ln-markets/sdk/v3`
-2. **User route renamed**: The `user` route is now called `account`
-3. **New routes**: `syntheticUsd`, `time`, and `ping` are now available
-4. **Removed routes**: `notifications`, `options`, and `swaps` have been removed in v3
