@@ -47,9 +47,7 @@
     "release": "np"
   },
   "dependencies": {
-    "camelcase-keys": "10.0.2",
     "ky": "1.14.3",
-    "snakecase-keys": "9.0.2",
     "ts-pattern": "5.9.0"
   },
   "devDependencies": {

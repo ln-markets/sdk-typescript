@@ -8,15 +8,9 @@ importers:
 
   .:
     dependencies:
-      camelcase-keys:
-        specifier: 10.0.2
-        version: 10.0.2
       ky:
         specifier: 1.14.3
         version: 1.14.3
-      snakecase-keys:
-        specifier: 9.0.2
-        version: 9.0.2
       ts-pattern:
         specifier: 5.9.0
         version: 5.9.0
@@ -1471,17 +1465,9 @@ packages:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
     engines: {node: '>=6'}
 
-  camelcase-keys@10.0.2:
-    resolution: {integrity: sha512-PVHCLVbJ7nWGal0lPAmBN5eSLjIynlMUk2EPmL9aPl6QyJ6+FoszTKwldPzkuVqg5teZbPTbb8Oenzyw9GSJRw==}
-    engines: {node: '>=20'}
-
   camelcase@8.0.0:
     resolution: {integrity: sha512-8WB3Jcas3swSvjIeA2yvCJ+Miyz5l1ZmB6HFb9R1317dt9LCQoswg/BGrmAmkWVEszSrrg4RwmO46qIm2OEnSA==}
     engines: {node: '>=16'}
-
-  camelcase@9.0.0:
-    resolution: {integrity: sha512-TO9xmyXTZ9HUHI8M1OnvExxYB0eYVS/1e5s7IDMTAoIcwUd+aNcFODs6Xk83mobk0velyHFQgA1yIrvYc6wclw==}
-    engines: {node: '>=20'}
 
   chai@6.2.2:
     resolution: {integrity: sha512-NUPRluOfOiTKBKvWPtSD4PhFvWCqOi0BGStNWs57X9js7XGTprSmFoz5F0tWhR4WPjNeR9jXqdC7/UpSJTnlRg==}
@@ -1506,9 +1492,6 @@ packages:
   chalk@5.6.2:
     resolution: {integrity: sha512-7NzBL0rN6fMUW+f7A6Io4h40qQlG+xGmtMxfbnH/K7TAtt8JQWVQK+6g0UXKMeVJoyV5EkkNsErQ8pVD3bLHbA==}
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
-
-  change-case@5.4.4:
-    resolution: {integrity: sha512-HRQyTk2/YPEkt9TnUPbOpr64Uw3KOicFWPVBb+xiHvd6eBx/qPr9xqfBFDT8P2vWsvvz4jbEkfDe71W3VyNu2w==}
 
   character-entities-legacy@3.0.0:
     resolution: {integrity: sha512-RpPp0asT/6ufRm//AJVwpViZbGM/MkjQFxJccQRHmISF/22NBtsHqAWmL+/pmkPWoIUJdWyeVleTl1wydHATVQ==}
@@ -2317,14 +2300,6 @@ packages:
   magic-string@0.30.21:
     resolution: {integrity: sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==}
 
-  map-obj@5.0.2:
-    resolution: {integrity: sha512-K6K2NgKnTXimT3779/4KxSvobxOtMmx1LBZ3NwRxT/MDIR3Br/fQ4Q+WCX5QxjyUR8zg5+RV9Tbf2c5pAWTD2A==}
-    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
-
-  map-obj@6.0.0:
-    resolution: {integrity: sha512-PwDvwt/tK70+luLw5k9ySLtzLAzwf7tZTY9GBj63Y010nHRPjwHcQTpTd5JwQqITC2ty7prtxBo71iwyYY0TAg==}
-    engines: {node: '>=20'}
-
   markdown-it@14.1.1:
     resolution: {integrity: sha512-BuU2qnTti9YKgK5N+IeMubp14ZUKUUw7yeJbkjtosvHiP0AZ5c8IAgEMk79D0eC8F23r4Ac/q8cAIFdm2FtyoA==}
     hasBin: true
@@ -2685,10 +2660,6 @@ packages:
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
-  quick-lru@7.3.0:
-    resolution: {integrity: sha512-k9lSsjl36EJdK7I06v7APZCbyGT2vMTsYSRX1Q2nbYmnkBqgUhRkAuzH08Ciotteu/PLJmIF2+tti7o3C/ts2g==}
-    engines: {node: '>=18'}
-
   rc@1.2.8:
     resolution: {integrity: sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==}
     hasBin: true
@@ -2816,10 +2787,6 @@ packages:
   smol-toml@1.6.1:
     resolution: {integrity: sha512-dWUG8F5sIIARXih1DTaQAX4SsiTXhInKf1buxdY9DIg4ZYPZK5nGM1VRIYmEbDbsHt7USo99xSLFu5Q1IqTmsg==}
     engines: {node: '>= 18'}
-
-  snakecase-keys@9.0.2:
-    resolution: {integrity: sha512-Tr4gONsDj1Pa6HJH9D3b411r6tuRyCGgb1l7YpzDFp/thjVSWs7rcbNjyTyRqJi5SUV23sFpzf9epIJRbLR6Yw==}
-    engines: {node: '>=22'}
 
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
@@ -4171,16 +4138,7 @@ snapshots:
 
   callsites@3.1.0: {}
 
-  camelcase-keys@10.0.2:
-    dependencies:
-      camelcase: 9.0.0
-      map-obj: 6.0.0
-      quick-lru: 7.3.0
-      type-fest: 5.5.0
-
   camelcase@8.0.0: {}
-
-  camelcase@9.0.0: {}
 
   chai@6.2.2: {}
 
@@ -4208,8 +4166,6 @@ snapshots:
       supports-color: 7.2.0
 
   chalk@5.6.2: {}
-
-  change-case@5.4.4: {}
 
   character-entities-legacy@3.0.0: {}
 
@@ -5032,10 +4988,6 @@ snapshots:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  map-obj@5.0.2: {}
-
-  map-obj@6.0.0: {}
-
   markdown-it@14.1.1:
     dependencies:
       argparse: 2.0.1
@@ -5606,8 +5558,6 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
-  quick-lru@7.3.0: {}
-
   rc@1.2.8:
     dependencies:
       deep-extend: 0.6.0
@@ -5737,12 +5687,6 @@ snapshots:
   smol-toml@1.6.0: {}
 
   smol-toml@1.6.1: {}
-
-  snakecase-keys@9.0.2:
-    dependencies:
-      change-case: 5.4.4
-      map-obj: 5.0.2
-      type-fest: 4.41.0
 
   source-map-js@1.2.1: {}
 
