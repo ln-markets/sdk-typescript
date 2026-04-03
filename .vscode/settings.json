@@ -1,8 +1,10 @@
 {
+  "oxc.typeAware": true,
+  "oxc.configPath": ".oxlintrc.json",
+  "oxc.unusedDisableDirectives": "deny",
+  "oxc.fmt.configPath": ".oxfmtrc.json",
+  "oxc.path.oxfmt": "./node_modules/oxfmt/bin/oxfmt",
+  "oxc.path.oxlint": "./node_modules/oxlint/bin/oxlint",
   "editor.defaultFormatter": "oxc.oxc-vscode",
   "editor.formatOnSave": true,
-  "oxc.enable": true,
-  "oxc.lint.run": "onSave",
-  "oxc.typeAware": true,
-  "oxc.fmt.experimental": true
 }
