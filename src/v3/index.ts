@@ -95,6 +95,7 @@ export type {
   FuturesIsolatedGetClosedTradesInput,
   GetCandlesInput,
   GetCandlesOutput,
+  Candle,
   GetFundingSettlementsInput,
   GetFundingSettlementsOutput,
   GetLeaderboardOutput,

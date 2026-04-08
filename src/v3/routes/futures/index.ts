@@ -16,7 +16,7 @@ export const createFuturesRoute = (instance: KyInstance) => ({
   isolated: createFuturesIsolatedRoute(instance),
 })
 
-export type { GetCandlesInput, GetCandlesOutput } from './candles.js'
+export type { GetCandlesInput, GetCandlesOutput, Candle } from './candles.js'
 export type {
   GetFundingSettlementsInput,
   GetFundingSettlementsOutput,
