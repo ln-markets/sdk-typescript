@@ -26,7 +26,7 @@ export interface GetCandlesInput {
   to?: string
 }
 
-interface Candle {
+export interface Candle {
   close: number
   high: number
   low: number
