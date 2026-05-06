@@ -72,7 +72,7 @@ bun add @ln-markets/sdk
 By default, the SDK will connect to the LN Markets mainnet environment. You can change this by passing the `network` option to the `createHttpClient` function.
 
 ```typescript
-import { createHttpClient } from '@ln-markets/sdk/v3'
+import { createHttpClient } from '@ln-markets/sdk/rest-v3'
 
 const client = createHttpClient({
   network: 'testnet', // 'mainnet' or 'testnet'
@@ -84,7 +84,7 @@ const client = createHttpClient({
 You can use an unauthenticated client to access public endpoints.
 
 ```typescript
-import { createHttpClient } from '@ln-markets/sdk/v3'
+import { createHttpClient } from '@ln-markets/sdk/rest-v3'
 
 const client = createHttpClient()
 
@@ -124,7 +124,7 @@ You can get your API key, secret and passphrase from the [API Keys section](http
 > :warning: **Important:** Your API key, secret and passphrase are sensitive and should be kept secure. Do not expose them in your client-side code, nor share them with anyone. Any leakage of your API key, secret or passphrase may lead to unauthorized access to your account and irreversible loss of funds.
 
 ```typescript
-import { createHttpClient } from '@ln-markets/sdk/v3'
+import { createHttpClient } from '@ln-markets/sdk/rest-v3'
 
 const client = createHttpClient({
   key: 'your-api-key',
@@ -150,7 +150,7 @@ const withdrawals = await client.account.getLightningWithdrawals()
 Isolated margin mode allows you to limit the risk to a specific position. Each position has its own margin.
 
 ```typescript
-import { createHttpClient } from '@ln-markets/sdk/v3'
+import { createHttpClient } from '@ln-markets/sdk/rest-v3'
 
 const client = createHttpClient({
   key: 'your-api-key',
@@ -233,7 +233,7 @@ await client.futures.isolated.cashIn({
 Cross margin mode shares margin across all positions. This allows for more efficient margin usage but increases risk as losses from one position can affect others.
 
 ```typescript
-import { createHttpClient } from '@ln-markets/sdk/v3'
+import { createHttpClient } from '@ln-markets/sdk/rest-v3'
 
 const client = createHttpClient({
   key: 'your-api-key',
@@ -310,7 +310,7 @@ await client.futures.cross.withdraw({
 ### Account Management
 
 ```typescript
-import { createHttpClient } from '@ln-markets/sdk/v3'
+import { createHttpClient } from '@ln-markets/sdk/rest-v3'
 
 const client = createHttpClient({
   key: 'your-api-key',
@@ -367,7 +367,7 @@ const internalWithdrawals = await client.account.getInternalWithdrawals()
 Synthetic USD allows you to swap between BTC and USD-denominated positions.
 
 ```typescript
-import { createHttpClient } from '@ln-markets/sdk/v3'
+import { createHttpClient } from '@ln-markets/sdk/rest-v3'
 
 const client = createHttpClient({
   key: 'your-api-key',
@@ -394,7 +394,7 @@ const swaps = await client.syntheticUsd.getSwaps()
 ### Oracle Price Data
 
 ```typescript
-import { createHttpClient } from '@ln-markets/sdk/v3'
+import { createHttpClient } from '@ln-markets/sdk/rest-v3'
 
 const client = createHttpClient()
 

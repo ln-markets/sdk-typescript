@@ -28,9 +28,9 @@
   ],
   "type": "module",
   "exports": {
-    "./v3": {
-      "import": "./dist/v3/index.js",
-      "types": "./dist/v3/index.d.ts"
+    "./rest-v3": {
+      "import": "./dist/rest-v3/index.js",
+      "types": "./dist/rest-v3/index.d.ts"
     }
   },
   "publishConfig": {

@@ -33,7 +33,7 @@ const test = base.extend<{
   ],
 })
 
-describe('v3', () => {
+describe('rest-v3', () => {
   describe('basics', () => {
     test('should return time', async ({ client }) => {
       const result = await client.time()
