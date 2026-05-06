@@ -31,6 +31,10 @@
     "./rest-v3": {
       "import": "./dist/rest-v3/index.js",
       "types": "./dist/rest-v3/index.d.ts"
+    },
+    "./stream-v1": {
+      "import": "./dist/stream-v1/index.js",
+      "types": "./dist/stream-v1/index.d.ts"
     }
   },
   "publishConfig": {
@@ -47,11 +51,14 @@
     "release": "np"
   },
   "dependencies": {
+    "eventemitter3": "5.0.4",
     "ky": "1.14.3",
-    "ts-pattern": "5.9.0"
+    "ts-pattern": "5.9.0",
+    "ws": "8.18.0"
   },
   "devDependencies": {
     "@types/node": "24.12.1",
+    "@types/ws": "8.5.13",
     "@typescript/native-preview": "7.0.0-dev.20260403.1",
     "cspell": "9.7.0",
     "knip": "6.3.0",

@@ -23,6 +23,8 @@ export const createHttpClient = (options?: Options) => {
 
 export type HttpClient = ReturnType<typeof createHttpClient>
 
+export type { Options } from './instance.js'
+
 export type {
   AddBitcoinAddressInput,
   AddBitcoinAddressOutput,
