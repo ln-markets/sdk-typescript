@@ -74,5 +74,5 @@ export type {
 
 // D-33: trivial factory — `new StreamClient(options)`. Caller uses
 // `client.connect()`, `client.on('open', …)`, `client.hello({...})`, etc.
-export const createStreamClient = (options?: Options): StreamClient =>
+export const createStreamClient = (options?: Readonly<Options>): StreamClient =>
   new StreamClient(options)

@@ -9,10 +9,10 @@ export interface FuturesIsolatedAddMarginInput {
 export type FuturesIsolatedAddMarginOutput = FuturesRunningTrade
 
 type AddMargin = (
-  input: FuturesIsolatedAddMarginInput
+  input: Readonly<FuturesIsolatedAddMarginInput>
 ) => Promise<FuturesIsolatedAddMarginOutput>
 
-export const createAddMargin = (instance: KyInstance): AddMargin => {
+export const createAddMargin = (instance: Readonly<KyInstance>): AddMargin => {
   return async ({ amount, id }) => {
     return instance
       .post('futures/isolated/trade/add-margin', { json: { amount, id } })

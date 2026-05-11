@@ -14,11 +14,11 @@ interface InternalWithdrawal {
 export type GetInternalWithdrawalsOutput = PaginatedResponse<InternalWithdrawal>
 
 type GetInternalWithdrawals = (
-  input?: GetInternalWithdrawalsInput
+  input?: Readonly<GetInternalWithdrawalsInput>
 ) => Promise<GetInternalWithdrawalsOutput>
 
 export const createGetInternalWithdrawals = (
-  instance: KyInstance
+  instance: Readonly<KyInstance>
 ): GetInternalWithdrawals => {
   return async ({ cursor, from, limit, to } = {}) => {
     return instance

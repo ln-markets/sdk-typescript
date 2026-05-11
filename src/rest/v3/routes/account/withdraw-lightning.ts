@@ -12,11 +12,11 @@ export interface WithdrawLightningOutput {
 }
 
 type WithdrawLightning = (
-  input: WithdrawLightningInput
+  input: Readonly<WithdrawLightningInput>
 ) => Promise<WithdrawLightningOutput>
 
 export const createWithdrawLightning = (
-  instance: KyInstance
+  instance: Readonly<KyInstance>
 ): WithdrawLightning => {
   return async ({ invoice }) => {
     return instance

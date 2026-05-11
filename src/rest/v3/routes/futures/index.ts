@@ -7,7 +7,7 @@ import { createFuturesIsolatedRoute } from './isolated/index.js'
 import { createGetLeaderboard } from './leaderboard.js'
 import { createGetTicker } from './ticker.js'
 
-export const createFuturesRoute = (instance: KyInstance) => ({
+export const createFuturesRoute = (instance: Readonly<KyInstance>) => ({
   cross: createFuturesCrossRoute(instance),
   getCandles: createGetCandles(instance),
   getFundingSettlements: createGetFuturesFundingSettlementsRoute(instance),

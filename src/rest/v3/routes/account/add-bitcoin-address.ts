@@ -10,11 +10,11 @@ export interface AddBitcoinAddressOutput {
 }
 
 type AddBitcoinAddress = (
-  input?: AddBitcoinAddressInput
+  input?: Readonly<AddBitcoinAddressInput>
 ) => Promise<AddBitcoinAddressOutput>
 
 export const createAddBitcoinAddress = (
-  instance: KyInstance
+  instance: Readonly<KyInstance>
 ): AddBitcoinAddress => {
   return async (input) => {
     return instance.post('account/address/bitcoin', { json: input }).json()

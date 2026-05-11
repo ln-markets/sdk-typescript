@@ -8,10 +8,10 @@ export interface FuturesCrossCancelOrderInput {
 export type FuturesCrossCancelOutput = FuturesCrossCanceledOrder
 
 type Cancel = (
-  input: FuturesCrossCancelOrderInput
+  input: Readonly<FuturesCrossCancelOrderInput>
 ) => Promise<FuturesCrossCancelOutput>
 
-export const createCancel = (instance: KyInstance): Cancel => {
+export const createCancel = (instance: Readonly<KyInstance>): Cancel => {
   return async ({ id }) => {
     return instance.post('futures/cross/order/cancel', { json: { id } }).json()
   }

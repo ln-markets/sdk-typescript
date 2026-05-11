@@ -18,7 +18,9 @@ export type FuturesCrossGetOpenOrdersOutput = {
 
 type GetOpenOrders = () => Promise<FuturesCrossGetOpenOrdersOutput>
 
-export const createGetOpenOrders = (instance: KyInstance): GetOpenOrders => {
+export const createGetOpenOrders = (
+  instance: Readonly<KyInstance>
+): GetOpenOrders => {
   return async () => {
     return instance.get('futures/cross/orders/open').json()
   }

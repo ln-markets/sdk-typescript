@@ -10,10 +10,12 @@ export type FuturesCrossGetFundingFeesInput = PaginationInput
 export type FuturesCrossGetFundingFeesOutput = PaginatedResponse<FundingFees>
 
 type GetFundingFees = (
-  input?: FuturesCrossGetFundingFeesInput
+  input?: Readonly<FuturesCrossGetFundingFeesInput>
 ) => Promise<FuturesCrossGetFundingFeesOutput>
 
-export const createGetFundingFees = (instance: KyInstance): GetFundingFees => {
+export const createGetFundingFees = (
+  instance: Readonly<KyInstance>
+): GetFundingFees => {
   return async ({ cursor, from, limit, to } = {}) => {
     return instance
       .get('futures/cross/funding-fees', {

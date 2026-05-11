@@ -8,10 +8,12 @@ export interface FuturesCrossSetLeverageInput {
 export type FuturesCrossSetLeverageOutput = FuturesCrossPosition
 
 type SetLeverage = (
-  input: FuturesCrossSetLeverageInput
+  input: Readonly<FuturesCrossSetLeverageInput>
 ) => Promise<FuturesCrossSetLeverageOutput>
 
-export const createSetLeverage = (instance: KyInstance): SetLeverage => {
+export const createSetLeverage = (
+  instance: Readonly<KyInstance>
+): SetLeverage => {
   return async ({ leverage }) => {
     return instance.put('futures/cross/leverage', { json: { leverage } }).json()
   }

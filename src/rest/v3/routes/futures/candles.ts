@@ -37,9 +37,13 @@ interface Candle {
 
 export type GetCandlesOutput = PaginatedResponse<Candle>
 
-type GetCandles = (input: GetCandlesInput) => Promise<GetCandlesOutput>
+type GetCandles = (
+  input: Readonly<GetCandlesInput>
+) => Promise<GetCandlesOutput>
 
-export const createGetCandles = (instance: KyInstance): GetCandles => {
+export const createGetCandles = (
+  instance: Readonly<KyInstance>
+): GetCandles => {
   return async ({ cursor, from, limit, range, to }) => {
     return instance
       .get('futures/candles', {

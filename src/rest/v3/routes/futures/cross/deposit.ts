@@ -8,10 +8,10 @@ export interface FuturesCrossDepositInput {
 export type FuturesCrossDepositOutput = FuturesCrossPosition
 
 type Deposit = (
-  input: FuturesCrossDepositInput
+  input: Readonly<FuturesCrossDepositInput>
 ) => Promise<FuturesCrossDepositOutput>
 
-export const createDeposit = (instance: KyInstance): Deposit => {
+export const createDeposit = (instance: Readonly<KyInstance>): Deposit => {
   return async ({ amount }) => {
     return instance.post('futures/cross/deposit', { json: { amount } }).json()
   }

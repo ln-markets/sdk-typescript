@@ -12,7 +12,9 @@ export interface GetAccountOutput {
 
 type GetAccount = () => Promise<GetAccountOutput>
 
-export const createGetAccount = (instance: KyInstance): GetAccount => {
+export const createGetAccount = (
+  instance: Readonly<KyInstance>
+): GetAccount => {
   return async () => {
     return instance.get('account').json()
   }

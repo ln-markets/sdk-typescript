@@ -6,7 +6,7 @@ export interface TimeOutput {
 
 type Time = () => Promise<TimeOutput>
 
-export const createTimeRoute = (instance: KyInstance): Time => {
+export const createTimeRoute = (instance: Readonly<KyInstance>): Time => {
   return async () => {
     return instance.get('time').json()
   }

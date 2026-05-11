@@ -5,7 +5,9 @@ export type FuturesCrossGetPositionOutput = FuturesCrossPosition
 
 type GetPosition = () => Promise<FuturesCrossGetPositionOutput>
 
-export const createGetPosition = (instance: KyInstance): GetPosition => {
+export const createGetPosition = (
+  instance: Readonly<KyInstance>
+): GetPosition => {
   return async () => {
     return instance.get('futures/cross/position').json()
   }

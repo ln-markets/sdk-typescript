@@ -5,7 +5,7 @@ export type FuturesCrossCloseOutput = FuturesCrossOrder
 
 type Close = () => Promise<FuturesCrossCloseOutput>
 
-export const createClose = (instance: KyInstance): Close => {
+export const createClose = (instance: Readonly<KyInstance>): Close => {
   return async () => {
     return instance.post('futures/cross/position/close').json()
   }

@@ -22,18 +22,19 @@ export const createInstance = ({
   secret,
   passphrase,
   network = 'mainnet',
-}: Options = {}): KyInstance => {
-  const prefixUrl = match(network)
+}: Readonly<Options> = {}): KyInstance => {
+  const prefix = match(network)
     .with('mainnet', () => 'https://api.lnmarkets.com/v3')
     .with('testnet4', () => 'https://api.testnet4.lnmarkets.com/v3')
     .exhaustive()
 
   return ky.create({
-    prefixUrl,
+    prefix,
     retry: 0,
     hooks: {
       beforeRequest: [
-        (request, options) => {
+        // oxlint-disable-next-line typescript/prefer-readonly-parameter-types -- ky hook arg; we mutate request.headers via .set()
+        ({ request, options }) => {
           if (
             !isNonEmptyString(key) ||
             !isNonEmptyString(passphrase) ||

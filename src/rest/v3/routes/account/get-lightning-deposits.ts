@@ -26,11 +26,11 @@ type LightningDeposit =
 export type GetLightningDepositsOutput = PaginatedResponse<LightningDeposit>
 
 type GetLightningDeposits = (
-  input?: GetLightningDepositsInput
+  input?: Readonly<GetLightningDepositsInput>
 ) => Promise<GetLightningDepositsOutput>
 
 export const createGetLightningDeposits = (
-  instance: KyInstance
+  instance: Readonly<KyInstance>
 ): GetLightningDeposits => {
   return async ({ cursor, from, limit, to, settled } = {}) => {
     return instance

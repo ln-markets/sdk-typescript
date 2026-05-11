@@ -8,7 +8,7 @@ export interface WhoamiOutput {
 
 export type Whoami = () => Promise<WhoamiOutput>
 
-export const createWhoami = (instance: StreamInstance): Whoami => {
+export const createWhoami = (instance: Readonly<StreamInstance>): Whoami => {
   return async () => {
     return instance.request<WhoamiOutput>({ method: 'whoami' })
   }

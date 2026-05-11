@@ -9,10 +9,12 @@ export interface FuturesIsolatedUpdateStoplossInput {
 export type FuturesIsolatedUpdateStoplossOutput = FuturesOpenOrRunningTrade
 
 type UpdateStoploss = (
-  input: FuturesIsolatedUpdateStoplossInput
+  input: Readonly<FuturesIsolatedUpdateStoplossInput>
 ) => Promise<FuturesIsolatedUpdateStoplossOutput>
 
-export const createUpdateStoploss = (instance: KyInstance): UpdateStoploss => {
+export const createUpdateStoploss = (
+  instance: Readonly<KyInstance>
+): UpdateStoploss => {
   return async ({ id, value }) => {
     return instance
       .put('futures/isolated/trade/stoploss', { json: { id, value } })

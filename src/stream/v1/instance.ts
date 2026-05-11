@@ -47,16 +47,16 @@ export class StreamInstance extends EventEmitter<StreamEvents> {
   #userInitiatedClose = false
   readonly #pending = new Map<string, PendingRequest>()
 
-  get state(): ConnectionState {
+  public get state(): ConnectionState {
     return this.#state
   }
 
-  constructor({
+  public constructor({
     network = 'mainnet',
     reconnectInterval = 5000,
     maxReconnectAttempts = 5,
     reconnectEnabled = true,
-  }: Options = {}) {
+  }: Readonly<Options> = {}) {
     super()
     const wssUrl = match(network)
       .with('mainnet', () => 'wss://stream.lnmarkets.com/v1')
@@ -68,7 +68,7 @@ export class StreamInstance extends EventEmitter<StreamEvents> {
     this.#reconnectEnabled = reconnectEnabled
   }
 
-  async connect(): Promise<void> {
+  public async connect(): Promise<void> {
     if (this.#state !== 'disconnected') {
       throw new Error(`Cannot connect(): state is '${this.#state}'`)
     }
@@ -76,7 +76,7 @@ export class StreamInstance extends EventEmitter<StreamEvents> {
     await this.#openWebSocket()
   }
 
-  close(): void {
+  public close(): void {
     this.#userInitiatedClose = true
     if (this.#reconnectTimer !== null) {
       clearTimeout(this.#reconnectTimer)
@@ -89,7 +89,7 @@ export class StreamInstance extends EventEmitter<StreamEvents> {
     this.#state = 'disconnected'
   }
 
-  send(payload: string): void {
+  public send(payload: string): void {
     if (this.#state !== 'connected' || this.#ws === null) {
       throw new StreamDisconnectedError('send')
     }
@@ -97,13 +97,13 @@ export class StreamInstance extends EventEmitter<StreamEvents> {
   }
 
   // oxlint-disable-next-line typescript/promise-function-async -- intentional: returns rejected promise synchronously when not connected
-  request<TResult>({
+  public request<TResult>({
     method,
     params,
-  }: {
+  }: Readonly<{
     method: string
     params?: unknown
-  }): Promise<TResult> {
+  }>): Promise<TResult> {
     if (this.#state !== 'connected') {
       return Promise.reject(new StreamDisconnectedError('request'))
     }
@@ -176,10 +176,12 @@ export class StreamInstance extends EventEmitter<StreamEvents> {
 
       ws.once('open', handleOpen)
 
+      // oxlint-disable-next-line typescript/prefer-readonly-parameter-types -- ws library callback signature; we only read from `data`
       ws.on('message', (data: Buffer) => {
         this.#onMessage(data.toString('utf8'))
       })
 
+      // oxlint-disable-next-line typescript/prefer-readonly-parameter-types -- ws library callback signature; we only read `error.message`
       ws.on('error', (error) => {
         if (!opened) {
           // Pre-open error path: route through the close handler below.
@@ -190,6 +192,7 @@ export class StreamInstance extends EventEmitter<StreamEvents> {
         this.emit('error', error)
       })
 
+      // oxlint-disable-next-line typescript/prefer-readonly-parameter-types -- ws library callback signature; we only read `reasonBuf`
       ws.on('close', (code: number, reasonBuf: Buffer) => {
         const reason = reasonBuf.toString('utf8')
         const wasUserInitiated = this.#userInitiatedClose

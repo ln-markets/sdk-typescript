@@ -5,7 +5,7 @@ export type FuturesCrossCancelAllOutput = FuturesCrossCanceledOrder[]
 
 type CancelAll = () => Promise<FuturesCrossCancelAllOutput>
 
-export const createCancelAll = (instance: KyInstance): CancelAll => {
+export const createCancelAll = (instance: Readonly<KyInstance>): CancelAll => {
   return async () => {
     return instance.post('futures/cross/orders/cancel-all').json()
   }

@@ -6,7 +6,7 @@ export interface TimeOutput {
 
 export type Time = () => Promise<TimeOutput>
 
-export const createTime = (instance: StreamInstance): Time => {
+export const createTime = (instance: Readonly<StreamInstance>): Time => {
   return async () => {
     return instance.request<TimeOutput>({ method: 'time' })
   }

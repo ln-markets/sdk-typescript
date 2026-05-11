@@ -25,7 +25,9 @@ export interface GetLeaderboardOutput {
 
 type GetLeaderboard = () => Promise<GetLeaderboardOutput>
 
-export const createGetLeaderboard = (instance: KyInstance): GetLeaderboard => {
+export const createGetLeaderboard = (
+  instance: Readonly<KyInstance>
+): GetLeaderboard => {
   return async () => {
     return instance.get('futures/leaderboard').json()
   }

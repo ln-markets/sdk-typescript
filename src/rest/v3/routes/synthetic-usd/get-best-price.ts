@@ -7,7 +7,9 @@ export interface GetBestPriceOutput {
 
 type GetBestPrice = () => Promise<GetBestPriceOutput>
 
-export const createGetBestPrice = (instance: KyInstance): GetBestPrice => {
+export const createGetBestPrice = (
+  instance: Readonly<KyInstance>
+): GetBestPrice => {
   return async () => {
     return instance.get('synthetic-usd/best-price').json()
   }

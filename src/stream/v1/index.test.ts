@@ -23,6 +23,7 @@ const RPC_TIMEOUT_MS = 10_000
 // Recursion instead of a for-loop so each await happens in its own frame and
 // Sidesteps `no-await-in-loop` without disables.
 const connectWithRetry = async (
+  // oxlint-disable-next-line typescript/prefer-readonly-parameter-types -- target is mutated via .connect()
   target: StreamClient,
   attempts = 8
 ): Promise<void> => {
@@ -50,7 +51,7 @@ const buildClient = async (): Promise<StreamClient> => {
 }
 
 const buildAuthClient = async (
-  creds: NonNullable<ReturnType<typeof authCreds>>
+  creds: Readonly<NonNullable<ReturnType<typeof authCreds>>>
 ): Promise<StreamClient> => {
   const c = createStreamClient({ network: NETWORK, reconnectEnabled: false })
   await connectWithRetry(c)
@@ -125,6 +126,7 @@ describe('stream/v1', { retry: 2 }, () => {
           reject(new Error(`no ticker frame within ${RPC_TIMEOUT_MS}ms`))
         }, RPC_TIMEOUT_MS)
 
+        // oxlint-disable-next-line typescript/prefer-readonly-parameter-types -- TypedEmitter event payload; read-only by convention
         client.once(topic, (data) => {
           clearTimeout(timer)
           expect(data.time).toEqual(expect.any(Number))
@@ -221,7 +223,7 @@ describe('stream/v1', { retry: 2 }, () => {
     })
 
     test('connect() while connected rejects', async () => {
-      await expect(client.connect()).rejects.toThrow(/state is/)
+      await expect(client.connect()).rejects.toThrow(/state is/u)
     })
 
     test('close() is idempotent', async () => {
@@ -346,6 +348,7 @@ describe('stream/v1', { retry: 2 }, () => {
         const timer = setTimeout(() => {
           reject(new Error(`no lastPrice frame within ${RPC_TIMEOUT_MS}ms`))
         }, RPC_TIMEOUT_MS)
+        // oxlint-disable-next-line typescript/prefer-readonly-parameter-types -- TypedEmitter event payload; read-only by convention
         client.once(topic, (data) => {
           clearTimeout(timer)
           expect(data.time).toEqual(expect.any(Number))

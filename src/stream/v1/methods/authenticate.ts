@@ -14,10 +14,12 @@ export interface AuthenticateOutput {
 }
 
 export type Authenticate = (
-  input: AuthenticateInput
+  input: Readonly<AuthenticateInput>
 ) => Promise<AuthenticateOutput>
 
-export const createAuthenticate = (instance: StreamInstance): Authenticate => {
+export const createAuthenticate = (
+  instance: Readonly<StreamInstance>
+): Authenticate => {
   return async ({ key, secret, passphrase }) => {
     const nonce = randomBytes(8).toString('hex')
     const timestamp = Date.now()

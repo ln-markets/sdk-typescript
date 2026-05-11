@@ -234,6 +234,7 @@ const publicTopics = [
   'futures/inverse/btc_usd/ohlc/5m',
 ] as const
 
+let dropped: { unsubscribed: readonly string[] }
 if (wantAuth) {
   const auth = await client.authenticate(resolveCreds(network))
   console.log(
@@ -259,19 +260,18 @@ if (wantAuth) {
   await sleep(RPC_PACE_MS)
 
   // Demo single-topic unsubscribe — drop announcements only, rest keep streaming.
-  const dropped = await client.unsubscribe({ topics: ['announcements'] })
-  console.log(`[rpc] unsubscribe → ${dropped.unsubscribed.join(', ')}`)
+  dropped = await client.unsubscribe({ topics: ['announcements'] })
 } else {
   const subscribed = await client.subscribe({ topics: [...publicTopics] })
   console.log(`[rpc] subscribe → ${subscribed.subscribed.join(', ')}`)
   await sleep(RPC_PACE_MS)
 
   // Demo single-topic unsubscribe on public stream too.
-  const dropped = await client.unsubscribe({
+  dropped = await client.unsubscribe({
     topics: ['futures/inverse/btc_usd/ohlc/5m'],
   })
-  console.log(`[rpc] unsubscribe → ${dropped.unsubscribed.join(', ')}`)
 }
+console.log(`[rpc] unsubscribe → ${dropped.unsubscribed.join(', ')}`)
 
 const RUN_MS = 30_000
 console.log(`[run] streaming for ${RUN_MS}ms — Ctrl+C to stop early`)

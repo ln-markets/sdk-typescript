@@ -14,9 +14,9 @@ interface Swap {
 
 export type GetSwapsOutput = PaginatedResponse<Swap>
 
-type GetSwaps = (input?: GetSwapsInput) => Promise<GetSwapsOutput>
+type GetSwaps = (input?: Readonly<GetSwapsInput>) => Promise<GetSwapsOutput>
 
-export const createGetSwaps = (instance: KyInstance): GetSwaps => {
+export const createGetSwaps = (instance: Readonly<KyInstance>): GetSwaps => {
   return async (input) => {
     return instance
       .get('synthetic-usd/swaps', { searchParams: { ...input } })

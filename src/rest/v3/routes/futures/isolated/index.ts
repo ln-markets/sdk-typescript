@@ -53,7 +53,7 @@ export type {
   FuturesIsolatedUpdateTakeprofitOutput,
 } from './takeprofit.js'
 
-export const createFuturesIsolatedRoute = (instance: KyInstance) => ({
+export const createFuturesIsolatedRoute = (instance: Readonly<KyInstance>) => ({
   addMargin: createAddMargin(instance),
   cancel: createCancel(instance),
   cancelAll: createCancelAll(instance),

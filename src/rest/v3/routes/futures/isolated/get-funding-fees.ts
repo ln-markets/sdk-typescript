@@ -12,10 +12,12 @@ export interface FuturesIsolatedGetFundingFeesInput extends PaginationInput {
 export type FuturesIsolatedGetFundingFeesOutput = PaginatedResponse<FundingFees>
 
 type GetFundingFees = (
-  input?: FuturesIsolatedGetFundingFeesInput
+  input?: Readonly<FuturesIsolatedGetFundingFeesInput>
 ) => Promise<FuturesIsolatedGetFundingFeesOutput>
 
-export const createGetFundingFees = (instance: KyInstance): GetFundingFees => {
+export const createGetFundingFees = (
+  instance: Readonly<KyInstance>
+): GetFundingFees => {
   return async ({ cursor, from, limit, to, tradeId } = {}) => {
     return instance
       .get('futures/isolated/funding-fees', {

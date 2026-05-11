@@ -16,7 +16,7 @@ import { createWithdrawInternal } from './withdraw-internal.js'
 import { createWithdrawLightning } from './withdraw-lightning.js'
 import { createWithdrawOnChain } from './withdraw-on-chain.js'
 
-export const createAccountRoute = (instance: KyInstance) => ({
+export const createAccountRoute = (instance: Readonly<KyInstance>) => ({
   addBitcoinAddress: createAddBitcoinAddress(instance),
   depositLightning: createDepositLightning(instance),
   get: createGetAccount(instance),
