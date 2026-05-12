@@ -1,0 +1,71 @@
+{
+  "tab_size": 2,
+  "formatter": [
+    { "language_server": { "name": "oxfmt" } },
+    { "code_action": "source.fixAll.oxc" }
+  ],
+  "format_on_save": "on",
+  "languages": {
+    "TypeScript": {
+      "language_servers": [
+        "vtsls",
+        "oxlint",
+        "!tsgo",
+        "!typescript-language-server"
+      ]
+    },
+    "TSX": {
+      "language_servers": [
+        "vtsls",
+        "oxlint",
+        "!tsgo",
+        "!typescript-language-server"
+      ]
+    }
+  },
+  "edit_predictions": {
+    "disabled_globs": ["**/*.env"]
+  },
+  "file_scan_exclusions": [
+    "**/.git",
+    "**/node_modules",
+    "**/dist",
+    "pnpm-lock.yaml",
+    ".vscode",
+    ".cache",
+    "*.tsbuildinfo",
+    "mise.lock"
+  ],
+  "lsp": {
+    "vtsls": {
+      "settings": {
+        "typescript": {
+          "preferences": {
+            "importModuleSpecifier": "non-relative",
+            "includePackageJsonAutoImports": "auto"
+          },
+          "updateImportsOnFileMove": { "enabled": "always" }
+        }
+      }
+    },
+    "oxlint": {
+      "initialization_options": {
+        "settings": {
+          "disableNestedConfig": false,
+          "fixKind": "all",
+          "run": "onType",
+          "typeAware": true,
+          "unusedDisableDirectives": "deny"
+        }
+      }
+    },
+    "oxfmt": {
+      "initialization_options": {
+        "settings": {
+          "fmt.experimental": true,
+          "run": "onSave"
+        }
+      }
+    }
+  }
+}

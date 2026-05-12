@@ -1,0 +1,22 @@
+min_version = "2026.5.5"
+
+[env]
+_.path = ["node_modules/.bin"]
+
+[settings]
+experimental = true
+lockfile = true
+not_found_auto_install = true
+minimum_release_age = "1d"
+
+# - node → package.json#devEngines.runtime
+# - pnpm → package.json#packageManager
+idiomatic_version_file_enable_tools = ["node", "pnpm"]
+
+[settings.status]
+missing_tools = "if_other_versions_installed"
+show_env = false
+show_tools = false
+
+[hooks]
+enter = "pnpm install --frozen-lockfile --prefer-offline"

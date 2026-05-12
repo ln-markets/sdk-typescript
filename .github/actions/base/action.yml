@@ -1,26 +1,22 @@
 name: Base
-description: Install node, pnpm and setup cache
+description: Install node, pnpm via mise and setup cache
 
 runs:
   using: composite
   steps:
-    - uses: actions/setup-node@v6
+    - name: Setup mise
+      uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4.0.1
+      env:
+        MISE_LOCKED: '1'
       with:
-        node-version-file: package.json
-        scope: '@ln-markets'
-        registry-url: https://registry.npmjs.org/
-
-    - uses: pnpm/action-setup@v5.0.0
-      name: Install pnpm
-      with:
-        run_install: false
+        version: 2026.5.5
+        sha256: 3aaab5c05a8a94a93b42b4f581779bbd5c44ddb251e7f3639fc671ec5c6aab8a
+        install_args: node pnpm
 
     - name: Expose pnpm config through "$GITHUB_OUTPUT"
       id: pnpm-config
       shell: bash
-      run: |
-        pnpm store path
-        echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+      run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
     - name: Setup pnpm cache
       uses: actions/cache@v5
