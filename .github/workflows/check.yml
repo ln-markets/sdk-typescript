@@ -34,9 +34,6 @@ jobs:
 
       - run: pnpm test
         env:
-          V2_API_KEY: ${{ secrets.V2_API_KEY }}
-          V2_API_KEY_SECRET: ${{ secrets.V2_API_KEY_SECRET }}
-          V2_API_KEY_PASSPHRASE: ${{ secrets.V2_API_KEY_PASSPHRASE }}
-          V3_API_KEY: ${{ secrets.V3_API_KEY }}
-          V3_API_KEY_SECRET: ${{ secrets.V3_API_KEY_SECRET }}
-          V3_API_KEY_PASSPHRASE: ${{ secrets.V3_API_KEY_PASSPHRASE }}
+          TESTNET4_API_KEY: ${{ secrets.TESTNET4_API_KEY }}
+          TESTNET4_API_KEY_SECRET: ${{ secrets.TESTNET4_API_KEY_SECRET }}
+          TESTNET4_API_KEY_PASSPHRASE: ${{ secrets.TESTNET4_API_KEY_PASSPHRASE }}

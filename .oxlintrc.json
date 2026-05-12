@@ -44,7 +44,7 @@
   },
   "overrides": [
     {
-      "files": ["**/*.test.ts"],
+      "files": ["**/*.test.ts", "__test__/**/*.ts"],
       "rules": {
         "typescript/no-unsafe-assignment": "off",
         "typescript/no-unsafe-type-assertion": "off",
@@ -58,6 +58,16 @@
         "import/extensions": "off",
         "import/no-default-export": "off",
         "import/no-anonymous-default-export": "off"
+      }
+    },
+    {
+      "files": ["examples/**/*.ts"],
+      "rules": {
+        "eslint/no-console": "off",
+        "eslint/no-void": "off",
+        "unicorn/no-process-exit": "off",
+        "typescript/no-unsafe-type-assertion": "off",
+        "typescript/strict-boolean-expressions": "off"
       }
     }
   ]

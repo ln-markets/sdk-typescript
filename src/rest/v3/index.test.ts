@@ -1,39 +1,13 @@
-import { describe, expect, test as base } from 'vitest'
+import { describe, expect } from 'vitest'
 
-import type { HttpClient } from './index.js'
+import { HAS_AUTH } from '../../../__test__/network.js'
+import { test } from '../../../__test__/test.js'
 import { HTTPError } from 'ky'
-import { createHttpClient } from './index.js'
 
-const test = base.extend<{
-  client: HttpClient
-  authClient: HttpClient
-}>({
-  client: [
-    async ({}, use) => {
-      const client = createHttpClient({ network: 'testnet4' })
-      await use(client)
-    },
-    {
-      auto: true,
-    },
-  ],
-  authClient: [
-    async ({}, use) => {
-      const client = createHttpClient({
-        network: 'testnet4',
-        key: process.env.V3_API_KEY,
-        secret: process.env.V3_API_KEY_SECRET,
-        passphrase: process.env.V3_API_KEY_PASSPHRASE,
-      })
-      await use(client)
-    },
-    {
-      auto: true,
-    },
-  ],
-})
+// Network defaults to testnet4. Opt into mainnet explicitly:
+//   NETWORK=mainnet pnpm test rest/v3
 
-describe('v3', () => {
+describe('rest/v3', () => {
   describe('basics', () => {
     test('should return time', async ({ client }) => {
       const result = await client.time()
@@ -47,15 +21,18 @@ describe('v3', () => {
       expect(ping).toBe('pong')
     })
 
-    test('should return ping with authenticated client', async ({
-      authClient,
-    }) => {
-      const ping = await authClient.ping()
-      expect(ping).toBe('pong')
-    })
+    test.skipIf(!HAS_AUTH)(
+      'should return ping with authenticated client',
+      async ({ authClient }) => {
+        const ping = await authClient.ping()
+        expect(ping).toBe('pong')
+      }
+    )
   })
 
-  describe('get invoice', () => {
+  // Authenticated suites skipped wholesale when creds for the active network
+  // Are absent (instead of throwing and burying the basics output).
+  describe.skipIf(!HAS_AUTH)('get invoice', () => {
     test('should return the invoice', async ({ authClient }) => {
       const result = await authClient.account.depositLightning({
         amount: 100_000,
@@ -92,7 +69,7 @@ describe('v3', () => {
     })
   })
 
-  describe('futures', () => {
+  describe.skipIf(!HAS_AUTH)('futures', () => {
     test('should error', async ({ authClient }) => {
       await expect(
         authClient.futures.cross.newOrder({
@@ -190,14 +167,14 @@ describe('v3', () => {
       await expect(client.account.get()).rejects.toThrow()
     })
 
-    test('should return the user', async ({ authClient }) => {
+    test.skipIf(!HAS_AUTH)('should return the user', async ({ authClient }) => {
       await expect(authClient.account.get()).resolves.toStrictEqual({
         balance: expect.any(Number),
-        email: null,
+        email: expect.any(String),
         feeTier: expect.any(Number),
         id: expect.any(String),
         syntheticUsdBalance: expect.any(Number),
-        linkingPublicKey: expect.any(String),
+        linkingPublicKey: null,
         username: expect.any(String),
       })
     })

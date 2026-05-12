@@ -72,7 +72,7 @@ bun add @ln-markets/sdk
 By default, the SDK will connect to the LN Markets mainnet environment. You can change this by passing the `network` option to the `createHttpClient` function.
 
 ```typescript
-import { createHttpClient } from '@ln-markets/sdk/v3'
+import { createHttpClient } from '@ln-markets/sdk/rest/v3'
 
 const client = createHttpClient({
   network: 'testnet', // 'mainnet' or 'testnet'
@@ -84,7 +84,7 @@ const client = createHttpClient({
 You can use an unauthenticated client to access public endpoints.
 
 ```typescript
-import { createHttpClient } from '@ln-markets/sdk/v3'
+import { createHttpClient } from '@ln-markets/sdk/rest/v3'
 
 const client = createHttpClient()
 
@@ -124,7 +124,7 @@ You can get your API key, secret and passphrase from the [API Keys section](http
 > :warning: **Important:** Your API key, secret and passphrase are sensitive and should be kept secure. Do not expose them in your client-side code, nor share them with anyone. Any leakage of your API key, secret or passphrase may lead to unauthorized access to your account and irreversible loss of funds.
 
 ```typescript
-import { createHttpClient } from '@ln-markets/sdk/v3'
+import { createHttpClient } from '@ln-markets/sdk/rest/v3'
 
 const client = createHttpClient({
   key: 'your-api-key',
@@ -150,7 +150,7 @@ const withdrawals = await client.account.getLightningWithdrawals()
 Isolated margin mode allows you to limit the risk to a specific position. Each position has its own margin.
 
 ```typescript
-import { createHttpClient } from '@ln-markets/sdk/v3'
+import { createHttpClient } from '@ln-markets/sdk/rest/v3'
 
 const client = createHttpClient({
   key: 'your-api-key',
@@ -233,7 +233,7 @@ await client.futures.isolated.cashIn({
 Cross margin mode shares margin across all positions. This allows for more efficient margin usage but increases risk as losses from one position can affect others.
 
 ```typescript
-import { createHttpClient } from '@ln-markets/sdk/v3'
+import { createHttpClient } from '@ln-markets/sdk/rest/v3'
 
 const client = createHttpClient({
   key: 'your-api-key',
@@ -310,7 +310,7 @@ await client.futures.cross.withdraw({
 ### Account Management
 
 ```typescript
-import { createHttpClient } from '@ln-markets/sdk/v3'
+import { createHttpClient } from '@ln-markets/sdk/rest/v3'
 
 const client = createHttpClient({
   key: 'your-api-key',
@@ -367,7 +367,7 @@ const internalWithdrawals = await client.account.getInternalWithdrawals()
 Synthetic USD allows you to swap between BTC and USD-denominated positions.
 
 ```typescript
-import { createHttpClient } from '@ln-markets/sdk/v3'
+import { createHttpClient } from '@ln-markets/sdk/rest/v3'
 
 const client = createHttpClient({
   key: 'your-api-key',
@@ -394,7 +394,7 @@ const swaps = await client.syntheticUsd.getSwaps()
 ### Oracle Price Data
 
 ```typescript
-import { createHttpClient } from '@ln-markets/sdk/v3'
+import { createHttpClient } from '@ln-markets/sdk/rest/v3'
 
 const client = createHttpClient()
 
@@ -416,3 +416,148 @@ The v3 API provides the following routes:
 - **syntheticUsd**: Synthetic USD operations
 - **time**: Server time
 - **ping**: Health check endpoint
+
+## Stream API (stream/v1)
+
+The Stream API delivers realtime market data and private events over a single WebSocket connection (JSON-RPC 2.0). Subscribe to topics like `futures/inverse/btc_usd/ticker`, OHLC candles per resolution, and (when authenticated) wallet + position events.
+
+### Stream Setup
+
+Create a stream client and connect. By default the client targets mainnet and reconnects automatically.
+
+```typescript
+import { createStreamClient } from '@ln-markets/sdk/stream/v1'
+
+const client = createStreamClient({
+  network: 'mainnet', // 'mainnet' or 'testnet4'
+  reconnectInterval: 5000,
+  reconnectEnabled: true,
+  maxReconnectAttempts: 5,
+})
+
+await client.connect()
+```
+
+### Connect and authenticate
+
+Public topics (ticker, lastPrice, index, buckets, funding, OHLC, announcements) require no authentication. Private topics (`wallet/*`, `futures/inverse/btc_usd/cross/*`, `futures/inverse/btc_usd/isolated/trades`) require an authenticated session.
+
+> :warning: **Important:** Your API key, secret and passphrase are sensitive. Treat them like the REST credentials documented above.
+
+```typescript
+import { createStreamClient } from '@ln-markets/sdk/stream/v1'
+
+const client = createStreamClient({ network: 'mainnet' })
+
+await client.connect()
+
+const auth = await client.authenticate({
+  key: 'your-api-key',
+  secret: 'your-api-secret',
+  passphrase: 'your-api-key-passphrase',
+})
+// => { authenticated: true, permissions: ['futures:isolated:read', ...] }
+
+const me = await client.whoami()
+// => { apiKey: '...', userId: '...', permissions: [...] }
+```
+
+### Subscribe to topics
+
+`subscribe` takes a `Topic[]` and rejects unknown strings at compile time. The `on(topic, callback)` overload narrows the callback's argument type by topic literal — no runtime type assertions needed.
+
+```typescript
+import { createStreamClient } from '@ln-markets/sdk/stream/v1'
+
+const client = createStreamClient()
+await client.connect()
+
+// Public ticker stream
+client.on('futures/inverse/btc_usd/ticker', (data) => {
+  // data is FuturesTickerData — typed by topic literal
+  console.log(data.time, data.lastPrice, data.funding.rate)
+})
+
+// OHLC candles — every resolution from '1m' to '3months' is a valid topic
+client.on('futures/inverse/btc_usd/ohlc/1m', (candle) => {
+  // candle is OhlcData
+  console.log(candle.open, candle.high, candle.low, candle.close, candle.volume)
+})
+
+// Private isolated-trade events — discriminated union narrows on `event`
+client.on('futures/inverse/btc_usd/isolated/trades', (event) => {
+  if (event.event === 'open') {
+    console.log('opened trade', event.trade.id, event.trade.price)
+  } else if (event.event === 'closed') {
+    console.log('closed trade', event.trade.id, event.trade.pl)
+  }
+})
+
+const result = await client.subscribe({
+  topics: [
+    'futures/inverse/btc_usd/ticker',
+    'futures/inverse/btc_usd/ohlc/1m',
+    'futures/inverse/btc_usd/isolated/trades',
+  ],
+})
+// => { subscribed: ['futures/inverse/btc_usd/ticker', ...] }
+```
+
+### Lifecycle events
+
+The client emits standard lifecycle events alongside topic events. Listeners are typed.
+
+```typescript
+import { createStreamClient } from '@ln-markets/sdk/stream/v1'
+
+const client = createStreamClient()
+await client.connect()
+
+client.on('open', () => {
+  console.log('connected')
+})
+
+client.on('close', (code, reason) => {
+  console.log('closed', code, reason)
+})
+
+client.on('error', (err) => {
+  console.error('stream error', err)
+})
+
+client.on('reconnected', ({ attempts }) => {
+  console.log('reconnected after', attempts, 'attempts')
+  // No auto-resubscribe: replay your subscriptions here.
+})
+```
+
+### Unsubscribe and close
+
+```typescript
+// Unsubscribe from specific topics
+await client.unsubscribe({
+  topics: ['futures/inverse/btc_usd/ticker'],
+})
+
+// Or drop all subscriptions in one call
+await client.unsubscribeAll()
+
+// Clean disconnect
+client.close()
+```
+
+### Available topics
+
+Public:
+
+- `announcements`
+- `futures/inverse/btc_usd/ticker`, `.../lastPrice`, `.../index`, `.../buckets`, `.../funding`
+- `futures/inverse/btc_usd/ohlc/{1m,3m,5m,10m,15m,30m,45m,1h,2h,3h,4h,1d,1w,1month,3months}`
+
+Private (require `authenticate`):
+
+- `wallet/deposit`, `wallet/withdrawal`
+- `futures/inverse/btc_usd/isolated/trades`
+- `futures/inverse/btc_usd/cross/orders`, `.../cross/position`
+
+Each topic carries a typed payload (see `SubscriptionData` and the per-topic interfaces exported from `@ln-markets/sdk/stream/v1`).

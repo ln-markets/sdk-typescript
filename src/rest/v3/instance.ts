@@ -29,7 +29,7 @@ export const createInstance = ({
     .exhaustive()
 
   return ky.create({
-    prefixUrl: process.env.V3_API_URL ?? prefixUrl,
+    prefixUrl,
     retry: 0,
     hooks: {
       beforeRequest: [

@@ -1,6 +1,6 @@
 {
   "include": ["${configDir}/**/*.ts"],
-  "exclude": ["${configDir}/examples/**", "${configDir}/scripts/**"],
+  "exclude": ["${configDir}/scripts/**"],
   "compilerOptions": {
     "types": ["node"],
     "lib": ["esnext"],
