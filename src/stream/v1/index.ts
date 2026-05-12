@@ -13,6 +13,7 @@ export {
 } from './errors.js'
 
 export { StreamInstance } from './instance.js'
+export type { ConnectionState } from './instance.js'
 
 export { StreamClient } from './client.js'
 
@@ -20,20 +21,21 @@ export type {
   AnnouncementAdd,
   AnnouncementEvent,
   AnnouncementRemove,
-  Authenticate,
   AuthenticateInput,
   AuthenticateOutput,
   CrossOrderCanceled,
+  CrossOrderCanceledPayload,
   CrossOrderEvent,
+  CrossOrderFilledPayload,
   CrossOrderLimit,
   CrossOrderNew,
+  CrossOrderOpenPayload,
   CrossPositionData,
   FuturesBucketData,
   FuturesFundingData,
   FuturesIndexData,
   FuturesLastPriceData,
   FuturesTickerData,
-  Hello,
   HelloInput,
   HelloOutput,
   Instrument,
@@ -51,23 +53,17 @@ export type {
   OhlcResolution,
   OhlcTopic,
   Pair,
-  Ping,
   PingOutput,
-  Subscribe,
   SubscribeInput,
   SubscribeOutput,
   SubscriptionData,
-  Time,
   TimeOutput,
   Topic,
-  Unsubscribe,
-  UnsubscribeAll,
   UnsubscribeAllOutput,
   UnsubscribeInput,
   UnsubscribeOutput,
   WalletDepositData,
   WalletWithdrawData,
-  Whoami,
   WhoamiOutput,
 } from './client.js'
 

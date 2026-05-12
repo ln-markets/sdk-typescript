@@ -24,6 +24,7 @@ export type {
   FuturesCrossDepositOutput,
 } from './deposit.js'
 export type {
+  FilledOrder as FuturesCrossFilledOrder,
   FuturesCrossGetFilledOrdersInput,
   FuturesCrossGetFilledOrdersOutput,
 } from './get-filled-orders.js'
@@ -36,6 +37,7 @@ export type { FuturesCrossGetPositionOutput } from './get-position.js'
 export type {
   FuturesCrossGetTransfersInput,
   FuturesCrossGetTransfersOutput,
+  Transfer as FuturesCrossTransfer,
 } from './get-transfers.js'
 export type {
   FuturesCrossNewOrderInput,

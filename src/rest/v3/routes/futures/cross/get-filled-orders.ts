@@ -4,7 +4,7 @@ import type { PaginatedResponse, PaginationInput } from '../../../types.js'
 
 export type FuturesCrossGetFilledOrdersInput = PaginationInput
 
-interface FilledOrder {
+export interface FilledOrder {
   canceled: false
   canceledAt: null
   createdAt: string

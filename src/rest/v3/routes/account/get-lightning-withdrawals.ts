@@ -6,7 +6,7 @@ export type GetLightningWithdrawalsInput = PaginationInput & {
   status?: 'failed' | 'processed' | 'processing'
 }
 
-interface LightningWithdrawal {
+export interface LightningWithdrawal {
   amount: number
   createdAt: string
   destination: null | string

@@ -19,20 +19,20 @@ export type {
 } from './add-margin.js'
 export type { FuturesIsolatedCancelAllOutput } from './cancel-all.js'
 export type {
-  FuturesIsolatedCancelTradeInput,
   FuturesIsolatedCancelOutput,
+  FuturesIsolatedCancelTradeInput,
 } from './cancel.js'
 export type {
   FuturesIsolatedCashInInput,
   FuturesIsolatedCashInOutput,
 } from './cash-in.js'
 export type {
-  FuturesIsolatedCloseTradeInput,
   FuturesIsolatedCloseOutput,
+  FuturesIsolatedCloseTradeInput,
 } from './close.js'
 export type {
-  FuturesIsolatedGetClosedTradesOutput,
   FuturesIsolatedGetClosedTradesInput,
+  FuturesIsolatedGetClosedTradesOutput,
 } from './get-closed-trades.js'
 export type {
   FuturesIsolatedGetFundingFeesInput,
@@ -43,6 +43,7 @@ export type { FuturesIsolatedGetRunningTradesOutput } from './get-running-trades
 export type {
   FuturesIsolatedNewTradeInput,
   FuturesIsolatedNewTradeOutput,
+  FuturesOrder as FuturesIsolatedOrder,
 } from './new-trade.js'
 export type {
   FuturesIsolatedUpdateStoplossInput,

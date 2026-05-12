@@ -6,7 +6,7 @@ export type GetLightningDepositsInput = PaginationInput & {
   settled?: boolean
 }
 
-type LightningDeposit =
+export type LightningDeposit =
   | {
       id: string
       createdAt: string
