@@ -196,6 +196,7 @@ export class StreamInstance extends EventEmitter<StreamEvents> {
       ws.on('close', (code: number, reasonBuf: Buffer) => {
         const reason = reasonBuf.toString('utf8')
         const wasUserInitiated = this.#userInitiatedClose
+        const wasReconnectAttempt = this.#reconnectAttempts > 0
         // oxlint-disable-next-line unicorn/no-null -- null = "no socket held" sentinel (project convention)
         this.#ws = null
         this.#state = 'disconnected'
@@ -203,6 +204,13 @@ export class StreamInstance extends EventEmitter<StreamEvents> {
         this.#rejectPending()
         if (!opened) {
           reject(new Error(`WebSocket closed before open (code=${code})`))
+          // Initial connect failure: caller already saw reject; do NOT auto-
+          // Reconnect in the background — that would orphan a live socket the
+          // Caller believes is dead. Only mid-cycle reconnect attempts (where
+          // The wasReconnectAttempt path falls through to schedule next try.
+          if (!wasReconnectAttempt) {
+            return
+          }
         }
         if (!wasUserInitiated && code !== 1000 && this.#shouldReconnect()) {
           this.#scheduleReconnect()

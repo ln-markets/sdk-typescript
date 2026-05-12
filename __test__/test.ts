@@ -3,7 +3,6 @@ import { test as base } from 'vitest'
 
 import type { HttpClient } from '../src/rest/v3/index.js'
 import { createHttpClient } from '../src/rest/v3/index.js'
-
 import { authCreds, NETWORK } from './network.js'
 
 // Extended `test` for rest/v3 suites. Injects an unauth `client` (auto-supplied

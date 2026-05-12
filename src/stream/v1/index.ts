@@ -1,8 +1,7 @@
 // Phase 3 public surface — createStreamClient factory + StreamClient class + method I/O type re-exports atop the Phase 2 transport barrel.
 
-import type { Options } from './types.js'
-
 import { StreamClient } from './client.js'
+import type { Options } from './types.js'
 
 export type { Options, StreamEvents } from './types.js'
 

@@ -75,7 +75,7 @@ By default, the SDK will connect to the LN Markets mainnet environment. You can 
 import { createHttpClient } from '@ln-markets/sdk/rest/v3'
 
 const client = createHttpClient({
-  network: 'testnet', // 'mainnet' or 'testnet'
+  network: 'testnet4', // 'mainnet' or 'testnet4'
 })
 ```
 
@@ -94,17 +94,17 @@ const time = await client.time()
 
 // Ping the server
 const pong = await client.ping()
-// => { message: 'pong' }
+// => 'pong'
 
 // Get current ticker information
-const ticker = await client.futures.getTicket()
+const ticker = await client.futures.getTicker()
 // => { index: 67500, lastPrice: 67520, ... }
 
 // Get candles data
 const candles = await client.futures.getCandles({
   from: '2023-10-31T00:00:00Z',
   to: '2023-11-01T00:00:00Z',
-  interval: '1h',
+  range: '1h',
 })
 
 // Get leaderboard
@@ -193,13 +193,13 @@ await client.futures.isolated.addMargin({
 // Update take-profit
 await client.futures.isolated.updateTakeprofit({
   id: 'trade-id',
-  takeprofit: 72000,
+  value: 72000,
 })
 
 // Update stop-loss
 await client.futures.isolated.updateStoploss({
   id: 'trade-id',
-  stoploss: 66000,
+  value: 66000,
 })
 
 // Close a specific position
@@ -241,7 +241,8 @@ const client = createHttpClient({
   passphrase: 'your-api-key-passphrase',
 })
 
-// First, deposit funds into cross margin account
+// First, deposit funds into cross margin account.
+// Returns the updated FuturesCrossPosition.
 await client.futures.cross.deposit({
   amount: 100000, // Amount in satoshis
 })
@@ -301,7 +302,8 @@ const transfers = await client.futures.cross.getTransfers({
   to: '2023-11-01T00:00:00Z',
 })
 
-// Withdraw funds from cross margin account
+// Withdraw funds from cross margin account.
+// Returns the updated FuturesCrossPosition.
 await client.futures.cross.withdraw({
   amount: 50000,
 })
@@ -336,9 +338,9 @@ const withdrawal = await client.account.withdrawLightning({
 
 // Get or add Bitcoin on-chain address
 const address = await client.account.getBitcoinAddress()
-// or add a new one
+// or generate a new one (server-side). Optionally choose the script format.
 const newAddress = await client.account.addBitcoinAddress({
-  address: 'bc1q...', // Your Bitcoin address
+  format: 'p2tr', // 'p2tr' (default) or 'p2wpkh'
 })
 
 // Withdraw on-chain
@@ -349,7 +351,7 @@ const onChainWithdrawal = await client.account.withdrawOnChain({
 
 // Internal transfer (to another LN Markets user)
 const internalTransfer = await client.account.withdrawInternal({
-  username: 'recipient-username',
+  toUsername: 'recipient-username',
   amount: 50000,
 })
 
@@ -375,16 +377,14 @@ const client = createHttpClient({
   passphrase: 'your-api-key-passphrase',
 })
 
-// Get best price for swap
-const bestPrice = await client.syntheticUsd.getBestPrice({
-  side: 'buy', // 'buy' or 'sell'
-  quantity: 100, // Amount in USD
-})
+// Get best price for swap (current ask/bid)
+const bestPrice = await client.syntheticUsd.getBestPrice()
 
-// Create a new swap
+// Create a new swap by specifying input amount + assets
 const swap = await client.syntheticUsd.newSwap({
-  side: 'buy',
-  quantity: 100,
+  inAmount: 100,
+  inAsset: 'USD',
+  outAsset: 'BTC',
 })
 
 // Get swap history

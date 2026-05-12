@@ -1,4 +1,5 @@
 import type { KyInstance } from 'ky'
+
 import type { PaginationInput } from '../../types.js'
 
 export type GetLastPriceInput = PaginationInput
@@ -17,7 +18,9 @@ export const createGetLastPrice = (
 ): GetLastPrice => {
   return async ({ from, limit, to } = {}) => {
     return instance
-      .get('oracle/last-price', { searchParams: { from, limit, to } })
+      .get('oracle/last-price', {
+        searchParams: { from, limit, to },
+      })
       .json()
   }
 }

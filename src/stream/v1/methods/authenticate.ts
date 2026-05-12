@@ -1,6 +1,7 @@
-import { createHmac, randomBytes } from 'node:crypto'
+import { randomBytes } from 'node:crypto'
 
 import type { StreamInstance } from '../instance.js'
+import { buildAuthPayload, signAuth } from '../internal/signing.js'
 
 export interface AuthenticateInput {
   key: string
@@ -21,11 +22,9 @@ export const createAuthenticate = (
   instance: Readonly<StreamInstance>
 ): Authenticate => {
   return async ({ key, secret, passphrase }) => {
-    const nonce = randomBytes(8).toString('hex')
+    const nonce = randomBytes(16).toString('hex')
     const timestamp = Date.now()
-    const signature = createHmac('sha256', secret)
-      .update(`${timestamp}${nonce}`)
-      .digest('base64')
+    const signature = signAuth(secret, buildAuthPayload({ timestamp, nonce }))
 
     return instance.request<AuthenticateOutput>({
       method: 'authenticate',
