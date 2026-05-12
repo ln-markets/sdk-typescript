@@ -1,7 +1,7 @@
-// oxlint-disable eslint/max-lines -- contract-shaped integration tests for stream-v1; splitting would scatter shared fixture setup
+// oxlint-disable eslint/max-lines -- contract-shaped integration tests for stream/v1; splitting would scatter shared fixture setup
 import { afterAll, afterEach, describe, expect, test } from 'vitest'
 
-import { authCreds, HAS_AUTH, NETWORK } from '../../__test__/network.js'
+import { authCreds, HAS_AUTH, NETWORK } from '../../../__test__/network.js'
 import type { StreamClient, Topic } from './index.js'
 import {
   createStreamClient,
@@ -95,7 +95,7 @@ afterEach(async () => {
 
 // Testnet4 occasionally closes idle WS connections mid-request; retry absorbs
 // The resulting StreamDisconnectedError without masking real client bugs.
-describe('stream-v1', { retry: 2 }, () => {
+describe('stream/v1', { retry: 2 }, () => {
   describe('basics', () => {
     test('should return pong from ping', async () => {
       const pong = await client.ping()

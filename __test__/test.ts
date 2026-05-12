@@ -1,11 +1,11 @@
 import { test as base } from 'vitest'
 
-import type { HttpClient } from '../src/rest-v3/index.js'
-import { createHttpClient } from '../src/rest-v3/index.js'
+import type { HttpClient } from '../src/rest/v3/index.js'
+import { createHttpClient } from '../src/rest/v3/index.js'
 
 import { authCreds, NETWORK } from './network.js'
 
-// Extended `test` for rest-v3 suites. Injects an unauth `client` (auto-supplied
+// Extended `test` for rest/v3 suites. Injects an unauth `client` (auto-supplied
 // To every test) and an `authClient` (resolved lazily; throws with a useful
 // Message when creds are absent so tests gated by `skipIf(!HAS_AUTH)` never
 // Reach this path).
@@ -27,8 +27,8 @@ export const test = base.extend<{
     if (!creds) {
       throw new Error(
         NETWORK === 'testnet4'
-          ? 'TESTNET4_API_KEY / TESTNET4_API_KEY_SECRET / TESTNET4_API_KEY_PASSPHRASE required for authenticated rest-v3 tests'
-          : 'MAINNET_API_KEY / MAINNET_API_SECRET / MAINNET_API_PASSPHRASE required for authenticated rest-v3 tests'
+          ? 'TESTNET4_API_KEY / TESTNET4_API_KEY_SECRET / TESTNET4_API_KEY_PASSPHRASE required for authenticated rest/v3 tests'
+          : 'MAINNET_API_KEY / MAINNET_API_SECRET / MAINNET_API_PASSPHRASE required for authenticated rest/v3 tests'
       )
     }
     const client = createHttpClient({

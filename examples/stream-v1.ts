@@ -1,5 +1,5 @@
 /**
- * Stream-v1 runnable example — exercises every public RPC + every topic listener.
+ * Runnable example of stream/v1 — exercises every public RPC + every topic listener.
  *
  * RPC methods covered: hello, ping, time, authenticate, whoami,
  *                      subscribe, unsubscribe, unsubscribeAll.
@@ -20,7 +20,7 @@
  *   pnpm exec tsx examples/stream-v1.ts --testnet4 --auth
  */
 
-import { createStreamClient } from '../src/stream-v1/index.js'
+import { createStreamClient } from '../src/stream/v1/index.js'
 
 const network = process.argv.includes('--testnet4') ? 'testnet4' : 'mainnet'
 const wantAuth = process.argv.includes('--auth')

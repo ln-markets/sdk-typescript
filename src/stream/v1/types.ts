@@ -1,4 +1,4 @@
-// oxlint-disable eslint/max-lines -- exhaustive hand-mirror of stream-v1 contract; splitting across files would lose locality
+// oxlint-disable eslint/max-lines -- exhaustive hand-mirror of stream/v1 contract; splitting across files would lose locality
 // oxlint-disable typescript/consistent-indexed-object-style -- mapped template-literal types (`OhlcTopic`, `response:${string}`) cannot be expressed as Record without losing literal-key narrowing
 
 // ============================================================================

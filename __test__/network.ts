@@ -1,5 +1,5 @@
 // Shared test helpers for picking the target network and reading API creds.
-// Both rest-v3 and stream-v1 test suites use the same env-var families
+// Both rest/v3 and stream/v1 test suites use the same env-var families
 // (TESTNET4_API_* vs MAINNET_API_*) and the same opt-into-mainnet rule.
 
 type Network = 'mainnet' | 'testnet4'

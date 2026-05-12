@@ -28,13 +28,13 @@
   ],
   "type": "module",
   "exports": {
-    "./rest-v3": {
-      "import": "./dist/rest-v3/index.js",
-      "types": "./dist/rest-v3/index.d.ts"
+    "./rest/v3": {
+      "import": "./dist/rest/v3/index.js",
+      "types": "./dist/rest/v3/index.d.ts"
     },
-    "./stream-v1": {
-      "import": "./dist/stream-v1/index.js",
-      "types": "./dist/stream-v1/index.d.ts"
+    "./stream/v1": {
+      "import": "./dist/stream/v1/index.js",
+      "types": "./dist/stream/v1/index.d.ts"
     }
   },
   "publishConfig": {

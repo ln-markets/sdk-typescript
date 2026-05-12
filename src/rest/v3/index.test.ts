@@ -1,13 +1,13 @@
 import { describe, expect } from 'vitest'
 
-import { HAS_AUTH } from '../../__test__/network.js'
-import { test } from '../../__test__/test.js'
+import { HAS_AUTH } from '../../../__test__/network.js'
+import { test } from '../../../__test__/test.js'
 import { HTTPError } from 'ky'
 
 // Network defaults to testnet4. Opt into mainnet explicitly:
-//   NETWORK=mainnet pnpm test rest-v3
+//   NETWORK=mainnet pnpm test rest/v3
 
-describe('rest-v3', () => {
+describe('rest/v3', () => {
   describe('basics', () => {
     test('should return time', async ({ client }) => {
       const result = await client.time()
