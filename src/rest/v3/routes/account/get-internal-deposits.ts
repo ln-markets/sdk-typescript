@@ -4,7 +4,7 @@ import type { PaginatedResponse, PaginationInput } from '../../types.js'
 
 export type GetInternalDepositsInput = PaginationInput
 
-interface InternalDeposit {
+export interface InternalDeposit {
   amount: number
   createdAt: string
   fromUsername: string

@@ -4,7 +4,7 @@ import type { PaginatedResponse, PaginationInput } from '../../types.js'
 
 export type GetSwapsInput = PaginationInput
 
-interface Swap {
+export interface Swap {
   createdAt: string
   id: string
   inAmount: number

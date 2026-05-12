@@ -4,7 +4,7 @@ import type { PaginatedResponse, PaginationInput } from '../../../types.js'
 
 export type FuturesCrossGetTransfersInput = PaginationInput
 
-interface Transfer {
+export interface Transfer {
   amount: number
   id: string
   time: string

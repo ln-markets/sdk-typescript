@@ -12,7 +12,7 @@ import {
 } from './errors.js'
 import type { Options, StreamEvents, Topic } from './types.js'
 
-type ConnectionState =
+export type ConnectionState =
   | 'disconnected'
   | 'connecting'
   | 'connected'

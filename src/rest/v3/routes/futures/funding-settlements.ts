@@ -4,7 +4,7 @@ import type { PaginatedResponse, PaginationInput } from '../../types.js'
 
 export type GetFundingSettlementsInput = PaginationInput
 
-interface FundingSettlement {
+export interface FundingSettlement {
   id: string
   time: string
   fundingRate: number

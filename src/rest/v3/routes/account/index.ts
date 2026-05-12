@@ -47,30 +47,37 @@ export type { GetBitcoinAddressOutput } from './get-bitcoin-address.js'
 export type {
   GetInternalDepositsInput,
   GetInternalDepositsOutput,
+  InternalDeposit,
 } from './get-internal-deposits.js'
 export type {
   GetInternalWithdrawalsInput,
   GetInternalWithdrawalsOutput,
+  InternalWithdrawal,
 } from './get-internal-withdrawals.js'
 export type {
   GetLightningDepositsInput,
   GetLightningDepositsOutput,
+  LightningDeposit,
 } from './get-lightning-deposits.js'
 export type {
   GetLightningWithdrawalsInput,
   GetLightningWithdrawalsOutput,
+  LightningWithdrawal,
 } from './get-lightning-withdrawals.js'
 export type {
   GetNotificationsInput,
   GetNotificationsOutput,
+  Notification,
 } from './get-notifications.js'
 export type {
+  BitcoinDeposit,
   GetOnChainDepositsInput,
   GetOnChainDepositsOutput,
 } from './get-on-chain-deposits.js'
 export type {
   GetOnChainWithdrawalsInput,
   GetOnChainWithdrawalsOutput,
+  OnChainWithdrawal,
 } from './get-on-chain-withdrawals.js'
 export type {
   WithdrawInternalInput,

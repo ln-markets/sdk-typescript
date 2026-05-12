@@ -6,7 +6,7 @@ export interface GetNotificationsInput extends PaginationInput {
   read?: boolean
 }
 
-interface Notification {
+export interface Notification {
   id: string
   createdAt: string
   event: string

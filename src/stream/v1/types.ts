@@ -228,7 +228,7 @@ export type IsolatedTradesEvent =
 // Cross Order Events (discriminated union — `event` literal)
 // ============================================================================
 
-interface CrossOrderOpenPayload {
+export interface CrossOrderOpenPayload {
   id: string
   side: 'buy' | 'sell'
   type: 'limit'
@@ -239,7 +239,7 @@ interface CrossOrderOpenPayload {
   createdAt: number
 }
 
-interface CrossOrderFilledPayload {
+export interface CrossOrderFilledPayload {
   id: string
   side: 'buy' | 'sell'
   type: 'limit' | 'liquidation' | 'market'
@@ -251,7 +251,7 @@ interface CrossOrderFilledPayload {
   filledAt: number
 }
 
-interface CrossOrderCanceledPayload {
+export interface CrossOrderCanceledPayload {
   id: string
   side: 'buy' | 'sell'
   type: 'limit'

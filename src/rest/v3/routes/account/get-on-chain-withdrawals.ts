@@ -6,7 +6,7 @@ export type GetOnChainWithdrawalsInput = PaginationInput & {
   status?: 'canceled' | 'pending' | 'processed' | 'processing' | 'rejected'
 }
 
-interface OnChainWithdrawal {
+export interface OnChainWithdrawal {
   address: string
   amount: number
   createdAt: string
