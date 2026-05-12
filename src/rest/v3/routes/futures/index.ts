@@ -7,14 +7,19 @@ import { createFuturesIsolatedRoute } from './isolated/index.js'
 import { createGetLeaderboard } from './leaderboard.js'
 import { createGetTicker } from './ticker.js'
 
-export const createFuturesRoute = (instance: Readonly<KyInstance>) => ({
-  cross: createFuturesCrossRoute(instance),
-  getCandles: createGetCandles(instance),
-  getFundingSettlements: createGetFuturesFundingSettlementsRoute(instance),
-  getLeaderboard: createGetLeaderboard(instance),
-  getTicket: createGetTicker(instance),
-  isolated: createFuturesIsolatedRoute(instance),
-})
+export const createFuturesRoute = (instance: Readonly<KyInstance>) => {
+  const getTicker = createGetTicker(instance)
+  return {
+    cross: createFuturesCrossRoute(instance),
+    getCandles: createGetCandles(instance),
+    getFundingSettlements: createGetFuturesFundingSettlementsRoute(instance),
+    getLeaderboard: createGetLeaderboard(instance),
+    getTicker,
+    /** @deprecated Use `getTicker` instead. Will be removed in v2. */
+    getTicket: getTicker,
+    isolated: createFuturesIsolatedRoute(instance),
+  }
+}
 
 export type { GetCandlesInput, GetCandlesOutput } from './candles.js'
 export type {
