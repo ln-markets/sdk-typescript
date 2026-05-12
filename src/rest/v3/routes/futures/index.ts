@@ -8,15 +8,12 @@ import { createGetLeaderboard } from './leaderboard.js'
 import { createGetTicker } from './ticker.js'
 
 export const createFuturesRoute = (instance: Readonly<KyInstance>) => {
-  const getTicker = createGetTicker(instance)
   return {
     cross: createFuturesCrossRoute(instance),
     getCandles: createGetCandles(instance),
     getFundingSettlements: createGetFuturesFundingSettlementsRoute(instance),
     getLeaderboard: createGetLeaderboard(instance),
-    getTicker,
-    /** @deprecated Use `getTicker` instead. Will be removed in v2. */
-    getTicket: getTicker,
+    getTicker: createGetTicker(instance),
     isolated: createFuturesIsolatedRoute(instance),
   }
 }
