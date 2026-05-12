@@ -8,7 +8,7 @@ import { createPing } from './routes/ping.js'
 import { createSyntheticUsdRoutes } from './routes/synthetic-usd/index.js'
 import { createTimeRoute } from './routes/time.js'
 
-export const createHttpClient = (options?: Options) => {
+export const createHttpClient = (options?: Readonly<Options>) => {
   const instance = createInstance({ ...options })
 
   return {

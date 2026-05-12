@@ -15,7 +15,7 @@ export interface GetTickerOutput {
 
 type GetTicker = () => Promise<GetTickerOutput>
 
-export const createGetTicker = (instance: KyInstance): GetTicker => {
+export const createGetTicker = (instance: Readonly<KyInstance>): GetTicker => {
   return async () => {
     return instance.get('futures/ticker').json()
   }

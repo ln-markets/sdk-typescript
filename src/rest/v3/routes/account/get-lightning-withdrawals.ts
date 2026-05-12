@@ -19,11 +19,11 @@ export type GetLightningWithdrawalsOutput =
   PaginatedResponse<LightningWithdrawal>
 
 type GetLightningWithdrawals = (
-  input?: GetLightningWithdrawalsInput
+  input?: Readonly<GetLightningWithdrawalsInput>
 ) => Promise<GetLightningWithdrawalsOutput>
 
 export const createGetLightningWithdrawals = (
-  instance: KyInstance
+  instance: Readonly<KyInstance>
 ): GetLightningWithdrawals => {
   return async ({ cursor, from, limit, to, status } = {}) => {
     return instance

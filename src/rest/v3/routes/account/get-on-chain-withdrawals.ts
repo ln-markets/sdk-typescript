@@ -18,11 +18,11 @@ interface OnChainWithdrawal {
 export type GetOnChainWithdrawalsOutput = PaginatedResponse<OnChainWithdrawal>
 
 type GetOnChainWithdrawals = (
-  input?: GetOnChainWithdrawalsInput
+  input?: Readonly<GetOnChainWithdrawalsInput>
 ) => Promise<GetOnChainWithdrawalsOutput>
 
 export const createGetOnChainWithdrawals = (
-  instance: KyInstance
+  instance: Readonly<KyInstance>
 ): GetOnChainWithdrawals => {
   return async ({ cursor, from, limit, to, status } = {}) => {
     return instance

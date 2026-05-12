@@ -4,7 +4,7 @@ import { createGetBestPrice } from './get-best-price.js'
 import { createGetSwaps } from './get-swaps.js'
 import { createNewSwap } from './new-swap.js'
 
-export const createSyntheticUsdRoutes = (instance: KyInstance) => ({
+export const createSyntheticUsdRoutes = (instance: Readonly<KyInstance>) => ({
   getBestPrice: createGetBestPrice(instance),
   getSwaps: createGetSwaps(instance),
   newSwap: createNewSwap(instance),

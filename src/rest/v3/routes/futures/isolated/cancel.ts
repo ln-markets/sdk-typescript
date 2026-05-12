@@ -8,10 +8,10 @@ export interface FuturesIsolatedCancelTradeInput {
 export type FuturesIsolatedCancelOutput = FuturesCanceledTrade
 
 type Cancel = (
-  input: FuturesIsolatedCancelTradeInput
+  input: Readonly<FuturesIsolatedCancelTradeInput>
 ) => Promise<FuturesIsolatedCancelOutput>
 
-export const createCancel = (instance: KyInstance): Cancel => {
+export const createCancel = (instance: Readonly<KyInstance>): Cancel => {
   return async ({ id }) => {
     return instance
       .post('futures/isolated/trade/cancel', { json: { id } })

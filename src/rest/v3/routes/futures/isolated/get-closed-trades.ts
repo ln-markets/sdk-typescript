@@ -14,11 +14,11 @@ export type FuturesIsolatedGetClosedTradesOutput = PaginatedResponse<
 >
 
 type GetClosedTrades = (
-  input?: FuturesIsolatedGetClosedTradesInput
+  input?: Readonly<FuturesIsolatedGetClosedTradesInput>
 ) => Promise<FuturesIsolatedGetClosedTradesOutput>
 
 export const createGetClosedTrades = (
-  instance: KyInstance
+  instance: Readonly<KyInstance>
 ): GetClosedTrades => {
   return async ({ cursor, from, limit, to } = {}) => {
     return instance

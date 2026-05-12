@@ -7,7 +7,7 @@ export interface GetBitcoinAddressOutput {
 type GetBitcoinAddress = () => Promise<GetBitcoinAddressOutput>
 
 export const createGetBitcoinAddress = (
-  instance: KyInstance
+  instance: Readonly<KyInstance>
 ): GetBitcoinAddress => {
   return async () => {
     return instance.get('account/address/bitcoin').json()

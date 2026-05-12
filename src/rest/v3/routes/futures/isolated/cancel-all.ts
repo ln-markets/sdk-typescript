@@ -5,7 +5,7 @@ export type FuturesIsolatedCancelAllOutput = FuturesCanceledTrade
 
 type CancelAll = () => Promise<FuturesIsolatedCancelAllOutput>
 
-export const createCancelAll = (instance: KyInstance): CancelAll => {
+export const createCancelAll = (instance: Readonly<KyInstance>): CancelAll => {
   return async () => {
     return instance.post('futures/isolated/trades/cancel-all').json()
   }

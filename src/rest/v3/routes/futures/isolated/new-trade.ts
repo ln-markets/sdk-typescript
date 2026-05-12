@@ -33,10 +33,10 @@ export type FuturesIsolatedNewTradeInput = FuturesOrder
 export type FuturesIsolatedNewTradeOutput = FuturesOpenOrRunningTrade
 
 type NewTrade = (
-  input: FuturesIsolatedNewTradeInput
+  input: Readonly<FuturesIsolatedNewTradeInput>
 ) => Promise<FuturesIsolatedNewTradeOutput>
 
-export const createNewTrade = (instance: KyInstance): NewTrade => {
+export const createNewTrade = (instance: Readonly<KyInstance>): NewTrade => {
   return async ({
     leverage,
     margin,

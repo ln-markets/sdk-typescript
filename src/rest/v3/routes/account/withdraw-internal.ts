@@ -14,11 +14,11 @@ export interface WithdrawInternalOutput {
 }
 
 type WithdrawInternal = (
-  input: WithdrawInternalInput
+  input: Readonly<WithdrawInternalInput>
 ) => Promise<WithdrawInternalOutput>
 
 export const createWithdrawInternal = (
-  instance: KyInstance
+  instance: Readonly<KyInstance>
 ): WithdrawInternal => {
   return async ({ amount, toUsername }) => {
     return instance

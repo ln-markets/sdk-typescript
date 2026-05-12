@@ -37,11 +37,11 @@ export type GetOnChainDepositsInput = PaginationInput & {
 export type GetOnChainDepositsOutput = PaginatedResponse<BitcoinDeposit>
 
 type GetOnChainDeposits = (
-  input?: GetOnChainDepositsInput
+  input?: Readonly<GetOnChainDepositsInput>
 ) => Promise<GetOnChainDepositsOutput>
 
 export const createGetOnChainDeposits = (
-  instance: KyInstance
+  instance: Readonly<KyInstance>
 ): GetOnChainDeposits => {
   return async ({ cursor, from, limit, to, status } = {}) => {
     return instance

@@ -8,7 +8,7 @@ export interface UnsubscribeAllOutput {
 export type UnsubscribeAll = () => Promise<UnsubscribeAllOutput>
 
 export const createUnsubscribeAll = (
-  instance: StreamInstance
+  instance: Readonly<StreamInstance>
 ): UnsubscribeAll => {
   return async () => {
     return instance.request<UnsubscribeAllOutput>({

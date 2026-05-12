@@ -6,7 +6,7 @@ export type FuturesIsolatedGetRunningTradesOutput = FuturesRunningTrade[]
 type GetRunningTrades = () => Promise<FuturesIsolatedGetRunningTradesOutput>
 
 export const createGetRunningTrades = (
-  instance: KyInstance
+  instance: Readonly<KyInstance>
 ): GetRunningTrades => {
   return async () => {
     return instance.get('futures/isolated/trades/running').json()

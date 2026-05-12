@@ -13,9 +13,9 @@ export interface NewSwapInput {
   outAsset: 'BTC' | 'USD'
 }
 
-type NewSwap = (input: NewSwapInput) => Promise<NewSwapOutput>
+type NewSwap = (input: Readonly<NewSwapInput>) => Promise<NewSwapOutput>
 
-export const createNewSwap = (instance: KyInstance): NewSwap => {
+export const createNewSwap = (instance: Readonly<KyInstance>): NewSwap => {
   return async ({ inAmount, inAsset, outAsset }) => {
     return instance
       .post('synthetic-usd/swap', { json: { inAmount, inAsset, outAsset } })

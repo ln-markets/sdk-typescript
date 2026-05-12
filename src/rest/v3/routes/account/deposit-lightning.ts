@@ -12,11 +12,11 @@ export interface DepositLightningOutput {
 }
 
 type DepositLightning = (
-  input: DepositLightningInput
+  input: Readonly<DepositLightningInput>
 ) => Promise<DepositLightningOutput>
 
 export const createDepositLightning = (
-  instance: KyInstance
+  instance: Readonly<KyInstance>
 ): DepositLightning => {
   return async ({ amount, comment, descriptionHash }) => {
     return instance

@@ -16,11 +16,11 @@ interface Notification {
 export type GetNotificationsOutput = PaginatedResponse<Notification>
 
 type GetNotifications = (
-  input?: GetNotificationsInput
+  input?: Readonly<GetNotificationsInput>
 ) => Promise<GetNotificationsOutput>
 
 export const createGetNotifications = (
-  instance: KyInstance
+  instance: Readonly<KyInstance>
 ): GetNotifications => {
   return async ({ cursor, from, limit, to, read } = {}) => {
     return instance

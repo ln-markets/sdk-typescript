@@ -22,11 +22,11 @@ interface FilledOrder {
 export type FuturesCrossGetFilledOrdersOutput = PaginatedResponse<FilledOrder>
 
 type GetFilledOrders = (
-  input?: FuturesCrossGetFilledOrdersInput
+  input?: Readonly<FuturesCrossGetFilledOrdersInput>
 ) => Promise<FuturesCrossGetFilledOrdersOutput>
 
 export const createGetFilledOrders = (
-  instance: KyInstance
+  instance: Readonly<KyInstance>
 ): GetFilledOrders => {
   return async ({ cursor, from, limit, to } = {}) => {
     return instance

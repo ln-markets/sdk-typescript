@@ -8,10 +8,10 @@ export interface FuturesIsolatedCloseTradeInput {
 export type FuturesIsolatedCloseOutput = FuturesClosedTrade
 
 type Close = (
-  input: FuturesIsolatedCloseTradeInput
+  input: Readonly<FuturesIsolatedCloseTradeInput>
 ) => Promise<FuturesIsolatedCloseOutput>
 
-export const createClose = (instance: KyInstance): Close => {
+export const createClose = (instance: Readonly<KyInstance>): Close => {
   return async ({ id }) => {
     return instance
       .post('futures/isolated/trade/close', { json: { id } })

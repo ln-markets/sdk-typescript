@@ -13,11 +13,11 @@ interface FundingSettlement {
 export type GetFundingSettlementsOutput = PaginatedResponse<FundingSettlement>
 
 type GetFundingSettlements = (
-  input?: GetFundingSettlementsInput
+  input?: Readonly<GetFundingSettlementsInput>
 ) => Promise<GetFundingSettlementsOutput>
 
 export const createGetFuturesFundingSettlementsRoute = (
-  instance: KyInstance
+  instance: Readonly<KyInstance>
 ): GetFundingSettlements => {
   return async ({ cursor, from, limit, to } = {}) => {
     return instance

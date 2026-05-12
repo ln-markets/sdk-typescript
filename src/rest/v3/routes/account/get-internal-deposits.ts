@@ -14,11 +14,11 @@ interface InternalDeposit {
 export type GetInternalDepositsOutput = PaginatedResponse<InternalDeposit>
 
 type GetInternalDeposits = (
-  input?: GetInternalDepositsInput
+  input?: Readonly<GetInternalDepositsInput>
 ) => Promise<GetInternalDepositsOutput>
 
 export const createGetInternalDeposits = (
-  instance: KyInstance
+  instance: Readonly<KyInstance>
 ): GetInternalDeposits => {
   return async ({ cursor, from, limit, to } = {}) => {
     return instance

@@ -1,3 +1,4 @@
+// oxlint-disable typescript/prefer-readonly-parameter-types -- vitest fixture destructure {client, authClient}; not meaningfully readonly
 import { describe, expect } from 'vitest'
 
 import { HAS_AUTH } from '../../../__test__/network.js'

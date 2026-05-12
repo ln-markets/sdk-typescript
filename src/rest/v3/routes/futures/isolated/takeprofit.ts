@@ -9,11 +9,11 @@ export interface FuturesIsolatedUpdateTakeprofitInput {
 export type FuturesIsolatedUpdateTakeprofitOutput = FuturesOpenOrRunningTrade
 
 type UpdateTakeprofit = (
-  input: FuturesIsolatedUpdateTakeprofitInput
+  input: Readonly<FuturesIsolatedUpdateTakeprofitInput>
 ) => Promise<FuturesIsolatedUpdateTakeprofitOutput>
 
 export const createUpdateTakeprofit = (
-  instance: KyInstance
+  instance: Readonly<KyInstance>
 ): UpdateTakeprofit => {
   return async ({ id, value }) => {
     return instance

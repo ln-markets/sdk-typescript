@@ -50,7 +50,7 @@ export type {
   FuturesCrossWithdrawOutput,
 } from './withdraw.js'
 
-export const createFuturesCrossRoute = (instance: KyInstance) => {
+export const createFuturesCrossRoute = (instance: Readonly<KyInstance>) => {
   return {
     cancel: createCancel(instance),
     cancelAll: createCancelAll(instance),

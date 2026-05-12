@@ -18,11 +18,11 @@ export interface WithdrawOnChainOutput {
 }
 
 type WithdrawOnChain = (
-  input: WithdrawOnChainInput
+  input: Readonly<WithdrawOnChainInput>
 ) => Promise<WithdrawOnChainOutput>
 
 export const createWithdrawOnChain = (
-  instance: KyInstance
+  instance: Readonly<KyInstance>
 ): WithdrawOnChain => {
   return async ({ address, amount }) => {
     return instance

@@ -67,16 +67,16 @@ import type {
 } from './types.js'
 
 export class StreamClient extends StreamInstance {
-  readonly hello: Hello
-  readonly ping: Ping
-  readonly time: Time
-  readonly authenticate: Authenticate
-  readonly whoami: Whoami
-  readonly subscribe: Subscribe
-  readonly unsubscribe: Unsubscribe
-  readonly unsubscribeAll: UnsubscribeAll
+  public readonly hello: Hello
+  public readonly ping: Ping
+  public readonly time: Time
+  public readonly authenticate: Authenticate
+  public readonly whoami: Whoami
+  public readonly subscribe: Subscribe
+  public readonly unsubscribe: Unsubscribe
+  public readonly unsubscribeAll: UnsubscribeAll
 
-  constructor(options?: Options) {
+  public constructor(options?: Readonly<Options>) {
     super(options)
     this.hello = createHello(this)
     this.ping = createPing(this)

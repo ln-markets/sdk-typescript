@@ -13,10 +13,12 @@ interface Transfer {
 export type FuturesCrossGetTransfersOutput = PaginatedResponse<Transfer>
 
 type GetTransfers = (
-  input?: FuturesCrossGetTransfersInput
+  input?: Readonly<FuturesCrossGetTransfersInput>
 ) => Promise<FuturesCrossGetTransfersOutput>
 
-export const createGetTransfers = (instance: KyInstance): GetTransfers => {
+export const createGetTransfers = (
+  instance: Readonly<KyInstance>
+): GetTransfers => {
   return async ({ cursor, from, limit, to } = {}) => {
     return instance
       .get('futures/cross/transfers', {

@@ -9,9 +9,9 @@ export interface HelloOutput {
   version: '1.0.0'
 }
 
-export type Hello = (input: HelloInput) => Promise<HelloOutput>
+export type Hello = (input: Readonly<HelloInput>) => Promise<HelloOutput>
 
-export const createHello = (instance: StreamInstance): Hello => {
+export const createHello = (instance: Readonly<StreamInstance>): Hello => {
   return async ({ clientName, clientVersion }) => {
     return instance.request<HelloOutput>({
       method: 'hello',

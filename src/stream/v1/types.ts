@@ -43,7 +43,7 @@ export type OhlcResolution =
 // Topic Union
 // ============================================================================
 
-export type ExplicitTopic =
+type ExplicitTopic =
   | 'announcements'
   | 'wallet/deposit'
   | 'wallet/withdrawal'

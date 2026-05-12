@@ -18,10 +18,10 @@ export type FuturesCrossNewOrderInput = {
 export type FuturesCrossNewOrderOutput = FuturesCrossOrder
 
 type NewOrder = (
-  input: FuturesCrossNewOrderInput
+  input: Readonly<FuturesCrossNewOrderInput>
 ) => Promise<FuturesCrossNewOrderOutput>
 
-export const createNewOrder = (instance: KyInstance): NewOrder => {
+export const createNewOrder = (instance: Readonly<KyInstance>): NewOrder => {
   return async (params) => {
     return instance.post('futures/cross/order', { json: { ...params } }).json()
   }

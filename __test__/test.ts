@@ -1,3 +1,4 @@
+// oxlint-disable typescript/prefer-readonly-parameter-types -- vitest fixture signatures
 import { test as base } from 'vitest'
 
 import type { HttpClient } from '../src/rest/v3/index.js'

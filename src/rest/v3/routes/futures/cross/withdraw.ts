@@ -8,10 +8,10 @@ export interface FuturesCrossWithdrawInput {
 export type FuturesCrossWithdrawOutput = FuturesCrossPosition
 
 type Withdraw = (
-  input: FuturesCrossWithdrawInput
+  input: Readonly<FuturesCrossWithdrawInput>
 ) => Promise<FuturesCrossWithdrawOutput>
 
-export const createWithdraw = (instance: KyInstance): Withdraw => {
+export const createWithdraw = (instance: Readonly<KyInstance>): Withdraw => {
   return async ({ amount }) => {
     return instance.post('futures/cross/withdraw', { json: { amount } }).json()
   }
