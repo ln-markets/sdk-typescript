@@ -20,3 +20,6 @@ show_tools = false
 
 [hooks]
 enter = "pnpm install --frozen-lockfile --prefer-offline"
+
+[tools]
+communique = "latest"

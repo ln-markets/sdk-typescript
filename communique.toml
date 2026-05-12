@@ -1,0 +1,14 @@
+system_extra = """
+Write in a direct, practical tone.
+Avoid marketing language.
+"""
+
+[defaults]
+model = "claude-opus-4-7"
+max_tokens = 4096
+repo = "ln-markets/sdk-typescript"
+provider = "anthropic"
+base_url = ""
+emoji = true
+verify_links = true
+match_style = true
