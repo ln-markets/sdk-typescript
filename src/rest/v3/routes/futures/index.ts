@@ -18,8 +18,14 @@ export const createFuturesRoute = (instance: Readonly<KyInstance>) => {
   }
 }
 
-export type { GetCandlesInput, GetCandlesOutput } from './candles.js'
 export type {
+  Candle,
+  CandlesResolution,
+  GetCandlesInput,
+  GetCandlesOutput,
+} from './candles.js'
+export type {
+  FundingSettlement,
   GetFundingSettlementsInput,
   GetFundingSettlementsOutput,
 } from './funding-settlements.js'
@@ -33,6 +39,7 @@ export type {
   FuturesCrossCloseOutput,
   FuturesCrossDepositInput,
   FuturesCrossDepositOutput,
+  FuturesCrossFilledOrder,
   FuturesCrossGetFilledOrdersInput,
   FuturesCrossGetFilledOrdersOutput,
   FuturesCrossGetFundingFeesInput,
@@ -45,6 +52,7 @@ export type {
   FuturesCrossNewOrderOutput,
   FuturesCrossSetLeverageInput,
   FuturesCrossSetLeverageOutput,
+  FuturesCrossTransfer,
   FuturesCrossWithdrawInput,
   FuturesCrossWithdrawOutput,
 } from './cross/index.js'
@@ -59,6 +67,7 @@ export type {
   FuturesIsolatedCashInOutput,
   FuturesIsolatedCloseOutput,
   FuturesIsolatedCloseTradeInput,
+  FuturesIsolatedGetClosedTradesInput,
   FuturesIsolatedGetClosedTradesOutput,
   FuturesIsolatedGetFundingFeesInput,
   FuturesIsolatedGetFundingFeesOutput,
@@ -66,9 +75,9 @@ export type {
   FuturesIsolatedGetRunningTradesOutput,
   FuturesIsolatedNewTradeInput,
   FuturesIsolatedNewTradeOutput,
+  FuturesIsolatedOrder,
   FuturesIsolatedUpdateStoplossInput,
   FuturesIsolatedUpdateStoplossOutput,
   FuturesIsolatedUpdateTakeprofitInput,
   FuturesIsolatedUpdateTakeprofitOutput,
-  FuturesIsolatedGetClosedTradesInput,
 } from './isolated/index.js'

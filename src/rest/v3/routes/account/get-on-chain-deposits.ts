@@ -2,7 +2,7 @@ import type { KyInstance } from 'ky'
 
 import type { PaginatedResponse, PaginationInput } from '../../types.js'
 
-type BitcoinDeposit =
+export type BitcoinDeposit =
   | {
       amount: number
       blockHeight: null

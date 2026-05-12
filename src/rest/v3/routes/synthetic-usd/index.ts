@@ -11,5 +11,5 @@ export const createSyntheticUsdRoutes = (instance: Readonly<KyInstance>) => ({
 })
 
 export type { GetBestPriceOutput } from './get-best-price.js'
-export type { GetSwapsInput, GetSwapsOutput } from './get-swaps.js'
+export type { GetSwapsInput, GetSwapsOutput, Swap } from './get-swaps.js'
 export type { NewSwapInput, NewSwapOutput } from './new-swap.js'

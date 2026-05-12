@@ -2,7 +2,7 @@ import type { KyInstance } from 'ky'
 
 import type { PaginatedResponse } from '../../types.js'
 
-type CandlesResolution =
+export type CandlesResolution =
   | '1d'
   | '1h'
   | '1m'
@@ -27,7 +27,7 @@ export interface GetCandlesInput {
   to?: string
 }
 
-interface Candle {
+export interface Candle {
   close: number
   high: number
   low: number

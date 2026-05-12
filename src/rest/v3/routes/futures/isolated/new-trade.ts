@@ -2,7 +2,7 @@ import type { KyInstance } from 'ky'
 
 import type { FuturesOpenOrRunningTrade } from '../../../types.js'
 
-type FuturesOrder = ({
+export type FuturesOrder = ({
   leverage: number
   side: 'buy' | 'sell'
   stoploss?: number
