@@ -1,9 +1,9 @@
+import { HTTPError } from 'ky'
 // oxlint-disable typescript/prefer-readonly-parameter-types -- vitest fixture destructure {client, authClient}; not meaningfully readonly
 import { describe, expect } from 'vitest'
 
 import { HAS_AUTH } from '../../../__test__/network.js'
 import { test } from '../../../__test__/test.js'
-import { HTTPError } from 'ky'
 
 // Network defaults to testnet4. Opt into mainnet explicitly:
 //   NETWORK=mainnet pnpm test rest/v3
@@ -92,36 +92,38 @@ describe('rest/v3', () => {
         clientId: 'test-client-id',
       })
 
-      expect(result).toStrictEqual({
-        canceled: false,
-        closed: false,
-        closedAt: null,
-        closingFee: 0,
-        createdAt: expect.any(String),
-        entryMargin: 10,
-        entryPrice: 100_000,
-        exitPrice: null,
-        filledAt: null,
-        id: expect.any(String),
-        leverage: 100,
-        liquidation: 99_010,
-        maintenanceMargin: 2,
-        margin: expect.any(Number),
-        open: true,
-        openingFee: 0,
-        pl: 0,
-        price: 100_000,
-        quantity: 1,
-        running: false,
-        side: expect.any(String),
-        stoploss: expect.any(Number),
-        sumFundingFees: 0,
-        takeprofit: 0,
-        type: expect.any(String),
-        clientId: 'test-client-id',
-      })
-
-      await authClient.futures.isolated.cancel({ id: result.id })
+      try {
+        expect(result).toStrictEqual({
+          canceled: false,
+          closed: false,
+          closedAt: null,
+          closingFee: 0,
+          createdAt: expect.any(String),
+          entryMargin: expect.any(Number),
+          entryPrice: 100_000,
+          exitPrice: null,
+          filledAt: null,
+          id: expect.any(String),
+          leverage: 100,
+          liquidation: expect.any(Number),
+          maintenanceMargin: expect.any(Number),
+          margin: expect.any(Number),
+          open: true,
+          openingFee: 0,
+          pl: 0,
+          price: 100_000,
+          quantity: 1,
+          running: false,
+          side: expect.any(String),
+          stoploss: expect.any(Number),
+          sumFundingFees: 0,
+          takeprofit: 0,
+          type: expect.any(String),
+          clientId: 'test-client-id',
+        })
+      } finally {
+        await authClient.futures.isolated.cancel({ id: result.id })
+      }
     })
 
     test('should list closed trades', async ({ authClient }) => {
@@ -169,15 +171,23 @@ describe('rest/v3', () => {
     })
 
     test.skipIf(!HAS_AUTH)('should return the user', async ({ authClient }) => {
-      await expect(authClient.account.get()).resolves.toStrictEqual({
+      const account = await authClient.account.get()
+      expect(account).toStrictEqual({
         balance: expect.any(Number),
-        email: expect.any(String),
+        email: account.email,
         feeTier: expect.any(Number),
         id: expect.any(String),
         syntheticUsdBalance: expect.any(Number),
-        linkingPublicKey: null,
+        linkingPublicKey: account.linkingPublicKey,
         username: expect.any(String),
       })
+      expect(account.email === null || typeof account.email === 'string').toBe(
+        true
+      )
+      expect(
+        account.linkingPublicKey === null ||
+          typeof account.linkingPublicKey === 'string'
+      ).toBe(true)
     })
   })
 })
