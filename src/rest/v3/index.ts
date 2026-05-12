@@ -1,5 +1,4 @@
 import type { Options } from './instance.js'
-
 import { createInstance } from './instance.js'
 import { createAccountRoute } from './routes/account/index.js'
 import { createFuturesRoute } from './routes/futures/index.js'

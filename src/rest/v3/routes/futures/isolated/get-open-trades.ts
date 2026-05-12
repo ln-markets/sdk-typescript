@@ -1,4 +1,5 @@
 import type { KyInstance } from 'ky'
+
 import type { FuturesOpenTrade } from '../../../types.js'
 
 export type FuturesIsolatedGetOpenTradesOutput = FuturesOpenTrade[]

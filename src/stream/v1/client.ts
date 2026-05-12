@@ -17,17 +17,17 @@ import type {
 } from './methods/subscribe.js'
 import { createTime } from './methods/time.js'
 import type { Time, TimeOutput } from './methods/time.js'
+import { createUnsubscribeAll } from './methods/unsubscribe-all.js'
+import type {
+  UnsubscribeAll,
+  UnsubscribeAllOutput,
+} from './methods/unsubscribe-all.js'
 import { createUnsubscribe } from './methods/unsubscribe.js'
 import type {
   Unsubscribe,
   UnsubscribeInput,
   UnsubscribeOutput,
 } from './methods/unsubscribe.js'
-import { createUnsubscribeAll } from './methods/unsubscribe-all.js'
-import type {
-  UnsubscribeAll,
-  UnsubscribeAllOutput,
-} from './methods/unsubscribe-all.js'
 import { createWhoami } from './methods/whoami.js'
 import type { Whoami, WhoamiOutput } from './methods/whoami.js'
 import type {

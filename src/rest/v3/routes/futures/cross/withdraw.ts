@@ -1,4 +1,5 @@
 import type { KyInstance } from 'ky'
+
 import type { FuturesCrossPosition } from '../../../types.js'
 
 export interface FuturesCrossWithdrawInput {

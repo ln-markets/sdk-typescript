@@ -1,4 +1,5 @@
 import type { KyInstance } from 'ky'
+
 import type { FuturesCrossOrder } from '../../../types.js'
 
 export type FuturesCrossNewOrderInput = {

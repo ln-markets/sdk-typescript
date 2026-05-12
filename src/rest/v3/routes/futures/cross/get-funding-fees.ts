@@ -1,4 +1,5 @@
 import type { KyInstance } from 'ky'
+
 import type {
   FundingFees,
   PaginatedResponse,
@@ -19,12 +20,7 @@ export const createGetFundingFees = (
   return async ({ cursor, from, limit, to } = {}) => {
     return instance
       .get('futures/cross/funding-fees', {
-        searchParams: {
-          cursor,
-          from,
-          limit,
-          to,
-        },
+        searchParams: { cursor, from, limit, to },
       })
       .json()
   }

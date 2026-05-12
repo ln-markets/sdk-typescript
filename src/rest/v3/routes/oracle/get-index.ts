@@ -1,4 +1,5 @@
 import type { KyInstance } from 'ky'
+
 import type { PaginationInput } from '../../types.js'
 
 export type GetIndexInput = PaginationInput
@@ -13,7 +14,9 @@ type GetIndex = (input?: Readonly<GetIndexInput>) => Promise<GetIndexOutput>
 export const createGetIndex = (instance: Readonly<KyInstance>): GetIndex => {
   return async ({ from, limit, to } = {}) => {
     return instance
-      .get('oracle/index', { searchParams: { from, limit, to } })
+      .get('oracle/index', {
+        searchParams: { from, limit, to },
+      })
       .json()
   }
 }

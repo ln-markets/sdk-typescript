@@ -1,4 +1,5 @@
 import type { KyInstance } from 'ky'
+
 import type { FuturesCrossCanceledOrder } from '../../../types.js'
 
 export type FuturesCrossCancelAllOutput = FuturesCrossCanceledOrder[]

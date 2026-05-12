@@ -1,4 +1,5 @@
 import type { KyInstance } from 'ky'
+
 import type { PaginatedResponse, PaginationInput } from '../../types.js'
 
 export type GetLightningWithdrawalsInput = PaginationInput & {
