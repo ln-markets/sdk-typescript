@@ -1,10 +1,8 @@
 import type { KyInstance } from 'ky'
-
-import { createHmac } from 'node:crypto'
-
 import ky from 'ky'
-
 import { match } from 'ts-pattern'
+
+import { buildSignaturePayload, signRequest } from './internal/signing.js'
 
 export interface Options {
   key?: string
@@ -48,11 +46,13 @@ export const createInstance = ({
           const data = bodyData || url.search
           const timestamp = Date.now()
 
-          const payload = `${timestamp}${request.method.toLowerCase()}${url.pathname}${data}`
-
-          const signature = createHmac('sha256', secret)
-            .update(payload)
-            .digest('base64')
+          const payload = buildSignaturePayload({
+            timestamp,
+            method: request.method,
+            pathname: url.pathname,
+            data,
+          })
+          const signature = signRequest(secret, payload)
 
           request.headers.set('lnm-access-key', key)
           request.headers.set('lnm-access-passphrase', passphrase)
