@@ -5,7 +5,7 @@ export interface GetAccountOutput {
   email: null | string
   feeTier: number
   id: string
-  linkingpublickey: null | string
+  linkingPublicKey: null | string
   syntheticUsdBalance: number
   username: string
 }
