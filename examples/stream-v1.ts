@@ -4,7 +4,7 @@
  * RPC methods covered: hello, ping, time, authenticate, whoami,
  *                      subscribe, unsubscribe, unsubscribeAll.
  *
- * Run (public-only, mainnet):
+ * Run (public-only, testnet4):
  *   pnpm exec tsx examples/stream-v1.ts
  *
  * Authenticated run reads creds by network:
@@ -15,14 +15,14 @@
  *   set -a; source .env; set +a
  *   pnpm exec tsx examples/stream-v1.ts --auth
  *
- * Defaults to mainnet. Pass --testnet4 to opt in:
- *   pnpm exec tsx examples/stream-v1.ts --testnet4
- *   pnpm exec tsx examples/stream-v1.ts --testnet4 --auth
+ * Defaults to testnet4. Pass --mainnet to opt in:
+ *   pnpm exec tsx examples/stream-v1.ts --mainnet
+ *   pnpm exec tsx examples/stream-v1.ts --mainnet --auth
  */
 
 import { createStreamClient } from '../src/stream/v1/index.js'
 
-const network = process.argv.includes('--testnet4') ? 'testnet4' : 'mainnet'
+const network = process.argv.includes('--mainnet') ? 'mainnet' : 'testnet4'
 const wantAuth = process.argv.includes('--auth')
 
 interface Creds {
