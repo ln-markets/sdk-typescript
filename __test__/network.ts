@@ -25,8 +25,8 @@ export const authCreds = (): AuthCreds | null => {
         ] as const)
       : ([
           'MAINNET_API_KEY',
-          'MAINNET_API_SECRET',
-          'MAINNET_API_PASSPHRASE',
+          'MAINNET_API_KEY_SECRET',
+          'MAINNET_API_KEY_PASSPHRASE',
         ] as const)
   const key = process.env[keyVar] ?? ''
   const secret = process.env[secretVar] ?? ''

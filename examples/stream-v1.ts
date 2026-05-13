@@ -8,7 +8,7 @@
  *   pnpm exec tsx examples/stream-v1.ts
  *
  * Authenticated run reads creds by network:
- *   mainnet  → MAINNET_API_KEY, MAINNET_API_SECRET, MAINNET_API_PASSPHRASE
+ *   mainnet  → MAINNET_API_KEY, MAINNET_API_KEY_SECRET, MAINNET_API_KEY_PASSPHRASE
  *   testnet4 → TESTNET4_API_KEY, TESTNET4_API_KEY_SECRET, TESTNET4_API_KEY_PASSPHRASE
  *
  * tsx does not auto-load .env, so source it first:
@@ -41,8 +41,8 @@ const resolveCreds = (net: typeof network): Creds => {
         ] as const)
       : ([
           'MAINNET_API_KEY',
-          'MAINNET_API_SECRET',
-          'MAINNET_API_PASSPHRASE',
+          'MAINNET_API_KEY_SECRET',
+          'MAINNET_API_KEY_PASSPHRASE',
         ] as const)
 
   const key = process.env[keyVar]
