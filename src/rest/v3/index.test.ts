@@ -116,6 +116,7 @@ describe('rest/v3', () => {
           running: false,
           side: expect.any(String),
           stoploss: expect.any(Number),
+          stoplossTrailingDistance: expect.any(Number),
           sumCashInMargin: expect.any(Number),
           sumCashInPl: expect.any(Number),
           sumFundingFees: 0,
