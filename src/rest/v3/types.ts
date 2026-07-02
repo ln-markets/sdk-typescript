@@ -131,6 +131,8 @@ export interface FuturesTrade {
   running: boolean
   side: FuturesTradeSide
   stoploss: number
+  sumCashInMargin: number
+  sumCashInPl: number
   sumFundingFees: number
   takeprofit: number
   type: FuturesTradeType
