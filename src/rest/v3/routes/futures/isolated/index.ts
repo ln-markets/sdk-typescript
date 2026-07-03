@@ -10,8 +10,8 @@ import { createGetFundingFees } from './get-funding-fees.js'
 import { createGetOpenTrades } from './get-open-trades.js'
 import { createGetRunningTrades } from './get-running-trades.js'
 import { createNewTrade } from './new-trade.js'
-import { createUpdateStoploss } from './stoploss.js'
-import { createUpdateTakeprofit } from './takeprofit.js'
+import { createUpdateStoploss, createRemoveStoploss } from './stoploss.js'
+import { createUpdateTakeprofit, createRemoveTakeprofit } from './takeprofit.js'
 
 export type {
   FuturesIsolatedAddMarginInput,
@@ -46,10 +46,14 @@ export type {
   FuturesOrder as FuturesIsolatedOrder,
 } from './new-trade.js'
 export type {
+  FuturesIsolatedRemoveStoplossInput,
   FuturesIsolatedUpdateStoplossInput,
+  FuturesIsolatedRemoveStoplossOutput,
   FuturesIsolatedUpdateStoplossOutput,
 } from './stoploss.js'
 export type {
+  FuturesIsolatedRemoveTakeprofitInput,
+  FuturesIsolatedRemoveTakeprofitOutput,
   FuturesIsolatedUpdateTakeprofitInput,
   FuturesIsolatedUpdateTakeprofitOutput,
 } from './takeprofit.js'
@@ -65,6 +69,8 @@ export const createFuturesIsolatedRoute = (instance: Readonly<KyInstance>) => ({
   getOpenTrades: createGetOpenTrades(instance),
   getRunningTrades: createGetRunningTrades(instance),
   newTrade: createNewTrade(instance),
+  removeStoploss: createRemoveStoploss(instance),
+  removeTakeprofit: createRemoveTakeprofit(instance),
   updateStoploss: createUpdateStoploss(instance),
   updateTakeprofit: createUpdateTakeprofit(instance),
 })
