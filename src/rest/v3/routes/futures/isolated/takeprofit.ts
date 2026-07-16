@@ -22,3 +22,23 @@ export const createUpdateTakeprofit = (
       .json()
   }
 }
+
+export interface FuturesIsolatedRemoveTakeprofitInput {
+  id: string
+}
+
+export type FuturesIsolatedRemoveTakeprofitOutput = FuturesOpenOrRunningTrade
+
+type RemoveTakeprofit = (
+  input: Readonly<FuturesIsolatedRemoveTakeprofitInput>
+) => Promise<FuturesIsolatedRemoveTakeprofitOutput>
+
+export const createRemoveTakeprofit = (
+  instance: Readonly<KyInstance>
+): RemoveTakeprofit => {
+  return async ({ id }) => {
+    return instance
+      .delete('futures/isolated/trade/takeprofit', { searchParams: { id } })
+      .json()
+  }
+}

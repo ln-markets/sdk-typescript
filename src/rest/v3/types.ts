@@ -104,6 +104,8 @@ export interface FuturesCrossPosition {
 // ============================================================================
 export type FuturesTradeSide = 'buy' | 'sell'
 
+export type FuturesStoplossMode = 'fixed' | 'trailing'
+
 export type FuturesTradeStatus = 'closed' | 'open' | 'running'
 
 export type FuturesTradeType = 'limit' | 'market'
@@ -131,6 +133,9 @@ export interface FuturesTrade {
   running: boolean
   side: FuturesTradeSide
   stoploss: number
+  stoplossTrailingDistance: number
+  sumCashInMargin: number
+  sumCashInPl: number
   sumFundingFees: number
   takeprofit: number
   type: FuturesTradeType
