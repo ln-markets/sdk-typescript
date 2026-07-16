@@ -8,7 +8,7 @@ on:
     paths:
       - package.json
       - src/**
-      - .github/workflows/release.yml
+      - .github/workflows/publish.yml
 
 jobs:
   check:
@@ -25,7 +25,7 @@ jobs:
       type: ${{ steps.publish.outputs.type }}
       version: ${{ steps.publish.outputs.version }}
     steps:
-      - uses: actions/checkout@v6.0.1
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
       - uses: ./.github/actions/base
 
@@ -33,7 +33,7 @@ jobs:
 
       - id: publish
         name: Publish to npm
-        uses: JS-DevTools/npm-publish@v4
+        uses: JS-DevTools/npm-publish@0fd2f4369c5d6bcfcde6091a7c527d810b9b5c3f # v4.1.5
         with:
           provenance: true
 
@@ -50,7 +50,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v6.0.1
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
       - name: Create GitHub release
         run: gh release create "v${{ needs.publish.outputs.version }}" --title "v${{ needs.publish.outputs.version }}" --generate-notes
