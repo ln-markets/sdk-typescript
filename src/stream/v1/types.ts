@@ -6,7 +6,7 @@
 // ============================================================================
 
 export interface Options {
-  network?: 'mainnet' | 'testnet4'
+  network?: 'mainnet' | 'signet'
   reconnectInterval?: number
   reconnectEnabled?: boolean
   maxReconnectAttempts?: number

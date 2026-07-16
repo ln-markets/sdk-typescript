@@ -8,7 +8,7 @@ export interface Options {
   key?: string
   passphrase?: string
   secret?: string
-  network?: 'mainnet' | 'testnet4'
+  network?: 'mainnet' | 'signet'
 }
 
 const isNonEmptyString = (value?: string): value is string => {
@@ -23,7 +23,7 @@ export const createInstance = ({
 }: Readonly<Options> = {}): KyInstance => {
   const prefix = match(network)
     .with('mainnet', () => 'https://api.lnmarkets.com/v3')
-    .with('testnet4', () => 'https://api.testnet4.lnmarkets.com/v3')
+    .with('signet', () => 'https://api.signet.lnmarkets.com/v3')
     .exhaustive()
 
   return ky.create({

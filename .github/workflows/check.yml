@@ -34,6 +34,6 @@ jobs:
 
       - run: pnpm test
         env:
-          TESTNET4_API_KEY: ${{ secrets.TESTNET4_API_KEY }}
-          TESTNET4_API_KEY_SECRET: ${{ secrets.TESTNET4_API_KEY_SECRET }}
-          TESTNET4_API_KEY_PASSPHRASE: ${{ secrets.TESTNET4_API_KEY_PASSPHRASE }}
+          SIGNET_API_KEY: ${{ secrets.SIGNET_API_KEY }}
+          SIGNET_API_SECRET: ${{ secrets.SIGNET_API_SECRET }}
+          SIGNET_API_PASSPHRASE: ${{ secrets.SIGNET_API_PASSPHRASE }}

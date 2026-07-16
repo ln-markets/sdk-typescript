@@ -4,25 +4,25 @@
  * RPC methods covered: hello, ping, time, authenticate, whoami,
  *                      subscribe, unsubscribe, unsubscribeAll.
  *
- * Run (public-only, testnet4):
+ * Run (public-only, signet):
  *   pnpm exec tsx examples/stream-v1.ts
  *
  * Authenticated run reads creds by network:
- *   mainnet  → MAINNET_API_KEY, MAINNET_API_KEY_SECRET, MAINNET_API_KEY_PASSPHRASE
- *   testnet4 → TESTNET4_API_KEY, TESTNET4_API_KEY_SECRET, TESTNET4_API_KEY_PASSPHRASE
+ *   mainnet  → MAINNET_API_KEY, MAINNET_API_SECRET, MAINNET_API_PASSPHRASE
+ *   signet → SIGNET_API_KEY, SIGNET_API_SECRET, SIGNET_API_PASSPHRASE
  *
  * tsx does not auto-load .env, so source it first:
  *   set -a; source .env; set +a
  *   pnpm exec tsx examples/stream-v1.ts --auth
  *
- * Defaults to testnet4. Pass --mainnet to opt in:
+ * Defaults to signet. Pass --mainnet to opt in:
  *   pnpm exec tsx examples/stream-v1.ts --mainnet
  *   pnpm exec tsx examples/stream-v1.ts --mainnet --auth
  */
 
 import { createStreamClient } from '../src/stream/v1/index.js'
 
-const network = process.argv.includes('--mainnet') ? 'mainnet' : 'testnet4'
+const network = process.argv.includes('--mainnet') ? 'mainnet' : 'signet'
 const wantAuth = process.argv.includes('--auth')
 
 interface Creds {
@@ -33,16 +33,16 @@ interface Creds {
 
 const resolveCreds = (net: typeof network): Creds => {
   const [keyVar, secretVar, passVar] =
-    net === 'testnet4'
+    net === 'signet'
       ? ([
-          'TESTNET4_API_KEY',
-          'TESTNET4_API_KEY_SECRET',
-          'TESTNET4_API_KEY_PASSPHRASE',
+          'SIGNET_API_KEY',
+          'SIGNET_API_SECRET',
+          'SIGNET_API_PASSPHRASE',
         ] as const)
       : ([
           'MAINNET_API_KEY',
-          'MAINNET_API_KEY_SECRET',
-          'MAINNET_API_KEY_PASSPHRASE',
+          'MAINNET_API_SECRET',
+          'MAINNET_API_PASSPHRASE',
         ] as const)
 
   const key = process.env[keyVar]

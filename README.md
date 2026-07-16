@@ -75,7 +75,7 @@ By default, the SDK will connect to the LN Markets mainnet environment. You can 
 import { createHttpClient } from '@ln-markets/sdk/rest/v3'
 
 const client = createHttpClient({
-  network: 'testnet4', // 'mainnet' or 'testnet4'
+  network: 'signet', // 'mainnet' or 'signet'
 })
 ```
 
@@ -349,19 +349,11 @@ const onChainWithdrawal = await client.account.withdrawOnChain({
   amount: 100000,
 })
 
-// Internal transfer (to another LN Markets user)
-const internalTransfer = await client.account.withdrawInternal({
-  toUsername: 'recipient-username',
-  amount: 50000,
-})
-
 // Get transaction histories
 const lightningDeposits = await client.account.getLightningDeposits()
 const lightningWithdrawals = await client.account.getLightningWithdrawals()
 const onChainDeposits = await client.account.getOnChainDeposits()
 const onChainWithdrawals = await client.account.getOnChainWithdrawals()
-const internalDeposits = await client.account.getInternalDeposits()
-const internalWithdrawals = await client.account.getInternalWithdrawals()
 ```
 
 ### Synthetic USD
@@ -429,7 +421,7 @@ Create a stream client and connect. By default the client targets mainnet and re
 import { createStreamClient } from '@ln-markets/sdk/stream/v1'
 
 const client = createStreamClient({
-  network: 'mainnet', // 'mainnet' or 'testnet4'
+  network: 'mainnet', // 'mainnet' or 'signet'
   reconnectInterval: 5000,
   reconnectEnabled: true,
   maxReconnectAttempts: 5,
