@@ -26,9 +26,9 @@ export const test = base.extend<{
     const creds = authCreds()
     if (!creds) {
       throw new Error(
-        NETWORK === 'testnet4'
-          ? 'TESTNET4_API_KEY / TESTNET4_API_KEY_SECRET / TESTNET4_API_KEY_PASSPHRASE required for authenticated rest/v3 tests'
-          : 'MAINNET_API_KEY / MAINNET_API_KEY_SECRET / MAINNET_API_KEY_PASSPHRASE required for authenticated rest/v3 tests'
+        NETWORK === 'signet'
+          ? 'SIGNET_API_KEY / SIGNET_API_SECRET / SIGNET_API_PASSPHRASE required for authenticated rest/v3 tests'
+          : 'MAINNET_API_KEY / MAINNET_API_SECRET / MAINNET_API_PASSPHRASE required for authenticated rest/v3 tests'
       )
     }
     const client = createHttpClient({

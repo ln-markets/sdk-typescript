@@ -7,20 +7,20 @@
  * setLeverage, addBitcoinAddress, readNotifications, …) are intentionally NOT
  * called. Their Input/Output types are re-exported at the bottom for reference.
  *
- * Run (public-only, mainnet):
+ * Run (public-only, signet):
  *   pnpm exec tsx examples/rest-v3.ts
  *
  * Authenticated run reads creds by network:
- *   mainnet  → MAINNET_API_KEY, MAINNET_API_KEY_SECRET, MAINNET_API_KEY_PASSPHRASE
- *   testnet4 → TESTNET4_API_KEY, TESTNET4_API_KEY_SECRET, TESTNET4_API_KEY_PASSPHRASE
+ *   signet  → SIGNET_API_KEY, SIGNET_API_SECRET, SIGNET_API_PASSPHRASE
+ *   mainnet → MAINNET_API_KEY, MAINNET_API_SECRET, MAINNET_API_PASSPHRASE
  *
  * tsx does not auto-load .env, so source it first:
  *   set -a; source .env; set +a
  *   pnpm exec tsx examples/rest-v3.ts --auth
  *
- * Defaults to mainnet. Pass --testnet4 to opt in:
- *   pnpm exec tsx examples/rest-v3.ts --testnet4
- *   pnpm exec tsx examples/rest-v3.ts --testnet4 --auth
+ * Defaults to signet. Pass --mainnet to opt in:
+ *   pnpm exec tsx examples/rest-v3.ts --mainnet
+ *   pnpm exec tsx examples/rest-v3.ts --mainnet --auth
  */
 
 import { createHttpClient } from '../src/rest/v3/index.js'
@@ -42,16 +42,10 @@ import type {
   GetOnChainDepositsOutput,
   GetOnChainWithdrawalsInput,
   GetOnChainWithdrawalsOutput,
-  GetInternalDepositsInput,
-  GetInternalDepositsOutput,
-  GetInternalWithdrawalsInput,
-  GetInternalWithdrawalsOutput,
   LightningDeposit,
   LightningWithdrawal,
   BitcoinDeposit,
   OnChainWithdrawal,
-  InternalDeposit,
-  InternalWithdrawal,
   // Futures — public
   GetTickerOutput,
   GetCandlesInput,
@@ -98,10 +92,10 @@ import type {
 } from '../src/rest/v3/index.js'
 
 const network: NonNullable<Options['network']> = process.argv.includes(
-  '--testnet4'
+  '--mainnet'
 )
-  ? 'testnet4'
-  : 'mainnet'
+  ? 'mainnet'
+  : 'signet'
 const wantAuth = process.argv.includes('--auth')
 
 interface Creds {
@@ -112,16 +106,16 @@ interface Creds {
 
 const resolveCreds = (net: typeof network): Creds => {
   const [keyVar, secretVar, passVar] =
-    net === 'testnet4'
+    net === 'signet'
       ? ([
-          'TESTNET4_API_KEY',
-          'TESTNET4_API_KEY_SECRET',
-          'TESTNET4_API_KEY_PASSPHRASE',
+          'SIGNET_API_KEY',
+          'SIGNET_API_SECRET',
+          'SIGNET_API_PASSPHRASE',
         ] as const)
       : ([
           'MAINNET_API_KEY',
-          'MAINNET_API_KEY_SECRET',
-          'MAINNET_API_KEY_PASSPHRASE',
+          'MAINNET_API_SECRET',
+          'MAINNET_API_PASSPHRASE',
         ] as const)
 
   const key = process.env[keyVar]
@@ -322,33 +316,6 @@ if (wantAuth) {
     `[rest] account.getOnChainWithdrawals → count=${onChainWithdrawals.data.length} first=${
       onChainWithdrawal
         ? `${onChainWithdrawal.amount}sat status=${onChainWithdrawal.status}`
-        : '(empty)'
-    }`
-  )
-  await sleep(REQ_PACE_MS)
-
-  const internalDepositsInput: GetInternalDepositsInput = { limit: 3 }
-  const internalDeposits: GetInternalDepositsOutput =
-    await client.account.getInternalDeposits(internalDepositsInput)
-  const [internalDeposit]: readonly InternalDeposit[] = internalDeposits.data
-  console.log(
-    `[rest] account.getInternalDeposits → count=${internalDeposits.data.length} first=${
-      internalDeposit
-        ? `${internalDeposit.amount}sat from=${internalDeposit.fromUsername}`
-        : '(empty)'
-    }`
-  )
-  await sleep(REQ_PACE_MS)
-
-  const internalWithdrawalsInput: GetInternalWithdrawalsInput = { limit: 3 }
-  const internalWithdrawals: GetInternalWithdrawalsOutput =
-    await client.account.getInternalWithdrawals(internalWithdrawalsInput)
-  const [internalWithdrawal]: readonly InternalWithdrawal[] =
-    internalWithdrawals.data
-  console.log(
-    `[rest] account.getInternalWithdrawals → count=${internalWithdrawals.data.length} first=${
-      internalWithdrawal
-        ? `${internalWithdrawal.amount}sat to=${internalWithdrawal.toUsername}`
         : '(empty)'
     }`
   )

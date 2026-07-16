@@ -1,8 +1,10 @@
 // oxlint-disable eslint/max-lines -- contract-shaped integration tests for stream/v1; splitting would scatter shared fixture setup
-import { afterAll, afterEach, describe, expect, test } from 'vitest'
+// oxlint-disable typescript/prefer-readonly-parameter-types -- vitest fixture destructure {client, authClient}; not meaningfully readonly
+import { describe, expect } from 'vitest'
 
-import { authCreds, HAS_AUTH, NETWORK } from '../../../__test__/network.js'
-import type { StreamClient, Topic } from './index.js'
+import { HAS_AUTH, NETWORK } from '../../../__test__/network.js'
+import { test } from '../../../__test__/stream.js'
+import type { Topic } from './index.js'
 import {
   createStreamClient,
   StreamClient as StreamClientClass,
@@ -12,103 +14,26 @@ import {
 
 const RPC_TIMEOUT_MS = 10_000
 
-// Shared connections across the whole file: testnet4 rate-limits per-IP WS
-// Handshakes, so opening one socket per test triggers code=1006 closes when
-// The suite grows. Lifecycle tests that need their own socket create one
-// Inline. Clients built once at module load via top-level await; authClient
-// Is null when creds are absent, and the auth suite is gated by skipIf.
+// Shared connections across the whole file: the `client` / `authClient`
+// Fixtures (see __test__/stream.ts) are file-scoped, so the entire suite
+// Runs on one socket per fixture. Lifecycle tests that need their own
+// Socket create one inline.
 
-// Testnet4 hands out periodic 1006 closes during connection storms. Retry
-// Handshake a few times with backoff before giving up the whole suite. Uses
-// Recursion instead of a for-loop so each await happens in its own frame and
-// Sidesteps `no-await-in-loop` without disables.
-const connectWithRetry = async (
-  // oxlint-disable-next-line typescript/prefer-readonly-parameter-types -- target is mutated via .connect()
-  target: StreamClient,
-  attempts = 8
-): Promise<void> => {
-  const attempt = async (i: number): Promise<void> => {
-    try {
-      await target.connect()
-    } catch (error) {
-      if (i + 1 >= attempts) {
-        throw error
-      }
-      // Linear backoff up to ~5s on attempt 7.
-      await new Promise<void>((resolve) => {
-        setTimeout(resolve, 750 * (i + 1))
-      })
-      await attempt(i + 1)
-    }
-  }
-  await attempt(0)
-}
-
-const buildClient = async (): Promise<StreamClient> => {
-  const c = createStreamClient({ network: NETWORK, reconnectEnabled: false })
-  await connectWithRetry(c)
-  return c
-}
-
-const buildAuthClient = async (
-  creds: Readonly<NonNullable<ReturnType<typeof authCreds>>>
-): Promise<StreamClient> => {
-  const c = createStreamClient({ network: NETWORK, reconnectEnabled: false })
-  await connectWithRetry(c)
-  await c.authenticate(creds)
-  return c
-}
-
-const client = await buildClient()
-const creds = authCreds()
-const authClient = creds === null ? null : await buildAuthClient(creds)
-
-afterAll(() => {
-  client.close()
-  authClient?.close()
-})
-
-// Server rate-limits to 10 messages/sec per socket. The shared-client design
-// Concentrates the entire suite onto two sockets, so back-to-back tests trip
-// The limit. A small pause between tests keeps us under the ceiling.
-const RATE_LIMIT_PAUSE_MS = 200
-
-afterEach(async () => {
-  // Clear any subscriptions left by the previous test before the next runs.
-  if (client.state === 'connected') {
-    try {
-      await client.unsubscribeAll()
-    } catch {
-      // Ignore; next test will fail loudly if the socket is actually dead.
-    }
-  }
-  if (authClient !== null && authClient.state === 'connected') {
-    try {
-      await authClient.unsubscribeAll()
-    } catch {
-      // Ignore; next test will fail loudly if the socket is actually dead.
-    }
-  }
-  await new Promise<void>((resolve) => {
-    setTimeout(resolve, RATE_LIMIT_PAUSE_MS)
-  })
-})
-
-// Testnet4 occasionally closes idle WS connections mid-request; retry absorbs
+// Signet occasionally closes idle WS connections mid-request; retry absorbs
 // The resulting StreamDisconnectedError without masking real client bugs.
 describe('stream/v1', { retry: 2 }, () => {
   describe('basics', () => {
-    test('should return pong from ping', async () => {
+    test('should return pong from ping', async ({ client }) => {
       const pong = await client.ping()
       expect(pong).toBe('pong')
     })
 
-    test('should return server time', async () => {
+    test('should return server time', async ({ client }) => {
       const result = await client.time()
       expect(result).toStrictEqual({ time: expect.any(Number) })
     })
 
-    test('should complete hello handshake', async () => {
+    test('should complete hello handshake', async ({ client }) => {
       const result = await client.hello({
         clientName: 'sdk-ts-vitest',
         clientVersion: '1.2.5',
@@ -118,7 +43,9 @@ describe('stream/v1', { retry: 2 }, () => {
   })
 
   describe('public subscription', () => {
-    test('should subscribe to ticker and receive typed payload', async () => {
+    test('should subscribe to ticker and receive typed payload', async ({
+      client,
+    }) => {
       const topic: Topic = 'futures/inverse/btc_usd/ticker'
 
       const received = new Promise<void>((resolve, reject) => {
@@ -150,9 +77,11 @@ describe('stream/v1', { retry: 2 }, () => {
       expect(dropped.unsubscribed).toContain(topic)
     })
 
-    test('should narrow ohlc topic callback to OhlcData', async () => {
+    test('should narrow ohlc topic callback to OhlcData', async ({
+      client,
+    }) => {
       // Type-narrowing assertion is compile-time; here we only verify the
-      // Subscription handshake. Live testnet4 may produce no candle within
+      // Subscription handshake. Live signet may produce no candle within
       // The RPC timeout when market activity is idle, so waiting on a frame
       // From the wire makes the test flaky for no extra coverage.
       const topic: Topic = 'futures/inverse/btc_usd/ohlc/1m'
@@ -163,16 +92,10 @@ describe('stream/v1', { retry: 2 }, () => {
   })
 
   // Authenticated suite skipped wholesale when creds for the active network
-  // Are absent (instead of failing 3 tests with a noisy stack trace).
+  // Are absent (instead of failing 3 tests with a noisy stack trace). The
+  // `authClient` fixture is lazy, so a skipped suite never opens its socket.
   describe.skipIf(!HAS_AUTH)('authenticated', () => {
-    // Narrow `authClient` from `StreamClient | null` to `StreamClient`.
-    // `skipIf(!HAS_AUTH)` guarantees `authClient !== null` when these tests
-    // Register/run; the throw is unreachable but lets TS propagate narrowing
-    // Through the const into the nested test callbacks below.
-    if (authClient === null) {
-      throw new Error('unreachable: authClient is null under skipIf(!HAS_AUTH)')
-    }
-    test('should return whoami payload', async () => {
+    test('should return whoami payload', async ({ authClient }) => {
       const me = await authClient.whoami()
       expect(me).toStrictEqual({
         apiKey: expect.any(String),
@@ -181,14 +104,16 @@ describe('stream/v1', { retry: 2 }, () => {
       })
     })
 
-    test('should subscribe to private isolated/trades topic', async () => {
+    test('should subscribe to private isolated/trades topic', async ({
+      authClient,
+    }) => {
       const topic: Topic = 'futures/inverse/btc_usd/isolated/trades'
       const result = await authClient.subscribe({ topics: [topic] })
       expect(result.subscribed).toContain(topic)
       await authClient.unsubscribeAll()
     })
 
-    test('should reject unknown topic at runtime', async () => {
+    test('should reject unknown topic at runtime', async ({ authClient }) => {
       await expect(
         authClient.subscribe({
           topics: ['futures/inverse/btc_usd/bogus' as unknown as Topic],
@@ -218,11 +143,11 @@ describe('stream/v1', { retry: 2 }, () => {
   })
 
   describe('lifecycle', () => {
-    test('state is "connected" after connect()', () => {
+    test('state is "connected" after connect()', ({ client }) => {
       expect(client.state).toBe('connected')
     })
 
-    test('connect() while connected rejects', async () => {
+    test('connect() while connected rejects', async ({ client }) => {
       await expect(client.connect()).rejects.toThrow(/state is/u)
     })
 
@@ -319,7 +244,7 @@ describe('stream/v1', { retry: 2 }, () => {
   })
 
   describe('public subscription variations', () => {
-    test('subscribe to multiple topics in one call', async () => {
+    test('subscribe to multiple topics in one call', async ({ client }) => {
       const topics: Topic[] = [
         'futures/inverse/btc_usd/lastPrice',
         'futures/inverse/btc_usd/index',
@@ -330,7 +255,9 @@ describe('stream/v1', { retry: 2 }, () => {
       expect(dropped.unsubscribed).toEqual(expect.arrayContaining(topics))
     })
 
-    test('partial unsubscribe leaves other topics active', async () => {
+    test('partial unsubscribe leaves other topics active', async ({
+      client,
+    }) => {
       const t1: Topic = 'futures/inverse/btc_usd/lastPrice'
       const t2: Topic = 'futures/inverse/btc_usd/index'
       await client.subscribe({ topics: [t1, t2] })
@@ -342,7 +269,9 @@ describe('stream/v1', { retry: 2 }, () => {
       expect(rest.unsubscribed).not.toContain(t1)
     })
 
-    test('subscribe to lastPrice receives typed payload', async () => {
+    test('subscribe to lastPrice receives typed payload', async ({
+      client,
+    }) => {
       const topic: Topic = 'futures/inverse/btc_usd/lastPrice'
       const received = new Promise<void>((resolve, reject) => {
         const timer = setTimeout(() => {
@@ -361,7 +290,9 @@ describe('stream/v1', { retry: 2 }, () => {
       await client.unsubscribeAll()
     })
 
-    test('subscribe to ohlc with non-1m resolution narrows to OhlcData', async () => {
+    test('subscribe to ohlc with non-1m resolution narrows to OhlcData', async ({
+      client,
+    }) => {
       // Same rationale as the ohlc/1m test: a 5m candle topic may emit zero
       // Frames during a short test window, so we only verify subscription.
       const topic: Topic = 'futures/inverse/btc_usd/ohlc/5m'
@@ -370,7 +301,9 @@ describe('stream/v1', { retry: 2 }, () => {
       await client.unsubscribeAll()
     })
 
-    test('unknown topic on unauth client rejects with StreamRpcError', async () => {
+    test('unknown topic on unauth client rejects with StreamRpcError', async ({
+      client,
+    }) => {
       await expect(
         client.subscribe({
           topics: ['futures/inverse/btc_usd/bogus' as unknown as Topic],
@@ -378,20 +311,22 @@ describe('stream/v1', { retry: 2 }, () => {
       ).rejects.toBeInstanceOf(StreamRpcError)
     })
 
-    test('whoami on unauth client rejects with StreamRpcError', async () => {
+    test('whoami on unauth client rejects with StreamRpcError', async ({
+      client,
+    }) => {
       await expect(client.whoami()).rejects.toBeInstanceOf(StreamRpcError)
     })
   })
 
   describe('rpc basics extra', () => {
-    test('successive ping calls both resolve', async () => {
+    test('successive ping calls both resolve', async ({ client }) => {
       const a = await client.ping()
       const b = await client.ping()
       expect(a).toBe('pong')
       expect(b).toBe('pong')
     })
 
-    test('time returns a recent server timestamp', async () => {
+    test('time returns a recent server timestamp', async ({ client }) => {
       const before = Date.now()
       const { time } = await client.time()
       const after = Date.now()
@@ -400,7 +335,7 @@ describe('stream/v1', { retry: 2 }, () => {
       expect(time).toBeLessThan(after + 60_000)
     })
 
-    test('hello can be called twice', async () => {
+    test('hello can be called twice', async ({ client }) => {
       const first = await client.hello({
         clientName: 'sdk-ts-vitest',
         clientVersion: '1.2.5',

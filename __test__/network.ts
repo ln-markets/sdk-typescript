@@ -1,11 +1,11 @@
 // Shared test helpers for picking the target network and reading API creds.
 // Both rest/v3 and stream/v1 test suites use the same env-var families
-// (TESTNET4_API_* vs MAINNET_API_*) and the same opt-into-mainnet rule.
+// (SIGNET_API_* vs MAINNET_API_*) and the same opt-into-mainnet rule.
 
-type Network = 'mainnet' | 'testnet4'
+type Network = 'mainnet' | 'signet'
 
 export const NETWORK: Network =
-  process.env.NETWORK === 'mainnet' ? 'mainnet' : 'testnet4'
+  process.env.NETWORK === 'mainnet' ? 'mainnet' : 'signet'
 
 interface AuthCreds {
   key: string
@@ -14,19 +14,19 @@ interface AuthCreds {
 }
 
 // Auth creds: choose env-var family by network. Mainnet uses the canonical
-// MAINNET_API_* trio (matches `.env`); testnet4 uses TESTNET4_API_*.
+// MAINNET_API_* trio (matches `.env`); signet uses SIGNET_API_*.
 export const authCreds = (): AuthCreds | null => {
   const [keyVar, secretVar, passVar] =
-    NETWORK === 'testnet4'
+    NETWORK === 'signet'
       ? ([
-          'TESTNET4_API_KEY',
-          'TESTNET4_API_KEY_SECRET',
-          'TESTNET4_API_KEY_PASSPHRASE',
+          'SIGNET_API_KEY',
+          'SIGNET_API_SECRET',
+          'SIGNET_API_PASSPHRASE',
         ] as const)
       : ([
           'MAINNET_API_KEY',
-          'MAINNET_API_KEY_SECRET',
-          'MAINNET_API_KEY_PASSPHRASE',
+          'MAINNET_API_SECRET',
+          'MAINNET_API_PASSPHRASE',
         ] as const)
   const key = process.env[keyVar] ?? ''
   const secret = process.env[secretVar] ?? ''

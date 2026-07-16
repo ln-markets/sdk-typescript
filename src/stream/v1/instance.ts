@@ -60,7 +60,7 @@ export class StreamInstance extends EventEmitter<StreamEvents> {
     super()
     const wssUrl = match(network)
       .with('mainnet', () => 'wss://stream.lnmarkets.com/v1')
-      .with('testnet4', () => 'wss://stream.testnet4.lnmarkets.com/v1')
+      .with('signet', () => 'wss://stream.signet.lnmarkets.com/v1')
       .exhaustive()
     this.#url = wssUrl
     this.#reconnectInterval = reconnectInterval
