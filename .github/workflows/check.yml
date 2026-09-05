@@ -54,9 +54,8 @@ jobs:
       - name: Check unused dependencies
         run: pnpm run knip
 
-      # Authenticated rest/v3 suites are skipped: GitHub-hosted runners are US
-      # IPs and the API geo-blocks authenticated routes (403). Run `pnpm test`
-      # locally with a .env to exercise them.
+      # Authenticated suites need API credentials and run locally
+      # (`pnpm test` with a .env); CI covers unit and public-endpoint tests.
       - name: Test
         run: pnpm run test
 
