@@ -78,11 +78,6 @@ import type {
   FuturesRunningTrade,
   FuturesClosedTrade,
   FuturesCanceledTrade,
-  // Oracle
-  GetIndexInput,
-  GetIndexOutput,
-  GetLastPriceInput,
-  GetLastPriceOutput,
   // Synthetic USD (read)
   GetBestPriceOutput,
   GetSwapsInput,
@@ -205,29 +200,6 @@ console.log(
   `[rest] futures.getFundingSettlements → count=${fundingSettlements.data.length} last=${
     lastFunding
       ? `rate=${lastFunding.fundingRate}@${lastFunding.time}`
-      : '(empty)'
-  }`
-)
-await sleep(REQ_PACE_MS)
-
-const indexInput: GetIndexInput = { limit: 3 }
-const indexPoints: GetIndexOutput = await client.oracle.getIndex(indexInput)
-const [indexHead] = indexPoints
-console.log(
-  `[rest] oracle.getIndex → count=${indexPoints.length} head=${
-    indexHead ? `${indexHead.index}@${indexHead.time}` : '(empty)'
-  }`
-)
-await sleep(REQ_PACE_MS)
-
-const lastPriceInput: GetLastPriceInput = { limit: 3 }
-const lastPrices: GetLastPriceOutput =
-  await client.oracle.getLastPrice(lastPriceInput)
-const [lastPriceHead] = lastPrices
-console.log(
-  `[rest] oracle.getLastPrice → count=${lastPrices.length} head=${
-    lastPriceHead
-      ? `${lastPriceHead.lastPrice}@${lastPriceHead.time}`
       : '(empty)'
   }`
 )
