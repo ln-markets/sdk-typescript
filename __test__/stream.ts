@@ -3,6 +3,7 @@ import { test as base } from 'vitest'
 
 import type { StreamClient } from '../src/stream/v1/index.js'
 import { createStreamClient } from '../src/stream/v1/index.js'
+
 import { authCreds, NETWORK } from './network.js'
 
 // Signet hands out periodic 1006 closes during connection storms. Retry the

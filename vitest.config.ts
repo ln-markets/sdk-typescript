@@ -1,5 +1,4 @@
 import { loadEnv } from 'vite'
-// oxlint-disable-next-line extensions -- Subpath imports are allowed
 import { defineConfig } from 'vitest/config'
 
 // oxlint-disable-next-line typescript/prefer-readonly-parameter-types -- vite config callback signature

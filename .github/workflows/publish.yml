@@ -13,7 +13,8 @@ on:
 jobs:
   check:
     uses: ./.github/workflows/check.yml
-    secrets: inherit
+    permissions:
+      contents: read
 
   publish:
     runs-on: ubuntu-latest
@@ -25,11 +26,18 @@ jobs:
       type: ${{ steps.publish.outputs.type }}
       version: ${{ steps.publish.outputs.version }}
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      # Tag push below needs the persisted credential.
+      - name: Checkout code # zizmor: ignore[artipacked]
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - uses: ./.github/actions/base
+      - name: Setup mise
+        uses: ./.github/actions/setup-mise
 
-      - run: pnpm build
+      - name: Setup node
+        uses: ./.github/actions/setup-node
+
+      - name: Build
+        run: pnpm run build
 
       - id: publish
         name: Publish to npm
@@ -50,7 +58,10 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Create GitHub release
         run: gh release create "v${{ needs.publish.outputs.version }}" --title "v${{ needs.publish.outputs.version }}" --generate-notes

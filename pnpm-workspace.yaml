@@ -1,4 +1,18 @@
 allowBuilds:
   esbuild: true
-onlyBuiltDependencies:
-  - esbuild
+
+autoInstallPeers: false
+trustLockfile: true
+lockfileIncludeTarballUrl: true
+
+minimumReleaseAge: 1440 # minutes (1 day)
+
+trustPolicy: no-downgrade
+
+blockExoticSubdeps: true
+
+savePrefix: ''
+
+strictDepBuilds: true
+
+verifyDepsBeforeRun: false

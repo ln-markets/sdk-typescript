@@ -5,19 +5,19 @@
  *                      subscribe, unsubscribe, unsubscribeAll.
  *
  * Run (public-only, signet):
- *   pnpm exec tsx examples/stream-v1.ts
+ *   nub examples/stream-v1.ts
  *
  * Authenticated run reads creds by network:
  *   mainnet  → MAINNET_API_KEY, MAINNET_API_SECRET, MAINNET_API_PASSPHRASE
  *   signet → SIGNET_API_KEY, SIGNET_API_SECRET, SIGNET_API_PASSPHRASE
  *
- * tsx does not auto-load .env, so source it first:
+ * nub does not auto-load .env, so source it first:
  *   set -a; source .env; set +a
- *   pnpm exec tsx examples/stream-v1.ts --auth
+ *   nub examples/stream-v1.ts --auth
  *
  * Defaults to signet. Pass --mainnet to opt in:
- *   pnpm exec tsx examples/stream-v1.ts --mainnet
- *   pnpm exec tsx examples/stream-v1.ts --mainnet --auth
+ *   nub examples/stream-v1.ts --mainnet
+ *   nub examples/stream-v1.ts --mainnet --auth
  */
 
 import { createStreamClient } from '../src/stream/v1/index.js'

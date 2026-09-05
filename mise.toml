@@ -1,4 +1,14 @@
-min_version = "2026.5.5"
+# 2026.7 lockfile format (tool options in mise.lock) — older mise fails `install --locked`
+min_version = "2026.7.11"
+
+[tools]
+actionlint = "1.7.12"
+communique = "latest"
+gitleaks = "8.30.1"
+nub = { version = "0.8.3", allow_builds = ["@nubjs/nub"] }
+osv-scanner = "2.5.1"
+shellcheck = "0.11.0"
+zizmor = "1.30.0"
 
 [env]
 _.path = ["node_modules/.bin"]
@@ -20,6 +30,3 @@ show_tools = false
 
 [hooks]
 enter = "pnpm install --frozen-lockfile --prefer-offline"
-
-[tools]
-communique = "latest"

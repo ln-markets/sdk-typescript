@@ -1,0 +1,11 @@
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Local artifacts and test fixtures"
+paths = [
+  '''^\.env$''',
+  '''(^|/)dist/''',
+  '''(^|/)__test__/''',
+  '''\.test\.ts$''',
+]

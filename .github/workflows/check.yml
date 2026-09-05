@@ -12,28 +12,52 @@ on:
     types: [opened, synchronize, reopened]
   workflow_call:
 
+permissions:
+  contents: read
+
 jobs:
   check:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      DO_NOT_TRACK: 1
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
-      - uses: ./.github/actions/base
+      - name: Setup mise
+        uses: ./.github/actions/setup-mise
 
-      - run: pnpm markdownlint --ignore-path .gitignore ./**/*.md
+      - name: Setup node
+        uses: ./.github/actions/setup-node
 
-      - run: pnpm oxfmt --check --no-error-on-unmatched-pattern .
+      - name: Check formatting
+        run: pnpm run format
 
-      - run: pnpm oxlint --type-aware
+      - name: Lint markdown
+        run: pnpm run markdownlint
 
-      - run: pnpm knip --cache --cache-location .knipcache
+      - name: Spell check
+        run: pnpm run spell-check
 
-      - run: pnpm cspell lint --no-progress --gitignore --show-context --cache ./**/*
+      - name: Lint code
+        run: pnpm run lint
 
-      - run: pnpm type-check
+      - name: Type check code
+        run: pnpm run type-check
 
-      - run: pnpm test
-        env:
-          SIGNET_API_KEY: ${{ secrets.SIGNET_API_KEY }}
-          SIGNET_API_SECRET: ${{ secrets.SIGNET_API_SECRET }}
-          SIGNET_API_PASSPHRASE: ${{ secrets.SIGNET_API_PASSPHRASE }}
+      - name: Build code
+        run: pnpm run build
+
+      - name: Check unused dependencies
+        run: pnpm run knip
+
+      # Authenticated suites need API credentials and run locally
+      # (`pnpm test` with a .env); CI covers unit and public-endpoint tests.
+      - name: Test
+        run: pnpm run test
+
+  security:
+    uses: ./.github/workflows/security.yml

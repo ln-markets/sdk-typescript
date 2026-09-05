@@ -4,6 +4,7 @@ import { describe, expect } from 'vitest'
 
 import { HAS_AUTH, NETWORK } from '../../../__test__/network.js'
 import { test } from '../../../__test__/stream.js'
+
 import type { Topic } from './index.js'
 import {
   createStreamClient,

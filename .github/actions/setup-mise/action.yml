@@ -1,0 +1,26 @@
+name: Setup mise
+description: Install the repo's mise tools and put the repo bins on PATH, without installing dependencies
+
+inputs:
+  install_args:
+    description: Tools to install, passed to `mise install`
+    required: false
+    default: node pnpm nub
+
+runs:
+  using: composite
+  steps:
+    - name: Setup mise
+      uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+      env:
+        MISE_LOCKED: '1'
+      with:
+        version: 2026.7.11
+        # linux-x64 (ubuntu-latest); from https://github.com/jdx/mise/releases/download/v2026.7.11/SHASUMS256.txt
+        sha256: d31578a16ae2708385249b439c95533068e04b9507a118e905aa6768905671fc
+        install_args: ${{ inputs.install_args }}
+
+    # mise-action >= 4.2.1 no longer exports mise.toml [env] _.path entries to later steps
+    - name: Add repo bins to PATH
+      shell: bash
+      run: echo "$GITHUB_WORKSPACE/node_modules/.bin" >> "$GITHUB_PATH"

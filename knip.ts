@@ -1,7 +1,7 @@
 import type { KnipConfig } from 'knip'
 
 export default {
-  oxlint: { config: ['.oxlintrc.json'] },
+  oxlint: { config: ['oxlint.config.ts'] },
   typescript: { config: ['tsconfig.json', 'tsconfig.build.json'] },
   entry: [
     './src/rest/v3/index.ts',

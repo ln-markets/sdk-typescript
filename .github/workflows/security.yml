@@ -1,0 +1,44 @@
+name: Security
+
+# Callable from Check, plus a nightly run so newly-published advisories
+# (osv-scanner) surface without waiting for the next push.
+on:
+  workflow_call:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 6 * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      DO_NOT_TRACK: 1
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup mise
+        uses: ./.github/actions/setup-mise
+        with:
+          install_args: actionlint gitleaks osv-scanner shellcheck zizmor
+
+      - name: Actionlint
+        run: actionlint
+
+      - name: Shellcheck
+        run: shellcheck --enable=all scripts/*.sh
+
+      - name: Zizmor
+        run: zizmor --offline --min-severity medium .github/workflows
+
+      - name: Gitleaks
+        run: gitleaks dir . --no-banner
+
+      - name: OSV scanner
+        run: osv-scanner scan source --recursive .
