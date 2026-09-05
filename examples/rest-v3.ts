@@ -8,19 +8,19 @@
  * called. Their Input/Output types are re-exported at the bottom for reference.
  *
  * Run (public-only, signet):
- *   pnpm exec tsx examples/rest-v3.ts
+ *   nub examples/rest-v3.ts
  *
  * Authenticated run reads creds by network:
  *   signet  → SIGNET_API_KEY, SIGNET_API_SECRET, SIGNET_API_PASSPHRASE
  *   mainnet → MAINNET_API_KEY, MAINNET_API_SECRET, MAINNET_API_PASSPHRASE
  *
- * tsx does not auto-load .env, so source it first:
+ * nub does not auto-load .env, so source it first:
  *   set -a; source .env; set +a
- *   pnpm exec tsx examples/rest-v3.ts --auth
+ *   nub examples/rest-v3.ts --auth
  *
  * Defaults to signet. Pass --mainnet to opt in:
- *   pnpm exec tsx examples/rest-v3.ts --mainnet
- *   pnpm exec tsx examples/rest-v3.ts --mainnet --auth
+ *   nub examples/rest-v3.ts --mainnet
+ *   nub examples/rest-v3.ts --mainnet --auth
  */
 
 import { createHttpClient } from '../src/rest/v3/index.js'

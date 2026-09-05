@@ -1,36 +1,37 @@
 import { StreamInstance } from './instance.js'
 import { createAuthenticate } from './methods/authenticate.js'
-import type {
-  Authenticate,
+import type { Authenticate } from './methods/authenticate.js'
+import { createHello } from './methods/hello.js'
+import type { Hello } from './methods/hello.js'
+import { createPing } from './methods/ping.js'
+import type { Ping } from './methods/ping.js'
+import { createSubscribe } from './methods/subscribe.js'
+import type { Subscribe } from './methods/subscribe.js'
+import { createTime } from './methods/time.js'
+import type { Time } from './methods/time.js'
+import { createUnsubscribeAll } from './methods/unsubscribe-all.js'
+import type { UnsubscribeAll } from './methods/unsubscribe-all.js'
+import { createUnsubscribe } from './methods/unsubscribe.js'
+import type { Unsubscribe } from './methods/unsubscribe.js'
+import { createWhoami } from './methods/whoami.js'
+import type { Whoami } from './methods/whoami.js'
+import type { Options } from './types.js'
+
+export type {
   AuthenticateInput,
   AuthenticateOutput,
 } from './methods/authenticate.js'
-import { createHello } from './methods/hello.js'
-import type { Hello, HelloInput, HelloOutput } from './methods/hello.js'
-import { createPing } from './methods/ping.js'
-import type { Ping, PingOutput } from './methods/ping.js'
-import { createSubscribe } from './methods/subscribe.js'
-import type {
-  Subscribe,
-  SubscribeInput,
-  SubscribeOutput,
-} from './methods/subscribe.js'
-import { createTime } from './methods/time.js'
-import type { Time, TimeOutput } from './methods/time.js'
-import { createUnsubscribeAll } from './methods/unsubscribe-all.js'
-import type {
-  UnsubscribeAll,
-  UnsubscribeAllOutput,
-} from './methods/unsubscribe-all.js'
-import { createUnsubscribe } from './methods/unsubscribe.js'
-import type {
-  Unsubscribe,
+export type { HelloInput, HelloOutput } from './methods/hello.js'
+export type { PingOutput } from './methods/ping.js'
+export type { SubscribeInput, SubscribeOutput } from './methods/subscribe.js'
+export type { TimeOutput } from './methods/time.js'
+export type { UnsubscribeAllOutput } from './methods/unsubscribe-all.js'
+export type {
   UnsubscribeInput,
   UnsubscribeOutput,
 } from './methods/unsubscribe.js'
-import { createWhoami } from './methods/whoami.js'
-import type { Whoami, WhoamiOutput } from './methods/whoami.js'
-import type {
+export type { WhoamiOutput } from './methods/whoami.js'
+export type {
   AnnouncementAdd,
   AnnouncementEvent,
   AnnouncementRemove,
@@ -61,7 +62,6 @@ import type {
   OhlcData,
   OhlcResolution,
   OhlcTopic,
-  Options,
   Pair,
   SubscriptionData,
   Topic,
@@ -90,54 +90,4 @@ export class StreamClient extends StreamInstance {
     this.unsubscribe = createUnsubscribe(this)
     this.unsubscribeAll = createUnsubscribeAll(this)
   }
-}
-
-export type {
-  AnnouncementAdd,
-  AnnouncementEvent,
-  AnnouncementRemove,
-  AuthenticateInput,
-  AuthenticateOutput,
-  CrossOrderCanceled,
-  CrossOrderCanceledPayload,
-  CrossOrderEvent,
-  CrossOrderFilledPayload,
-  CrossOrderLimit,
-  CrossOrderNew,
-  CrossOrderOpenPayload,
-  CrossPositionData,
-  FuturesBucketData,
-  FuturesFundingData,
-  FuturesIndexData,
-  FuturesLastPriceData,
-  FuturesTickerData,
-  HelloInput,
-  HelloOutput,
-  Instrument,
-  IsolatedTradeCanceled,
-  IsolatedTradeClosed,
-  IsolatedTradeFilled,
-  IsolatedTradeFunding,
-  IsolatedTradeLiquidation,
-  IsolatedTradeOpen,
-  IsolatedTradesEvent,
-  IsolatedTradeStoploss,
-  IsolatedTradeTakeprofit,
-  MarginMode,
-  OhlcData,
-  OhlcResolution,
-  OhlcTopic,
-  Pair,
-  PingOutput,
-  SubscribeInput,
-  SubscribeOutput,
-  SubscriptionData,
-  TimeOutput,
-  Topic,
-  UnsubscribeAllOutput,
-  UnsubscribeInput,
-  UnsubscribeOutput,
-  WalletDepositData,
-  WalletWithdrawData,
-  WhoamiOutput,
 }

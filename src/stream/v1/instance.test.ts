@@ -1,11 +1,9 @@
-// oxlint-disable eslint/max-lines -- deterministic mock-WS lifecycle tests; isolating per-scenario keeps each case independently debuggable
 import { EventEmitter } from 'node:events'
 
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 
 // oxlint-disable-next-line unicorn/prefer-event-target -- mirrors the Node `ws` library's EventEmitter API; StreamInstance calls .on/.once
 class MockWebSocket extends EventEmitter {
-  // oxlint-disable-next-line typescript/prefer-readonly-parameter-types -- mutable registry by design; tests inspect/reset across cases
   public static instances: MockWebSocket[] = []
 
   public readonly url: string

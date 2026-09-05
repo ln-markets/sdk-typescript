@@ -238,8 +238,7 @@ export class StreamInstance extends EventEmitter<StreamEvents> {
         }
       )
       .with({ id: P.string }, (frame) => {
-        // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- frame carries response fields; never cast required for TypedEmitter index-signature emit
-        this.emit(`response:${frame.id}`, frame as never)
+        this.emit(`response:${frame.id}`, frame)
       })
       .otherwise(() => {
         this.emit('error', new Error('Unknown JSON-RPC frame'))
