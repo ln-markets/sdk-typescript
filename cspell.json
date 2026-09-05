@@ -1,27 +1,33 @@
 {
-  "dictionaries": ["node", "npm", "en-gb"],
+  "dictionaries": [
+    "node",
+    "npm",
+    "en-gb"
+  ],
   "ignorePaths": [
     "pnpm-lock.yaml",
-    "node_modules",
     "reports",
-    "dist",
     "coverage",
-    "build",
-    ".env",
     ".vscode",
-    "images/logo-gradient.svg",
-    "package.json"
+    "package.json",
+    "mise.lock",
+    "node_modules/.cache"
   ],
   "language": "en",
-  "enableFiletypes": ["*"],
+  "enableFiletypes": [
+    "*"
+  ],
   "words": [
+    "actionlint",
     "Anypassword",
     "Authentification",
     "bitmex",
     "bybit",
     "creds",
     "deribit",
+    "gitleaks",
     "isnan",
+    "knip",
     "knipcache",
     "lnbc",
     "lnmarkets",
@@ -30,19 +36,26 @@
     "nonconstructor",
     "nonoctal",
     "nostr",
-    "ohlc",
+    "nubjs",
     "Ohlc",
+    "ohlc",
     "ohlcs",
+    "osv",
     "oxfmt",
     "oxlint",
     "oxlintrc",
+    "shellcheck",
     "snakecase",
     "stoploss",
     "susd",
     "takeprofit",
     "totp",
     "trunc",
+    "tsbuildinfo",
+    "tsgolint",
     "webauthn",
-    "wpkh"
-  ]
+    "wpkh",
+    "zizmor"
+  ],
+  "useGitignore": true
 }

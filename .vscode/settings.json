@@ -1,8 +1,8 @@
 {
   "oxc.typeAware": true,
-  "oxc.configPath": ".oxlintrc.json",
+  "oxc.configPath": "oxlint.config.ts",
   "oxc.unusedDisableDirectives": "deny",
-  "oxc.fmt.configPath": ".oxfmtrc.json",
+  "oxc.fmt.configPath": "oxfmt.config.ts",
   "oxc.path.oxfmt": "./node_modules/oxfmt/bin/oxfmt",
   "oxc.path.oxlint": "./node_modules/oxlint/bin/oxlint",
   "editor.defaultFormatter": "oxc.oxc-vscode",
