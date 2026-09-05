@@ -109,10 +109,6 @@ const candles = await client.futures.getCandles({
 
 // Get leaderboard
 const leaderboard = await client.futures.getLeaderboard()
-
-// Get oracle price data
-const lastPrice = await client.oracle.getLastPrice()
-const index = await client.oracle.getIndex()
 ```
 
 ### Authenticated client
@@ -383,28 +379,12 @@ const swap = await client.syntheticUsd.newSwap({
 const swaps = await client.syntheticUsd.getSwaps()
 ```
 
-### Oracle Price Data
-
-```typescript
-import { createHttpClient } from '@ln-markets/sdk/rest/v3'
-
-const client = createHttpClient()
-
-// Get latest price
-const lastPrice = await client.oracle.getLastPrice()
-console.log(`Current BTC price: $${lastPrice.price}`)
-
-// Get index price
-const index = await client.oracle.getIndex()
-```
-
 ## API v3 Features
 
 The v3 API provides the following routes:
 
 - **account**: Account management (balance, info, deposits, withdrawals)
 - **futures**: Futures trading (positions, orders, market data)
-- **oracle**: Price oracle data
 - **syntheticUsd**: Synthetic USD operations
 - **time**: Server time
 - **ping**: Health check endpoint
