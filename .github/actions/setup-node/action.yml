@@ -1,0 +1,21 @@
+name: Setup Node
+description: Install dependencies with the pnpm store cached (run setup-mise first)
+
+runs:
+  using: composite
+  steps:
+    - name: Expose pnpm config through "$GITHUB_OUTPUT"
+      id: pnpm-config
+      shell: bash
+      run: echo "STORE_PATH=$(pnpm store path)" >> "$GITHUB_OUTPUT"
+
+    - name: Setup pnpm cache
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: ${{ steps.pnpm-config.outputs.STORE_PATH }}
+        key: ${{ runner.arch }}-pnpm-store-cache-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: ${{ runner.arch }}-pnpm-store-cache-
+
+    - name: Install dependencies
+      shell: bash
+      run: pnpm install --frozen-lockfile --prefer-offline
