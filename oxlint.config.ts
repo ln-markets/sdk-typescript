@@ -63,6 +63,13 @@ export default defineConfig({
       },
     },
     {
+      // Exhaustive hand-mirror of the stream/v1 contract; splitting it would lose locality
+      files: ['src/stream/v1/types.ts'],
+      rules: {
+        'eslint/max-lines': 'off',
+      },
+    },
+    {
       files: ['examples/**/*.ts'],
       rules: {
         'eslint/no-console': 'off',

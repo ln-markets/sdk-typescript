@@ -1,6 +1,3 @@
-// oxlint-disable eslint/max-lines -- exhaustive hand-mirror of stream/v1 contract; splitting across files would lose locality
-// oxlint-disable typescript/consistent-indexed-object-style -- mapped template-literal types (`OhlcTopic`, `response:${string}`) cannot be expressed as Record without losing literal-key narrowing
-
 // ============================================================================
 // Options
 // ============================================================================
@@ -388,6 +385,7 @@ export type SubscriptionData = {
   'futures/inverse/btc_usd/isolated/trades': IsolatedTradesEvent
   'futures/inverse/btc_usd/cross/orders': CrossOrderEvent
   'futures/inverse/btc_usd/cross/position': CrossPositionData
+  // oxlint-disable-next-line typescript/consistent-indexed-object-style -- mapped template-literal keys keep literal-key narrowing that Record loses
 } & {
   [K in OhlcTopic]: OhlcData
 }
@@ -397,6 +395,7 @@ export type SubscriptionData = {
 // ============================================================================
 
 // Internal request/response correlation channel — instance.ts emits `response:${id}` frames; listener narrows via cast.
+// oxlint-disable-next-line typescript/consistent-indexed-object-style -- mapped template-literal keys keep literal-key narrowing that Record loses
 type JsonRpcResponseChannel = {
   [K in `response:${string}`]: [object]
 }
