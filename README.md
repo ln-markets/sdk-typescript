@@ -96,12 +96,21 @@ const time = await client.time()
 const pong = await client.ping()
 // => 'pong'
 
-// Get current ticker information
-const ticker = await client.futures.getTicker()
-// => { index: 67500, lastPrice: 67520, ... }
+// List the available markets
+const markets = await client.markets()
+// => [{ instrument: 'inverse_perp', pair: 'btc_usd', ... }, { instrument: 'quanto_perp', pair: 'xau_usdt', ... }]
+
+// Get current ticker information of a perp market
+const ticker = await client.perp.getTicker({
+  instrument: 'inverse_perp',
+  pair: 'btc_usd',
+})
+// => { instrument: 'inverse_perp', pair: 'btc_usd', mark: 67500, lastPrice: 67520, ... }
 
 // Get candles data
-const candles = await client.futures.getCandles({
+const candles = await client.perp.getCandles({
+  instrument: 'inverse_perp',
+  pair: 'btc_usd',
   from: '2023-10-31T00:00:00Z',
   to: '2023-11-01T00:00:00Z',
   range: '1h',
@@ -141,7 +150,85 @@ const withdrawals = await client.account.getLightningWithdrawals()
 
 ## API v3 Examples
 
-### Futures Trading - Isolated Margin
+### Perp Trading - Isolated Margin
+
+The `perp` routes (`/v3/perp/*`) trade any perpetual market. Every call takes the market key: `instrument` and `pair`. Use `client.markets()` to list the markets and their keys.
+
+The example below trades gold (`xau_usdt`), a quanto market. For BTC/USD, use `{ instrument: 'inverse_perp', pair: 'btc_usd' }`.
+
+```typescript
+import { createHttpClient } from '@ln-markets/sdk/rest/v3'
+
+const client = createHttpClient({
+  key: 'your-api-key',
+  secret: 'your-api-secret',
+  passphrase: 'your-api-key-passphrase',
+})
+
+const gold = { instrument: 'quanto_perp', pair: 'xau_usdt' } as const
+
+// Market data
+const ticker = await client.perp.getTicker(gold)
+// => { mark: 4033.5, fundingRate: 0.00007, quantoAdjustmentRate: 0, ... }
+
+const fundingSettlements = await client.perp.getFundingSettlements({
+  ...gold,
+  limit: 10,
+})
+
+// Open a long position with a market order
+const trade = await client.perp.isolated.newTrade({
+  ...gold,
+  type: 'market',
+  side: 'buy',
+  quantity: 0.01, // In the market quantity unit (oz of gold here)
+  leverage: 5,
+  stoploss: { mode: 'fixed', value: 3800 },
+})
+
+// Manage the position
+await client.perp.isolated.addMargin({ ...gold, id: trade.id, amount: 5000 })
+await client.perp.isolated.cashIn({ ...gold, id: trade.id, amount: 1000 })
+await client.perp.isolated.updateTakeprofit({
+  ...gold,
+  id: trade.id,
+  value: 4500,
+})
+await client.perp.isolated.updateStoploss({
+  ...gold,
+  id: trade.id,
+  stoploss: { mode: 'trailing', value: 0.05 }, // 5% trailing distance
+})
+await client.perp.isolated.removeTakeprofit({ ...gold, id: trade.id })
+await client.perp.isolated.removeStoploss({ ...gold, id: trade.id })
+
+// Close the position
+await client.perp.isolated.close({ ...gold, id: trade.id })
+
+// Cancel one pending order, or all pending orders of the market
+await client.perp.isolated.cancel({ ...gold, id: 'trade-id' })
+await client.perp.isolated.cancelAll(gold)
+
+// Reads span every market when you leave out the market key
+const allRunningTrades = await client.perp.isolated.getRunningTrades()
+const goldOpenTrades = await client.perp.isolated.getOpenTrades(gold)
+
+// History reads use cursor pagination: pass `nextCursor` back as `cursor`
+const page = await client.perp.isolated.getClosedTrades({ ...gold, limit: 50 })
+if (page.nextCursor) {
+  const nextPage = await client.perp.isolated.getClosedTrades({
+    ...gold,
+    limit: 50,
+    cursor: page.nextCursor,
+  })
+}
+const canceledTrades = await client.perp.isolated.getCanceledTrades(gold)
+const fundingFees = await client.perp.isolated.getFundingFees(gold)
+```
+
+### Futures Trading - Isolated Margin (deprecated)
+
+> :warning: **Deprecated:** `client.futures.getTicker`, `client.futures.getCandles`, `client.futures.getFundingSettlements` and `client.futures.isolated.*` still work, but they only trade BTC/USD. Use the matching `client.perp` method with `{ instrument: 'inverse_perp', pair: 'btc_usd' }` instead.
 
 Isolated margin mode allows you to limit the risk to a specific position. Each position has its own margin.
 
@@ -384,7 +471,9 @@ const swaps = await client.syntheticUsd.getSwaps()
 The v3 API provides the following routes:
 
 - **account**: Account management (balance, info, deposits, withdrawals)
-- **futures**: Futures trading (positions, orders, market data)
+- **markets**: List the available markets
+- **perp**: Perp trading on any market (isolated trades, market data)
+- **futures**: BTC/USD futures trading (cross margin, leaderboard; isolated and market data are deprecated, use **perp**)
 - **syntheticUsd**: Synthetic USD operations
 - **time**: Server time
 - **ping**: Health check endpoint
