@@ -2,6 +2,8 @@ import type { Options } from './instance.js'
 import { createInstance } from './instance.js'
 import { createAccountRoute } from './routes/account/index.js'
 import { createFuturesRoute } from './routes/futures/index.js'
+import { createMarketsRoute } from './routes/markets.js'
+import { createPerpRoute } from './routes/perp/index.js'
 import { createPing } from './routes/ping.js'
 import { createSyntheticUsdRoutes } from './routes/synthetic-usd/index.js'
 import { createTimeRoute } from './routes/time.js'
@@ -12,6 +14,8 @@ export const createHttpClient = (options?: Readonly<Options>) => {
   return {
     account: createAccountRoute(instance),
     futures: createFuturesRoute(instance),
+    markets: createMarketsRoute(instance),
+    perp: createPerpRoute(instance),
     ping: createPing(instance),
     syntheticUsd: createSyntheticUsdRoutes(instance),
     time: createTimeRoute(instance),
@@ -101,6 +105,7 @@ export type {
   FuturesIsolatedUpdateStoplossOutput,
   FuturesIsolatedUpdateTakeprofitInput,
   FuturesIsolatedUpdateTakeprofitOutput,
+  FuturesRoute,
   GetCandlesInput,
   GetCandlesOutput,
   GetFundingSettlementsInput,
@@ -108,6 +113,55 @@ export type {
   GetLeaderboardOutput,
   GetTickerOutput,
 } from './routes/futures/index.js'
+export type {
+  Market,
+  MarketQuantityUnit,
+  MarketStatus,
+  MarketsOutput,
+  PerpMarket,
+  SpotMarket,
+} from './routes/markets.js'
+export type {
+  PerpCandlesCursor,
+  PerpFundingSettlement,
+  PerpGetCandlesInput,
+  PerpGetCandlesOutput,
+  PerpGetFundingSettlementsInput,
+  PerpGetFundingSettlementsOutput,
+  PerpGetTickerInput,
+  PerpGetTickerOutput,
+  PerpIsolatedAddMarginInput,
+  PerpIsolatedAddMarginOutput,
+  PerpIsolatedCancelAllInput,
+  PerpIsolatedCancelAllOutput,
+  PerpIsolatedCancelOutput,
+  PerpIsolatedCancelTradeInput,
+  PerpIsolatedCashInInput,
+  PerpIsolatedCashInOutput,
+  PerpIsolatedCloseOutput,
+  PerpIsolatedCloseTradeInput,
+  PerpIsolatedGetCanceledTradesInput,
+  PerpIsolatedGetCanceledTradesOutput,
+  PerpIsolatedGetClosedTradesInput,
+  PerpIsolatedGetClosedTradesOutput,
+  PerpIsolatedGetFundingFeesInput,
+  PerpIsolatedGetFundingFeesOutput,
+  PerpIsolatedGetOpenTradesInput,
+  PerpIsolatedGetOpenTradesOutput,
+  PerpIsolatedGetRunningTradesInput,
+  PerpIsolatedGetRunningTradesOutput,
+  PerpIsolatedNewTradeInput,
+  PerpIsolatedNewTradeOutput,
+  PerpIsolatedRemoveStoplossInput,
+  PerpIsolatedRemoveStoplossOutput,
+  PerpIsolatedRemoveTakeprofitInput,
+  PerpIsolatedRemoveTakeprofitOutput,
+  PerpIsolatedUpdateStoplossInput,
+  PerpIsolatedUpdateStoplossOutput,
+  PerpIsolatedUpdateTakeprofitInput,
+  PerpIsolatedUpdateTakeprofitOutput,
+  PerpOrder,
+} from './routes/perp/index.js'
 export type {
   GetBestPriceOutput,
   GetSwapsInput,
@@ -135,3 +189,19 @@ export type {
   PaginatedResponse,
   PaginationInput,
 } from './types.js'
+export type {
+  PerpCanceledTrade,
+  PerpClosedTrade,
+  PerpCursor,
+  PerpFundingFees,
+  PerpInstrument,
+  PerpMarketFilter,
+  PerpMarketKey,
+  PerpOpenOrRunningTrade,
+  PerpOpenTrade,
+  PerpPaginatedResponse,
+  PerpPaginationInput,
+  PerpRunningTrade,
+  PerpStoploss,
+  PerpTrade,
+} from './routes/perp/types.js'
