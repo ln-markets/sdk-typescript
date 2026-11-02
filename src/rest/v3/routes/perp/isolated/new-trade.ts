@@ -12,7 +12,14 @@ export type PerpOrder = (PerpMarketKey & {
   side: FuturesTradeSide
   stoploss?: PerpStoploss
   takeprofit?: number
+  /**
+   * Your client order ID (max 64 characters). Unique across all your isolated
+   * trades and markets: reusing one fails with HTTP 409 `CONFLICT` and places
+   * no trade. Fetch the trade with `perp.isolated.getTrade({ clientId })`.
+   */
   clientId?: string
+  /** Free tag that several trades can share, e.g. a strategy (1 to 64 characters). */
+  label?: string
 } & (
     | {
         margin: number
@@ -55,6 +62,7 @@ export const createNewTrade = (instance: Readonly<KyInstance>): NewTrade => {
     takeprofit,
     type,
     clientId,
+    label,
   }) => {
     return instance
       .post('perp/isolated/trade', {
@@ -70,6 +78,7 @@ export const createNewTrade = (instance: Readonly<KyInstance>): NewTrade => {
           takeprofit,
           type,
           clientId,
+          label,
         },
       })
       .json()

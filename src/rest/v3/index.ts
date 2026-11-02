@@ -150,6 +150,8 @@ export type {
   PerpIsolatedGetOpenTradesOutput,
   PerpIsolatedGetRunningTradesInput,
   PerpIsolatedGetRunningTradesOutput,
+  PerpIsolatedGetTradeInput,
+  PerpIsolatedGetTradeOutput,
   PerpIsolatedNewTradeInput,
   PerpIsolatedNewTradeOutput,
   PerpIsolatedRemoveStoplossInput,
@@ -202,6 +204,7 @@ export type {
   PerpPaginatedResponse,
   PerpPaginationInput,
   PerpRunningTrade,
+  PerpRunningTradeRead,
   PerpStoploss,
   PerpTrade,
 } from './routes/perp/types.js'

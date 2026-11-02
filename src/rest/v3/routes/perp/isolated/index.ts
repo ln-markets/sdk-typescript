@@ -10,6 +10,7 @@ import { createGetClosedTrades } from './get-closed-trades.js'
 import { createGetFundingFees } from './get-funding-fees.js'
 import { createGetOpenTrades } from './get-open-trades.js'
 import { createGetRunningTrades } from './get-running-trades.js'
+import { createGetTrade } from './get-trade.js'
 import { createNewTrade } from './new-trade.js'
 import { createUpdateStoploss, createRemoveStoploss } from './stoploss.js'
 import { createUpdateTakeprofit, createRemoveTakeprofit } from './takeprofit.js'
@@ -55,6 +56,10 @@ export type {
   PerpIsolatedGetRunningTradesOutput,
 } from './get-running-trades.js'
 export type {
+  PerpIsolatedGetTradeInput,
+  PerpIsolatedGetTradeOutput,
+} from './get-trade.js'
+export type {
   PerpIsolatedNewTradeInput,
   PerpIsolatedNewTradeOutput,
   PerpOrder,
@@ -83,6 +88,7 @@ export const createPerpIsolatedRoute = (instance: Readonly<KyInstance>) => ({
   getFundingFees: createGetFundingFees(instance),
   getOpenTrades: createGetOpenTrades(instance),
   getRunningTrades: createGetRunningTrades(instance),
+  getTrade: createGetTrade(instance),
   newTrade: createNewTrade(instance),
   removeStoploss: createRemoveStoploss(instance),
   removeTakeprofit: createRemoveTakeprofit(instance),

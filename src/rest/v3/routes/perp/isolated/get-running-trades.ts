@@ -1,16 +1,10 @@
 import type { KyInstance } from 'ky'
 
-import type { PerpMarketFilter, PerpRunningTrade } from '../types.js'
+import type { PerpMarketFilter, PerpRunningTradeRead } from '../types.js'
 
 export type PerpIsolatedGetRunningTradesInput = PerpMarketFilter
 
-// `pl` is the unrealized P&L at the Mark price, null when no Mark price is known.
-export type PerpIsolatedGetRunningTradesOutput = (Omit<
-  PerpRunningTrade,
-  'pl'
-> & {
-  pl: number | null
-})[]
+export type PerpIsolatedGetRunningTradesOutput = PerpRunningTradeRead[]
 
 type GetRunningTrades = (
   input?: Readonly<PerpIsolatedGetRunningTradesInput>

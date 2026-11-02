@@ -47,6 +47,8 @@ export type {
   PerpIsolatedGetOpenTradesOutput,
   PerpIsolatedGetRunningTradesInput,
   PerpIsolatedGetRunningTradesOutput,
+  PerpIsolatedGetTradeInput,
+  PerpIsolatedGetTradeOutput,
   PerpIsolatedNewTradeInput,
   PerpIsolatedNewTradeOutput,
   PerpIsolatedRemoveStoplossInput,

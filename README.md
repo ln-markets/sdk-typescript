@@ -177,6 +177,7 @@ const fundingSettlements = await client.perp.getFundingSettlements({
 })
 
 // Open a long position with a market order
+const clientId = crypto.randomUUID() // Optional client order ID, unique per order
 const trade = await client.perp.isolated.newTrade({
   ...gold,
   type: 'market',
@@ -184,7 +185,14 @@ const trade = await client.perp.isolated.newTrade({
   quantity: 0.01, // In the market quantity unit (oz of gold here)
   leverage: 5,
   stoploss: { mode: 'fixed', value: 3800 },
+  clientId,
+  label: 'gold-swing', // Optional tag that several trades can share
 })
+
+// Reusing a `clientId` fails with HTTP 409 `CONFLICT` and places no trade.
+// After a timeout, resend the order with the same `clientId`: a 409 means the
+// first one went through. Fetch a trade in any state by `clientId` or by `id`:
+const sameTrade = await client.perp.isolated.getTrade({ clientId })
 
 // Manage the position
 await client.perp.isolated.addMargin({ ...gold, id: trade.id, amount: 5000 })

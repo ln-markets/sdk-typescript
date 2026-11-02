@@ -77,7 +77,10 @@ export interface PerpTrade extends PerpMarketKey {
   sumQuantoAdjustmentFees: number
   takeprofit: number
   type: FuturesTradeType
+  /** Your client order ID, unique across all your isolated trades. */
   clientId: string | null
+  /** Free tag that several trades can share. */
+  label: string | null
 }
 
 export type PerpCanceledTrade = PerpTrade & {
@@ -116,6 +119,11 @@ export type PerpRunningTrade = PerpTrade & {
   closedAt: null
   filledAt: string
   running: true
+}
+
+/** A running trade as the reads return it: `pl` is the unrealized P&L at the Mark price, null when no Mark price is known. */
+export type PerpRunningTradeRead = Omit<PerpRunningTrade, 'pl'> & {
+  pl: number | null
 }
 
 export interface PerpFundingFees extends PerpMarketKey {

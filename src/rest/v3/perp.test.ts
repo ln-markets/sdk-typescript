@@ -7,12 +7,13 @@ import { test } from '../../../__test__/test.js'
 // Public signet REST answers 429 on tight bursts: pace the requests.
 const REQ_PACE_MS = 1000
 
-describe('rest/v3 perp', () => {
-  beforeEach(async () => {
-    await new Promise<void>((resolve) => {
-      setTimeout(resolve, REQ_PACE_MS)
-    })
+const pace = async () =>
+  new Promise<void>((resolve) => {
+    setTimeout(resolve, REQ_PACE_MS)
   })
+
+describe('rest/v3 perp', () => {
+  beforeEach(pace)
 
   describe('markets', () => {
     test('should list the BTC/USD market', async ({ client }) => {
@@ -127,6 +128,52 @@ describe('rest/v3 perp', () => {
           expect(canceled).toMatchObject({ canceled: true, id: trade.id })
         }
       }
+    )
+
+    test.skipIf(!HAS_AUTH)(
+      'should get a trade by clientId or id and refuse a reused clientId',
+      async ({ authClient }) => {
+        const clientId = `sdk-test-${crypto.randomUUID()}`
+        const order = {
+          ...btcUsd,
+          clientId,
+          label: 'sdk-test',
+          leverage: 10,
+          price: 10_000,
+          quantity: 1,
+          side: 'buy',
+          type: 'limit',
+        } as const
+        const trade = await authClient.perp.isolated.newTrade(order)
+
+        try {
+          expect(trade).toMatchObject({ clientId, label: 'sdk-test' })
+          await pace()
+
+          const byClientId = await authClient.perp.isolated.getTrade({
+            clientId,
+          })
+          expect(byClientId).toMatchObject({ id: trade.id, open: true })
+          await pace()
+
+          await expect(
+            authClient.perp.isolated.newTrade(order)
+          ).rejects.toMatchObject({ response: { status: 409 } })
+          await pace()
+        } finally {
+          await authClient.perp.isolated.cancel({ ...btcUsd, id: trade.id })
+        }
+        await pace()
+
+        const byId = await authClient.perp.isolated.getTrade({ id: trade.id })
+        expect(byId).toMatchObject({
+          canceled: true,
+          clientId,
+          label: 'sdk-test',
+        })
+      },
+      // Five requests, paced one second apart.
+      20_000
     )
 
     test.skipIf(!HAS_AUTH)(
