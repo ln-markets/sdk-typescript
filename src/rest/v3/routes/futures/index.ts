@@ -7,12 +7,32 @@ import { createFuturesIsolatedRoute } from './isolated/index.js'
 import { createGetLeaderboard } from './leaderboard.js'
 import { createGetTicker } from './ticker.js'
 
-export const createFuturesRoute = (instance: Readonly<KyInstance>) => {
+// Named so the emitted declarations reference it and keep the @deprecated tags.
+export interface FuturesRoute {
+  cross: ReturnType<typeof createFuturesCrossRoute>
+  /** @deprecated Use `perp.getCandles({ instrument: 'inverse_perp', pair: 'btc_usd', ... })` (`GET /v3/perp/candles`). */
+  getCandles: ReturnType<typeof createGetCandles>
+  /** @deprecated Use `perp.getFundingSettlements({ instrument: 'inverse_perp', pair: 'btc_usd', ... })` (`GET /v3/perp/funding-settlements`). */
+  getFundingSettlements: ReturnType<
+    typeof createGetFuturesFundingSettlementsRoute
+  >
+  getLeaderboard: ReturnType<typeof createGetLeaderboard>
+  /** @deprecated Use `perp.getTicker({ instrument: 'inverse_perp', pair: 'btc_usd' })` (`GET /v3/perp/ticker`). */
+  getTicker: ReturnType<typeof createGetTicker>
+  isolated: ReturnType<typeof createFuturesIsolatedRoute>
+}
+
+export const createFuturesRoute = (
+  instance: Readonly<KyInstance>
+): FuturesRoute => {
   return {
     cross: createFuturesCrossRoute(instance),
+    // oxlint-disable-next-line typescript/no-deprecated -- defines the deprecated route
     getCandles: createGetCandles(instance),
+    // oxlint-disable-next-line typescript/no-deprecated -- defines the deprecated route
     getFundingSettlements: createGetFuturesFundingSettlementsRoute(instance),
     getLeaderboard: createGetLeaderboard(instance),
+    // oxlint-disable-next-line typescript/no-deprecated -- defines the deprecated route
     getTicker: createGetTicker(instance),
     isolated: createFuturesIsolatedRoute(instance),
   }

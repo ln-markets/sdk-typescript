@@ -46,16 +46,21 @@ import type {
   LightningWithdrawal,
   BitcoinDeposit,
   OnChainWithdrawal,
-  // Futures — public
-  GetTickerOutput,
-  GetCandlesInput,
-  GetCandlesOutput,
+  // Markets
+  MarketsOutput,
+  PerpMarket,
+  PerpMarketKey,
+  // Perp — public
+  PerpGetTickerOutput,
+  PerpGetCandlesInput,
+  PerpGetCandlesOutput,
   Candle,
   CandlesResolution,
+  PerpGetFundingSettlementsInput,
+  PerpGetFundingSettlementsOutput,
+  PerpFundingSettlement,
+  // Futures — public
   GetLeaderboardOutput,
-  GetFundingSettlementsInput,
-  GetFundingSettlementsOutput,
-  FundingSettlement,
   // Futures — cross (read)
   FuturesCrossGetPositionOutput,
   FuturesCrossGetOpenOrdersOutput,
@@ -67,17 +72,19 @@ import type {
   FuturesCrossTransfer,
   FuturesCrossGetFundingFeesInput,
   FuturesCrossGetFundingFeesOutput,
-  // Futures — isolated (read)
-  FuturesIsolatedGetOpenTradesOutput,
-  FuturesIsolatedGetRunningTradesOutput,
-  FuturesIsolatedGetClosedTradesInput,
-  FuturesIsolatedGetClosedTradesOutput,
-  FuturesIsolatedGetFundingFeesInput,
-  FuturesIsolatedGetFundingFeesOutput,
-  FuturesOpenTrade,
-  FuturesRunningTrade,
-  FuturesClosedTrade,
-  FuturesCanceledTrade,
+  // Perp — isolated (read)
+  PerpIsolatedGetOpenTradesOutput,
+  PerpIsolatedGetRunningTradesOutput,
+  PerpIsolatedGetClosedTradesInput,
+  PerpIsolatedGetClosedTradesOutput,
+  PerpIsolatedGetCanceledTradesInput,
+  PerpIsolatedGetCanceledTradesOutput,
+  PerpIsolatedGetFundingFeesInput,
+  PerpIsolatedGetFundingFeesOutput,
+  PerpOpenTrade,
+  PerpClosedTrade,
+  PerpCanceledTrade,
+  PerpFundingFees,
   // Synthetic USD (read)
   GetBestPriceOutput,
   GetSwapsInput,
@@ -134,15 +141,6 @@ const options: Options = wantAuth
 // consumers can pass the client around without re-deriving the shape.
 const client: HttpClient = createHttpClient(options)
 
-const summarizeClosedTrade = (
-  entry: FuturesCanceledTrade | FuturesClosedTrade
-): string => {
-  if (entry.canceled) {
-    return `CANCELED id=${entry.id}`
-  }
-  return `CLOSED id=${entry.id} pl=${entry.pl} exit=${entry.exitPrice}`
-}
-
 // Public REST is rate-limited (HTTP 429 on tight bursts). Pace requests so a
 // full top-to-bottom run stays under the public ceiling.
 const REQ_PACE_MS = 1000
@@ -165,26 +163,55 @@ const time: TimeOutput = await client.time()
 console.log(`[rest] time → ${time.time}`)
 await sleep(REQ_PACE_MS)
 
-const ticker: GetTickerOutput = await client.futures.getTicker()
+// Every perp route takes a market key. List the markets and pick one that is
+// not BTC/USD (e.g. gold: `{ instrument: 'quanto_perp', pair: 'xau_usdt' }`),
+// falling back to BTC/USD when the network has no other perp market.
+const markets: MarketsOutput = await client.markets()
+const perpMarkets = markets.filter(
+  (market): market is PerpMarket => market.instrument !== 'quanto_spot'
+)
+const otherMarket = perpMarkets.find((market) => market.pair !== 'btc_usd')
+const market: PerpMarketKey = otherMarket
+  ? { instrument: otherMarket.instrument, pair: otherMarket.pair }
+  : { instrument: 'inverse_perp', pair: 'btc_usd' }
 console.log(
-  `[rest] futures.getTicker → lastPrice=${ticker.lastPrice} index=${ticker.index} fundingRate=${ticker.fundingRate} levels=${ticker.prices.length}`
+  `[rest] markets → count=${markets.length} perp=${perpMarkets.length} using=${market.instrument}:${market.pair}`
+)
+await sleep(REQ_PACE_MS)
+
+const ticker: PerpGetTickerOutput = await client.perp.getTicker(market)
+console.log(
+  `[rest] perp.getTicker → mark=${ticker.mark} lastPrice=${ticker.lastPrice} fundingRate=${ticker.fundingRate} quantoAdjustmentRate=${ticker.quantoAdjustmentRate} levels=${ticker.prices.length}`
 )
 await sleep(REQ_PACE_MS)
 
 const candlesResolution: CandlesResolution = '1h'
-const candlesInput: GetCandlesInput = {
+const candlesInput: PerpGetCandlesInput = {
+  ...market,
   from: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
   limit: 5,
   range: candlesResolution,
 }
-const candles: GetCandlesOutput = await client.futures.getCandles(candlesInput)
+const candles: PerpGetCandlesOutput = await client.perp.getCandles(candlesInput)
 const [firstCandle]: readonly Candle[] = candles.data
 console.log(
-  `[rest] futures.getCandles → count=${candles.data.length} first=${
+  `[rest] perp.getCandles → count=${candles.data.length} first=${
     firstCandle ? `o=${firstCandle.open} c=${firstCandle.close}` : '(empty)'
-  } nextCursor=${candles.nextCursor ?? '(none)'}`
+  } nextCursor=${candles.nextCursor?.value ?? '(none)'}`
 )
 await sleep(REQ_PACE_MS)
+
+// Pass `nextCursor` back as `cursor` to read the next page.
+if (candles.nextCursor) {
+  const nextCandles: PerpGetCandlesOutput = await client.perp.getCandles({
+    ...candlesInput,
+    cursor: candles.nextCursor,
+  })
+  console.log(
+    `[rest] perp.getCandles (page 2) → count=${nextCandles.data.length}`
+  )
+  await sleep(REQ_PACE_MS)
+}
 
 const leaderboard: GetLeaderboardOutput = await client.futures.getLeaderboard()
 console.log(
@@ -192,14 +219,14 @@ console.log(
 )
 await sleep(REQ_PACE_MS)
 
-const fundingInput: GetFundingSettlementsInput = { limit: 3 }
-const fundingSettlements: GetFundingSettlementsOutput =
-  await client.futures.getFundingSettlements(fundingInput)
-const [lastFunding]: readonly FundingSettlement[] = fundingSettlements.data
+const fundingInput: PerpGetFundingSettlementsInput = { ...market, limit: 3 }
+const fundingSettlements: PerpGetFundingSettlementsOutput =
+  await client.perp.getFundingSettlements(fundingInput)
+const [lastFunding]: readonly PerpFundingSettlement[] = fundingSettlements.data
 console.log(
-  `[rest] futures.getFundingSettlements → count=${fundingSettlements.data.length} last=${
+  `[rest] perp.getFundingSettlements → count=${fundingSettlements.data.length} last=${
     lastFunding
-      ? `rate=${lastFunding.fundingRate}@${lastFunding.time}`
+      ? `rate=${lastFunding.fundingRate} quanto=${lastFunding.quantoAdjustmentRate}@${lastFunding.time}`
       : '(empty)'
   }`
 )
@@ -349,11 +376,12 @@ if (wantAuth) {
   )
   await sleep(REQ_PACE_MS)
 
-  const openTrades: FuturesIsolatedGetOpenTradesOutput =
-    await client.futures.isolated.getOpenTrades()
-  const [openTrade]: readonly FuturesOpenTrade[] = openTrades
+  // Per-user perp reads span every market unless both keys name one.
+  const openTrades: PerpIsolatedGetOpenTradesOutput =
+    await client.perp.isolated.getOpenTrades(market)
+  const [openTrade]: readonly PerpOpenTrade[] = openTrades
   console.log(
-    `[rest] futures.isolated.getOpenTrades → count=${openTrades.length} first=${
+    `[rest] perp.isolated.getOpenTrades → count=${openTrades.length} first=${
       openTrade
         ? `${openTrade.side} ${openTrade.quantity}@${openTrade.price}`
         : '(empty)'
@@ -361,36 +389,58 @@ if (wantAuth) {
   )
   await sleep(REQ_PACE_MS)
 
-  const runningTrades: FuturesIsolatedGetRunningTradesOutput =
-    await client.futures.isolated.getRunningTrades()
-  const [runningTrade]: readonly FuturesRunningTrade[] = runningTrades
+  const runningTrades: PerpIsolatedGetRunningTradesOutput =
+    await client.perp.isolated.getRunningTrades()
+  const [runningTrade] = runningTrades
   console.log(
-    `[rest] futures.isolated.getRunningTrades → count=${runningTrades.length} first=${
+    `[rest] perp.isolated.getRunningTrades (all markets) → count=${runningTrades.length} first=${
       runningTrade
-        ? `${runningTrade.side} qty=${runningTrade.quantity} pl=${runningTrade.pl}`
+        ? `${runningTrade.instrument}:${runningTrade.pair} ${runningTrade.side} qty=${runningTrade.quantity} pl=${runningTrade.pl ?? '(no mark)'}`
         : '(empty)'
     }`
   )
   await sleep(REQ_PACE_MS)
 
-  const closedInput: FuturesIsolatedGetClosedTradesInput = { limit: 3 }
-  const closedTrades: FuturesIsolatedGetClosedTradesOutput =
-    await client.futures.isolated.getClosedTrades(closedInput)
-  // Union of canceled + closed trades — discriminate on `canceled`.
-  const [closedEntry]: readonly (FuturesCanceledTrade | FuturesClosedTrade)[] =
-    closedTrades.data
+  const closedInput: PerpIsolatedGetClosedTradesInput = { ...market, limit: 3 }
+  const closedTrades: PerpIsolatedGetClosedTradesOutput =
+    await client.perp.isolated.getClosedTrades(closedInput)
+  const [closedTrade]: readonly PerpClosedTrade[] = closedTrades.data
   console.log(
-    `[rest] futures.isolated.getClosedTrades → count=${closedTrades.data.length} first=${
-      closedEntry ? summarizeClosedTrade(closedEntry) : '(empty)'
+    `[rest] perp.isolated.getClosedTrades → count=${closedTrades.data.length} first=${
+      closedTrade
+        ? `id=${closedTrade.id} pl=${closedTrade.pl} exit=${closedTrade.exitPrice}`
+        : '(empty)'
     }`
   )
   await sleep(REQ_PACE_MS)
 
-  const isolatedFundingInput: FuturesIsolatedGetFundingFeesInput = { limit: 3 }
-  const isolatedFunding: FuturesIsolatedGetFundingFeesOutput =
-    await client.futures.isolated.getFundingFees(isolatedFundingInput)
+  const canceledInput: PerpIsolatedGetCanceledTradesInput = {
+    ...market,
+    limit: 3,
+  }
+  const canceledTrades: PerpIsolatedGetCanceledTradesOutput =
+    await client.perp.isolated.getCanceledTrades(canceledInput)
+  const [canceledTrade]: readonly PerpCanceledTrade[] = canceledTrades.data
   console.log(
-    `[rest] futures.isolated.getFundingFees → count=${isolatedFunding.data.length}`
+    `[rest] perp.isolated.getCanceledTrades → count=${canceledTrades.data.length} first=${
+      canceledTrade ? `id=${canceledTrade.id}` : '(empty)'
+    }`
+  )
+  await sleep(REQ_PACE_MS)
+
+  const isolatedFundingInput: PerpIsolatedGetFundingFeesInput = {
+    ...market,
+    limit: 3,
+  }
+  const isolatedFunding: PerpIsolatedGetFundingFeesOutput =
+    await client.perp.isolated.getFundingFees(isolatedFundingInput)
+  const [isolatedFundingHead]: readonly PerpFundingFees[] = isolatedFunding.data
+  console.log(
+    `[rest] perp.isolated.getFundingFees → count=${isolatedFunding.data.length} first=${
+      isolatedFundingHead
+        ? `fee=${isolatedFundingHead.fee} quanto=${isolatedFundingHead.quantoAdjustmentFee}`
+        : '(empty)'
+    }`
   )
   await sleep(REQ_PACE_MS)
 

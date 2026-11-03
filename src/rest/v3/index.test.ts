@@ -83,6 +83,7 @@ describe('rest/v3', () => {
     })
 
     test('should open a new trade', async ({ authClient }) => {
+      // oxlint-disable-next-line typescript/no-deprecated -- legacy route kept until removal
       const result = await authClient.futures.isolated.newTrade({
         type: 'limit',
         side: 'buy',
@@ -125,11 +126,13 @@ describe('rest/v3', () => {
           clientId: 'test-client-id',
         })
       } finally {
+        // oxlint-disable-next-line typescript/no-deprecated -- legacy route kept until removal
         await authClient.futures.isolated.cancel({ id: result.id })
       }
     })
 
     test('should list closed trades', async ({ authClient }) => {
+      // oxlint-disable-next-line typescript/no-deprecated -- legacy route kept until removal
       const result = await authClient.futures.isolated.getClosedTrades({
         from: new Date('2025-01-01').toISOString(),
         to: new Date('2025-10-01').toISOString(),
@@ -143,6 +146,7 @@ describe('rest/v3', () => {
     })
 
     test('get candles', async ({ authClient }) => {
+      // oxlint-disable-next-line typescript/no-deprecated -- legacy route kept until removal
       const result = await authClient.futures.getCandles({
         from: new Date(Date.now() - 2000 * 60 * 60 * 24).toISOString(),
         to: new Date().toISOString(),

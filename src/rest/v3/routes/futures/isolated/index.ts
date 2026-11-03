@@ -58,19 +58,35 @@ export type {
   FuturesIsolatedUpdateTakeprofitOutput,
 } from './takeprofit.js'
 
+// Every method maps to the same `perp.isolated` method on the BTC/USD market:
+// `{ instrument: 'inverse_perp', pair: 'btc_usd' }`.
 export const createFuturesIsolatedRoute = (instance: Readonly<KyInstance>) => ({
+  /** @deprecated Use `perp.isolated.addMargin({ instrument: 'inverse_perp', pair: 'btc_usd', ... })` (`POST /v3/perp/isolated/trade/add-margin`). */
   addMargin: createAddMargin(instance),
+  /** @deprecated Use `perp.isolated.cancel({ instrument: 'inverse_perp', pair: 'btc_usd', ... })` (`POST /v3/perp/isolated/trade/cancel`). */
   cancel: createCancel(instance),
+  /** @deprecated Use `perp.isolated.cancelAll({ instrument: 'inverse_perp', pair: 'btc_usd' })` (`POST /v3/perp/isolated/trades/cancel-all`). */
   cancelAll: createCancelAll(instance),
+  /** @deprecated Use `perp.isolated.cashIn({ instrument: 'inverse_perp', pair: 'btc_usd', ... })` (`POST /v3/perp/isolated/trade/cash-in`). */
   cashIn: createCashIn(instance),
+  /** @deprecated Use `perp.isolated.close({ instrument: 'inverse_perp', pair: 'btc_usd', ... })` (`POST /v3/perp/isolated/trade/close`). */
   close: createClose(instance),
+  /** @deprecated Use `perp.isolated.getClosedTrades` and `perp.isolated.getCanceledTrades` with `{ instrument: 'inverse_perp', pair: 'btc_usd' }` (`GET /v3/perp/isolated/trades/closed`, `GET /v3/perp/isolated/trades/canceled`). */
   getClosedTrades: createGetClosedTrades(instance),
+  /** @deprecated Use `perp.isolated.getFundingFees({ instrument: 'inverse_perp', pair: 'btc_usd', ... })` (`GET /v3/perp/isolated/funding-fees`). */
   getFundingFees: createGetFundingFees(instance),
+  /** @deprecated Use `perp.isolated.getOpenTrades({ instrument: 'inverse_perp', pair: 'btc_usd' })` (`GET /v3/perp/isolated/trades/open`). */
   getOpenTrades: createGetOpenTrades(instance),
+  /** @deprecated Use `perp.isolated.getRunningTrades({ instrument: 'inverse_perp', pair: 'btc_usd' })` (`GET /v3/perp/isolated/trades/running`). */
   getRunningTrades: createGetRunningTrades(instance),
+  /** @deprecated Use `perp.isolated.newTrade({ instrument: 'inverse_perp', pair: 'btc_usd', ... })` (`POST /v3/perp/isolated/trade`). */
   newTrade: createNewTrade(instance),
+  /** @deprecated Use `perp.isolated.removeStoploss({ instrument: 'inverse_perp', pair: 'btc_usd', ... })` (`DELETE /v3/perp/isolated/trade/stoploss`). */
   removeStoploss: createRemoveStoploss(instance),
+  /** @deprecated Use `perp.isolated.removeTakeprofit({ instrument: 'inverse_perp', pair: 'btc_usd', ... })` (`DELETE /v3/perp/isolated/trade/takeprofit`). */
   removeTakeprofit: createRemoveTakeprofit(instance),
+  /** @deprecated Use `perp.isolated.updateStoploss({ instrument: 'inverse_perp', pair: 'btc_usd', ... })` (`PUT /v3/perp/isolated/trade/stoploss`). */
   updateStoploss: createUpdateStoploss(instance),
+  /** @deprecated Use `perp.isolated.updateTakeprofit({ instrument: 'inverse_perp', pair: 'btc_usd', ... })` (`PUT /v3/perp/isolated/trade/takeprofit`). */
   updateTakeprofit: createUpdateTakeprofit(instance),
 })
